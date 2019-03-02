@@ -15,9 +15,11 @@
 
 \captionsetup[table]{textfont=sc}
 
+\titlespacing*{\section}{0pt}{0.5cm}{0.2cm}
+\titlespacing*{\subsection}{0pt}{0.5cm}{0.2cm}
+
 
 \graphicspath{{img/}}
-\ListProperties(Progressive*=0.5cm)
 
 \author{\normalsize\sffamily Kevin Martín Fernández}
 \title{\huge{\sffamily Entorn de simulació per la captura d'imatges des de dron}}
@@ -115,10 +117,11 @@ En aquest treball és vol aconseguir que mitjançant dades obtingudes a traves d
 En aquest apartat determinarem els diferents objectius del projecte en format de jerarquia per tal de veure la dependència entre els diferents objectius:
 
 \begin{easylist}
+\ListProperties(Progressive*=0.5cm)
 & Analitzar
 && Investigar l'estat de l'art
 &&& Estudiar AirSim
-&&& Estudiar Carla
+&&& Estudiar Carla SIMULATOR
 &&& Estudiar proposta pròpia
 && Definir els objectius
 && Investigar motors gràfics
@@ -170,10 +173,12 @@ En aquest apartat determinarem els diferents objectius del projecte en format de
 && Gestionar la documentació del dossier
 \end{easylist}
 
+\newpage
 \section{Estat de l'art}
+\label{estatart}
 
 Actualment existeixen diverses aplicacions per la generació d'imatges en entorns que simulen la realitat amb la finalitat de generar dades per algoritmes d'aprenentatge.
-En aquest àmbit unes de les més importants és AirSim \cite{airsim} desenvolupat per Microsoft sobre el motor gràfic Unreal Engine aquest entorn permet la simulació de cotxes i drons, control per scripts, simulació climatològica, simulació del sol, generació d'imatges en visualització com son rgb, segmentació o profunditat, etc... Per altra banda un altre entorn similar al anterior és Carla \cite{carla} aquest software esta enfocat en cotxes ja que el seu principal objectiu es obtenir dades per l'aprenentatge de cotxes autònoms.
+En aquest àmbit unes de les més importants és AirSim \cite{airsim} desenvolupat per Microsoft sobre el motor gràfic Unreal Engine aquest entorn permet la simulació de cotxes i drons, control per scripts, simulació climatològica, simulació del sol, generació d'imatges en visualització com son rgb, segmentació o profunditat, etc... Per altra banda un altre entorn similar al anterior és Carla SIMULATOR \cite{carla} aquest software esta enfocat en cotxes ja que el seu principal objectiu es obtenir dades per l'aprenentatge de cotxes autònoms.
 
 \begin{figure}[!h]
 \centering
@@ -182,6 +187,7 @@ En aquest àmbit unes de les més importants és AirSim \cite{airsim} desenvolup
 	\label{fig-airsim}
 \end{figure}
 
+
 \section{Metodologia}
 
 En aquest projecte hem decidit utilitzar una metodologies de tipus Agile \cite{agile} ja que això ens permetrà identificar de una forma millor les petites parts de les que es composa aquest projecte, a més a més d'adaptar-se als canvis imprevistos. En concret s'ha escollit la tècnica Kanban \cite{kanban} que consisteix en organitza el nostre backlog (tasques de curta duració) en 
@@ -189,7 +195,48 @@ targetes que ficarem en un taulell segons en quin punt del cicle de vida de la t
 
 \subsection{Diagrama de Gant}
 
-\section{Projecte}
+Per tal de gestionar el projecte també s'ha empleat un diagrama de Gant elaborat amb excel. En aquest diagrama contemplarem les diverses tasques i subtasques per tal de fer una previsió del treball a realitzar, el temps aproximat que trigarem per cada tasca, això ens permetrà fer una aproximació del temps que ens comportara el projecte d'aquesta forma podrem determinar la viabilitat.
+
+\section{Estructura del projecte}
+
+Per tal de determinar la estructura del nostre projecte s'han estudiat varies alternatives vistes al apartat \ref{estatart} en les quals es pot veure com estan organitzats altres projectes similars. En aquest apartat veurem l'estructura de diferents projectes amb l'objectiu de decidir l'estructura del projecte y diferents llibreries.
+
+\subsection{AirSim} 
+
+AirSim esta composat per múltiples mòduls escrits en diversos llenguatges com es pot veure a continuació:
+\\
+\begin{easylist}[itemize]
+& AirLib (C++): Modul per a Unreal Engine que proporciona les classes bàsiques per comunicar-se mitjançant el protocol RCP i control dels vehicles simulats.
+& DroneServer (C++): Servidor per rebre ordres de Dron mitjançant RCP
+& DroneShell (C++): Client de consola per enviar ordres al modul de dron.
+& PythonClient (Python): Client que envia ordres mitjançant RCP, també incorpora codi per el tractament, segmentació d'imatges, etc.
+& SGM (C++): Codi per tractar imatges i generar les les vistes segmentada i stereo. 
+& Unity (C\# i C++): Demostració en el motor gràfic Unity, incorpora una serie de mòduls per Unity per visualitzar la informació de AirSim.
+& Unreal Engine (C++): Demostració en el motor gràfic Unreal Engine, incorpora una serie de mòduls per Unreal Engine per visualitzar la informació de AirSim.
+\end{easylist}
+
+\subsection{Carla SIMULATOR}
+
+Carla SIMULATOR esta composat per múltiples mòduls com podem veure en la figura \ref{fig-carlamodules} escrits en diversos llenguatges com es pot veure a continuació:
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.6\textwidth]{carlamodules}
+	\caption{Relació entre els mòduls de Carla}
+	\label{fig-carlamodules}
+\end{figure}
+
+\begin{easylist}[itemize]
+& LibCarla (C++): Llibreria principal de Carla
+& Unreal (C++): Motor gràfic amb el plugin de carla, que incorpora totes les funcionalitats afegides a Unreal.
+& PythonAPI (Python): API que ens permetrà enviar comandes al module de Carla que fa de servidor, aquesta api serveix per crear scripts propis.
+\end{easylist}
+
+\subsection{Estructura escollida}
+
+
+\section{Modul GeoTools}
+
 
 \section{Conclusions}
 
@@ -203,7 +250,7 @@ AirSim - \url{https://github.com/Microsoft/AirSim} [19/02/2019]
 
 
 \bibitem{carla}
-Carla - \url{http://carla.org} [19/02/2019]
+Carla SIMULATOR - \url{http://carla.org} [19/02/2019]
 
 \bibitem{agile}
 Agile software development
