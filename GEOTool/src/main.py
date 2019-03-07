@@ -1,6 +1,6 @@
 import utm
-from geows import WCSClient
-from geows import WMSClient
+from geotool import WCSClient
+from geotool import WMSClient
 
 res = utm.from_latlon(41.7333, 1.8333)
 wcsClient = WCSClient("http://geoserveis.icc.cat/icc_mdt/wcs/service")
