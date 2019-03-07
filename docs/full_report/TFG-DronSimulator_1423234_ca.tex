@@ -234,6 +234,22 @@ Carla SIMULATOR esta composat per múltiples mòduls com podem veure en la figur
 
 \subsection{Estructura escollida}
 
+Analitzant varis projectes de característiques similar s'ha decidit per una estructura pròpia com podrem veure en la figura \ref{fig-dronsimulatormodules} podent reutilitzar alguns dels petits mòduls open-source de altres projectes. S'ha pres aquesta decisió degut a que els altres projectes es basen en crear terrenys predefinits mitjançant l'entorn de Unreal, contrari a la finalitat d'aquest projecte en el qual es volen elaborar de forma automàtica terrenys a partir de dades reals.
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.5\textwidth]{structuretfg}
+	\caption{Estructura DronSimulator}
+	\label{fig-dronsimulatormodules}
+\end{figure}
+
+En el nostre projecte constara d'aquests mòduls:
+
+\begin{easylist}[itemize]
+& GEOTool (Python): En aquest modul es centrara en donar les eines necessàries per la obtenció y adaptació  de les dades amb l'objectiu de poder importar-les en el entorn de Unreal Engine, també pot incorporara mòduls de processament de imatge per tal d'afegir informació addicional a les textures o fer tractaments de millora d'imatges a partir de xarxes neurals.
+& ScriptAPI (Python): API que ens permetrà fer scripts en Python per tal de controlar la càmera en el entorn gràfic. D'aquesta forma també ens permetrà l'obtenció d'imatges en l'entorn Unreal Engine.
+& Unreal Engine Simulator (C++): Incorporara tot el motor gràfic i plugins necessaris per la comunicació amb els fitxers generats amb el mòdul GEOTool, visualització de dades, etc.
+\end{easylist}
 
 \section{Modul GeoTools}
 
