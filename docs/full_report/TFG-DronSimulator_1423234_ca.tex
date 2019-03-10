@@ -109,8 +109,10 @@ Simulador, Drons, Terreny, Satelite, Multiespectre, Unreal Engine\\
 \vspace{-1cm}
 \section{Introducció}
 
-\lettrine[lines=2]{L}{a} simulació de espais per a la generació de imatges artificials és un àmbit en el que es busca representa el mon real de la forma més realista possible per tal de poder generar informació que en entorns reals ens representaria un perill o un cost econòmic elevat, d'aquesta forma es pot arribar a ensenyar als algoritmes d'aprenentatge reduint la quantitat d'informació real que es necessitaria.\\
-En aquest treball és vol aconseguir que mitjançant dades obtingudes a traves de càmeres de diferents mitjans aeris com poden ser satèl·lits, avions o drons podem representar terreny real en entorns simulats.
+\lettrine[lines=2]{L}{a} simulació de espais per a la generació de imatges artificials és un àmbit en el que es busca representa el mon real de la forma més realista possible per tal de poder generar informació que en entorns reals ens representaria un perill o un cost econòmic elevat.
+\\
+\\
+En aquest treball és vol aconseguir que mitjançant dades de mapes d'elevacions i imatges aèries de terrenys reals generar-ho en un entorn simulat per tal de poder generar imatges fictícies amb la màxima realitat possible per tal de generar datasets d'imatges per la utilització en diversos camps del aprenentatge computacional.
 
 \section{Objectius}
 
@@ -174,20 +176,6 @@ En aquest apartat determinarem els diferents objectius del projecte en format de
 \end{easylist}
 
 \newpage
-\section{Estat de l'art}
-\label{estatart}
-
-Actualment existeixen diverses aplicacions per la generació d'imatges en entorns que simulen la realitat amb la finalitat de generar dades per algoritmes d'aprenentatge.
-En aquest àmbit unes de les més importants és AirSim \cite{airsim} desenvolupat per Microsoft sobre el motor gràfic Unreal Engine aquest entorn permet la simulació de cotxes i drons, control per scripts, simulació climatològica, simulació del sol, generació d'imatges en visualització com son rgb, segmentació o profunditat, etc... Per altra banda un altre entorn similar al anterior és Carla SIMULATOR \cite{carla} aquest software esta enfocat en cotxes ja que el seu principal objectiu es obtenir dades per l'aprenentatge de cotxes autònoms.
-
-\begin{figure}[!h]
-\centering
-  	\includegraphics[width=0.4\textwidth]{airsim}
-	\caption{Simulador Airsim}
-	\label{fig-airsim}
-\end{figure}
-
-
 \section{Metodologia}
 
 En aquest projecte hem decidit utilitzar una metodologies de tipus Agile \cite{agile} ja que això ens permetrà identificar de una forma millor les petites parts de les que es composa aquest projecte, a més a més d'adaptar-se als canvis imprevistos. En concret s'ha escollit la tècnica Kanban \cite{kanban} que consisteix en organitza el nostre backlog (tasques de curta duració) en 
@@ -196,6 +184,46 @@ targetes que ficarem en un taulell segons en quin punt del cicle de vida de la t
 \subsection{Diagrama de Gant}
 
 Per tal de gestionar el projecte també s'ha empleat un diagrama de Gant elaborat amb excel. En aquest diagrama contemplarem les diverses tasques i subtasques per tal de fer una previsió del treball a realitzar, el temps aproximat que trigarem per cada tasca, això ens permetrà fer una aproximació del temps que ens comportara el projecte d'aquesta forma podrem determinar la viabilitat.
+
+\section{Estat de l'art}
+\label{estatart}
+
+Actualment existeixen diverses aplicacions per la generació d'imatges en entorns que simulen la realitat amb la finalitat de generar dades per algoritmes d'aprenentatge.
+En aquest àmbit unes de les més importants és AirSim \cite{airsim} desenvolupat per Microsoft i Carla SIMULATOR \cite{carla} desenvolupat pel centre de visió per computador.
+
+\subsection{AirSim}
+AirSim es un simulador gràfic elaborat en Unreal Engine \cite{unreal} aquest simulador té la finalitat de generar imatges en un entorn totalment fictici, incorpora diversos mòduls que ens ofereix les següents funcionalitats (podem veure un exemple a la figura \ref{fig-airsim}):
+\\
+\begin{easylist}[itemize]
+& Simulació de cotxes
+& Simulació de drons
+& Compatibilitat amb controladors reals de drons
+& Gravació 
+& Vista de mapa de profunditats
+& Vista segmentada
+& Efectes de pluja
+& Control d'il·luminació segons l'hora diària
+& Control dels vehicles mitjançant scripts en python
+\end{easylist}
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.4\textwidth]{airsim}
+	\caption{Simulador Airsim}
+	\label{fig-airsim}
+\end{figure}
+
+\newpage
+\subsection{Carla SIMULATOR}
+Carla es un simulador gràfic elaborat en Unreal Engine \cite{unreal} aquesta simulador té la finalitat de generar imatges en entorn fictici amb la màxima realitat possible per generar imatges que serveixin per l'aprenentatge de xarxes neuronals capaces de conduir un cotxe autònom de forma segura tenint en compte els casos poc probables que no es podrien generar en un entorn físic. Aquest entorn compte amb les següents funcionalitats:
+
+\begin{easylist}[itemize]
+& Simulació de cotxes
+& Vista de mapa de profunditats
+& Vista segmentada
+& Simulació de trafic
+& Control dels actors amb scripts de python
+\end{easylist}
 
 \section{Estructura del projecte}
 
@@ -221,7 +249,7 @@ Carla SIMULATOR esta composat per múltiples mòduls com podem veure en la figur
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.6\textwidth]{carlamodules}
+  	\includegraphics[width=0.5\textwidth]{carlamodules}
 	\caption{Relació entre els mòduls de Carla}
 	\label{fig-carlamodules}
 \end{figure}
@@ -238,7 +266,7 @@ Analitzant varis projectes de característiques similar s'ha decidit per una est
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.5\textwidth]{structuretfg}
+  	\includegraphics[width=0.45\textwidth]{structuretfg}
 	\caption{Estructura DronSimulator}
 	\label{fig-dronsimulatormodules}
 \end{figure}
@@ -279,6 +307,9 @@ Kanban
 
 \bibitem{trello}
 Trello - \url{https://trello.com/} [19/02/2019]
+
+\bibitem{unreal}
+Unreal Engine - \url{https://www.unrealengine.com/en-US/what-is-unreal-engine-4} [09/03/2019]
 
 
 \end{thebibliography}
