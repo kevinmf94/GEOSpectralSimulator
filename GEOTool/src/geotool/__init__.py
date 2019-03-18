@@ -1,2 +1,3 @@
-from .WCSClient import WCSClient
-from .WMSClient import WMSClient
+from .GEOClient import *
+from .WCSClient import *
+from .WMSClient import *

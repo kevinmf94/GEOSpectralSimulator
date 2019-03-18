@@ -21,11 +21,12 @@ class WCSClient:
         self.add_param("HEIGHT", height)
 
         bbox_str = "{},{},{},{}".format(x, y, x2, y2)
-        print(bbox_str)
         self.add_param("BBOX", bbox_str)
 
         print("Request to: " + str(self.__url) + str(self.__params))
+        print("Downloading....")
         data = requests.get(self.__url+self.__params)
+        print("Data dowloaded!")
 
         return data
 
