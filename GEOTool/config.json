@@ -1,10 +1,8 @@
 {
-  "type": "latlon",
+  "type": "latlong",
   "coordinates" : {
-    "blat": 41.7333,
-    "blong": 1.8333,
-    "lat": 41.4846289,
-    "long": 2.2592167
+    "lat": 41.481266,
+    "long": 2.2510016
   },
   "dimensions": {
     "heightmap":{
@@ -16,9 +14,13 @@
       "width": 1500
     }
   },
-  "wcsClient": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "wmsClient": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
-  "wmsLayer" : "orto5m2016",
+  "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
   "outputWcs": "outputwcs.raw",
-  "outputWms": "outputwms.jpg"
+  "wmsRequests": [
+    {
+      "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+      "layers": "orto25c2016",
+      "output": "outputwms.jpg"
+    }
+  ]
 }
