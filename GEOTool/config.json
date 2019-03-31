@@ -15,12 +15,14 @@
     }
   },
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "outputwcs.raw",
+  "outputWcs": "outputwcs",
+  "formatWcs": "obj",
   "wmsRequests": [
     {
       "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
       "layers": "orto25c2016",
-      "output": "outputwms.jpg"
+      "output": "outputwms",
+      "outputFormat": "jpg"
     }
   ]
 }

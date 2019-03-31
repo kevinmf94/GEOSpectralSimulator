@@ -7,7 +7,7 @@ class WCSSaverRAW(WCSSaver):
 
 	def save(self, file_name, data):
 
-		file = open(file_name, "wb")
+		file = open(file_name+".raw", "wb")
 		values = data.astype(np.int16)
 		values = values+128
 		for row in values:

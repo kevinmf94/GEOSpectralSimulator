@@ -7,7 +7,7 @@ if __name__ == '__main__':
 	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.heightmapSize)
 	data = wcsClient.send_request()
 	data = WCSSaverRAW.parse_wcs(data, config.heightmapSize)
-	WCSSaverRAW().save(config.outputWcs, data)
+	WCSSaverOBJ().save(config.outputWcs, data)
 
 	for wms_request in config.wmsRequests:
 		wmsClient = WMSClient(wms_request[URL], config.coordinates, config.heightmapSize, config.textureSize, wms_request[LAYERS])
