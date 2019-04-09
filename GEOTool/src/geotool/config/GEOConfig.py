@@ -13,7 +13,7 @@ class GEOConfig:
 		self.file = self.read_json(config_file)
 		self.type = self.file["type"]
 		self.coordinates = self.parse_coordinates()
-		self.heightmapSize = self.file["dimensions"]["heightmap"]["height"], self.file["dimensions"]["heightmap"][
+		self.bboxSize = self.file["dimensions"]["bbox"]["height"], self.file["dimensions"]["bbox"][
 			"width"]
 		self.textureSize = self.file["dimensions"]["texture"]["height"], self.file["dimensions"]["texture"]["width"]
 		self.wcsUrl = self.file["wcsUrl"]

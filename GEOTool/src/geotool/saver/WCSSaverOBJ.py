@@ -9,7 +9,7 @@ class WCSSaverOBJ(WCSSaver):
 		data[data < 0] = 0
 		values = data
 
-		vertex, faces, uvMap, normalVertex = self.generate_obj_numpy(values)
+		vertex, faces, uvMap, normalVertex = self.generate_obj(values)
 		self.write(file_name, vertex, faces, uvMap, normalVertex)
 
 	@staticmethod
@@ -45,7 +45,7 @@ class WCSSaverOBJ(WCSSaver):
 		file.close()
 
 	@staticmethod
-	def generate_obj_numpy(values, k=5):
+	def generate_obj(values, k=5):
 
 		h, w = values.shape
 
@@ -78,12 +78,12 @@ class WCSSaverOBJ(WCSSaver):
 
 		faces = np.concatenate((uFaces, dFaces), 0)
 
-		# UV Map
+		# Generate UV Map
 		uvMap = np.zeros((h*w, 2))
 		uvMap[:, 0] = j / (w - 1)
 		uvMap[:, 1] = 1 - (i / (h - 1))
 
-		# Normal faces upperFaces
+		# Generate normal faces upperFaces
 		#mask = np.logical_and(i > 0, j < h-1)
 		aUpper = (np.roll(vertex, h, axis=0) - vertex)
 		bUpper = (np.roll(vertex, -1, axis=0) - vertex)
@@ -94,7 +94,7 @@ class WCSSaverOBJ(WCSSaver):
 		normalUpperFaces[:, 1] = normalUpperFaces[:, 1] / module
 		normalUpperFaces[:, 2] = normalUpperFaces[:, 2] / module
 
-		# Normal faces downFaces
+		# Generate normal faces downFaces
 		#mask = np.logical_and(i < w-1, j > 0)
 		aDown = (np.roll(vertex, -h, axis=0) - vertex)
 		bDown = (np.roll(vertex, 1, axis=0) - vertex)
@@ -105,7 +105,7 @@ class WCSSaverOBJ(WCSSaver):
 		normalDownFaces[:, 1] = normalDownFaces[:, 1] / module
 		normalDownFaces[:, 2] = normalDownFaces[:, 2] / module
 
-		# Vertex Normals
+		# Generate vertex normals
 		normalVertex = np.zeros((h*w, 3))
 		mask = np.logical_and(np.logical_and(i > 0, j > 0), np.logical_and(i < w-1, j < h-1))
 
