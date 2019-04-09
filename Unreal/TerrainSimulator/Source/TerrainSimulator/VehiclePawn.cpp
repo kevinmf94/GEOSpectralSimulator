@@ -31,7 +31,8 @@ AVehiclePawn::AVehiclePawn()
 	//Load Mesh
 	staticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = staticMeshComponent;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Vehicle.Vehicle"));
+	//static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Vehicle.Vehicle"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Drone/drone.drone"));
 	if (staticMeshAsset.Succeeded())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Loaded static mesh"));
