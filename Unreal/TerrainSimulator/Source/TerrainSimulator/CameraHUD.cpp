@@ -29,7 +29,7 @@ void ACameraHUD::DrawHUD()
 {
 	if (texture)
 	{
-		DrawTexture(texture, 0.f, 0.f, 200.f, 200.f, 0.f, 0.f, 1.f, 1.f);
+		DrawTexture(texture, 100.f, 100.f, 200.f, 200.f, 0.f, 0.f, 1.f, 1.f);
 	}
 		
 }

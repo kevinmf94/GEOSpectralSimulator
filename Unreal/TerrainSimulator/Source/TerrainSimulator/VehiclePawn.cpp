@@ -17,6 +17,7 @@
 #include "Classes/InputCoreTypes.h"
 
 //SaveImage
+#include "UObject/UObjectGlobals.h"
 #include "GenericPlatform/GenericPlatformFile.h"
 #include "Serialization/Archive.h"
 #include "HAL/FileManagerGeneric.h"
@@ -43,8 +44,8 @@ AVehiclePawn::AVehiclePawn()
 
 	ourCameraSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraSpringArm"));
 	ourCameraSpringArm->SetupAttachment(RootComponent);
-	ourCameraSpringArm->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 50.f), FRotator(-10, 0.0f, 0.0f));
-	ourCameraSpringArm->TargetArmLength = 500.f;
+	ourCameraSpringArm->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, 1.0f), FRotator(-10, 0.0f, 0.0f));
+	ourCameraSpringArm->TargetArmLength = 30.0f;
 	ourCameraSpringArm->bEnableCameraLag = false;
 	ourCameraSpringArm->CameraLagSpeed = 0.f;
 

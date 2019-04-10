@@ -389,7 +389,30 @@ Un cop realitzat el procés de generació l'aplicació haurà generat una malla 
 
 \section{Mòdul: Simulador}
 
-En aquesta secció explicarem els diferents punts dels quals es compon el mòdul de simulació amb el que es cerca l'objectiu de posar a disposició una eina que ens permeti simular un viatge amb dron per sobre d'un terreny obtenint imatges des de diferents càmeres.
+En aquesta secció explicarem els diferents punts dels quals es compon el mòdul de simulació amb el que se cerca l'objectiu de posar a disposició una eina que ens permeti simular un viatge amb un vehicle genèric per sobre d'un terreny obtenint imatges des de diferents càmeres configurades anteriorment.
+
+\subsection{Vehicle i visualització}
+Aquesta part serà l'encarregada de donar la interfície per moure un vehicle genèric pel nostre món simulat, aquest vehicle es configurarà amb una sèrie de càmeres (Vegeu més a la secció \ref{section:cameraconfig}) que es podran visualitzar en la pantalla i generar imatges de cada una d'elles. Com es pot veure a la figura \ref{fig-screenshotsimulator} veurem una vista inicial del nostre vehicle des de la part posterior, i estarem veient en un requadre petit de la nostra pantalla la imatge generada per la càmera inferior.
+
+\subsection{Terreny}
+El terreny és carregat mitjançant codi obtenint la malla i assignant aquesta a un objecte carregat en el món al qual li canviarem el fitxer textura que utilitzara per tal de renderitzar com és veu el terreny. 
+\\
+\\
+Aquest material tindrà la capacitat de canviar entre diverses textures per tal de poder carregar informació en diferents espectres i canviar aquesta visualització segons un paràmetre que és podrà canviar des de el client Python.
+
+\subsection{Comunicació amb el client d'scripts}
+
+Aquesta comunicació es farà utilitzant el protocol RPC, en aquest cas s'utilitza la llibreria Rpclib\cite{rpclib} per a C++ per la creació del servidor, la gestió del servidor RPC es fa mitjançant un mòdul escrit en C++ que s'incorpora al projecte d'Unreal per tal d'abstraure la comunicació RPC amb les crides a codi Unreal.
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.5\textwidth]{simulator_example}
+	\caption{Captura de pantalla del simulador}
+	\label{fig-screenshotsimulator}
+\end{figure}
+
+\subsection{Configuració de les càmeres}
+\label{section:cameraconfig}
 
 \section{Mòdul Scripting}
 
@@ -436,6 +459,9 @@ Institut Cartogràfic i Geològic de Catalunya (ICGC) - \url{http://www.icgc.cat
 \bibitem{wavefrontobj}
 Wavefront .obj file - \url{https://en.wikipedia.org/wiki/Wavefront_.obj_file} [09/04/2019]
 
+\bibitem{rpclib}
+RPC Lib - Modern mgspack-rpc for C++ - \url{http://rpclib.net/} [10/04/2019]
+
 
 \end{thebibliography}
 
@@ -453,9 +479,6 @@ Wavefront .obj file - \url{https://en.wikipedia.org/wiki/Wavefront_.obj_file} [0
 \subsection{Codi per la generació d'una malla 3D a partir d'un fitxer d'altures}
 \label{appendix:generateobj}
 \lstinputlisting[language=Python]{generateobj.py}
-
-\subsection{Secció d'Apèndix}
-
 
 
 \end{document}

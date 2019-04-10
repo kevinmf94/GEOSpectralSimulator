@@ -15,6 +15,8 @@ if __name__ == '__main__':
 	else:
 		raise Exception("WCS Format is not implemented")
 
+	print("")
+
 	for wms_request in config.wmsRequests:
 		wmsClient = WMSClient(wms_request[URL], config.coordinates, config.bboxSize, config.textureSize, wms_request[LAYERS])
 		data = wmsClient.send_request()

@@ -70,9 +70,10 @@
 		normalVertex += np.roll(normalDownFaces, -1, axis=0)
 
 		module = np.linalg.norm(normalVertex, axis=1)
-		normalVertex[:, 0] = normalVertex[:, 0] / module
-		normalVertex[:, 1] = normalVertex[:, 1] / module
-		normalVertex[:, 2] = normalVertex[:, 2] / module
+		valid_modules = module != 0
+		normalVertex[valid_modules, 0] = normalVertex[valid_modules, 0] / module[valid_modules]
+		normalVertex[valid_modules, 1] = normalVertex[valid_modules, 1] / module[valid_modules]
+		normalVertex[valid_modules, 2] = normalVertex[valid_modules, 2] / module[valid_modules]
 
 		normalVertex[np.logical_not(mask), 0] = 0
 		normalVertex[np.logical_not(mask), 1] = 0

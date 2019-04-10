@@ -3,6 +3,7 @@ from geotool.constants.Constants import *
 import time
 import requests
 import threading
+import sys
 
 
 class GEOClient(ABC):
@@ -38,6 +39,7 @@ class GEOClient(ABC):
 	def progress_bar_worker():
 		while GEOClient.__running:
 			print(".", end="")
+			sys.stdout.flush()
 			time.sleep(0.1)
 
 	@staticmethod
@@ -55,10 +57,12 @@ class GEOClient(ABC):
 
 		print("Request to: " + str(self.url) + str(self.params))
 		print("Downloading", end="")
+		sys.stdout.flush()
 		GEOClient.start_progress_bar()
 		data = requests.get(self.url + self.params)
 		GEOClient.stop_progress_bar()
 		print("Download completed!")
+		sys.stdout.flush()
 
 		return data
 
