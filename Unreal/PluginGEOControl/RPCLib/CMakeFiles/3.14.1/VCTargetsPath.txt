@@ -1,1 +1,1 @@
-C:/Programacion/VisualStudio/Common7/IDE/VC/VCTargets
+C:/Programacion/VisualStudio19/MSBuild/Microsoft/VC/v160

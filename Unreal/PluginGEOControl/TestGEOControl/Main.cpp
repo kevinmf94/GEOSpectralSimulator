@@ -1,9 +1,9 @@
 #include "GEOControl.h"
-#include "rpc/server.h"
+
+using namespace geocontrol;
 
 int main()
 {
-	rpc::server srv(9999);
 	GEOControl control;
 	control.start();
 

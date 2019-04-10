@@ -1,10 +1,17 @@
 #pragma once
-class GEOControl
-{
-public:
-	GEOControl();
-	~GEOControl();
+#include "rpc/server.h"
 
-	void start();
-};
+namespace geocontrol {
+
+	class GEOControl
+	{
+	public:
+		GEOControl();
+		~GEOControl();
+
+		void start();
+
+		rpc::server* server;
+	};
+}
 

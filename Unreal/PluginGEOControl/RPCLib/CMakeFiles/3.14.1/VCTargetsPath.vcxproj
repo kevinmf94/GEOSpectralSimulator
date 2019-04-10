@@ -13,10 +13,13 @@
 		<WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+	<PropertyGroup>
+		<PreferredToolArchitecture>x64</PreferredToolArchitecture>
+	</PropertyGroup>
 	<PropertyGroup Label="Configuration">
 		<ConfigurationType>Utility</ConfigurationType>
 		<CharacterSet>MultiByte</CharacterSet>
-		<PlatformToolset>v141</PlatformToolset>
+		<PlatformToolset>v142</PlatformToolset>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
 	<ItemDefinitionGroup>

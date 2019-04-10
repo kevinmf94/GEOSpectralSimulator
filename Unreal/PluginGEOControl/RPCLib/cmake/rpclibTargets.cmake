@@ -46,35 +46,35 @@ add_library(rpclib::rpc STATIC IMPORTED)
 
 set_target_properties(rpclib::rpc PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "RPCLIB_WIN32;RPCLIB_MSGPACK=clmdep_msgpack"
-  INTERFACE_INCLUDE_DIRECTORIES "D:/TFGWorkspace/PruebasRCP/rpclib/include"
+  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/Kevin/Desktop/TFGWorkspace/Unreal/PluginGEOControl/RPCLib/include"
 )
 
 # Import target "rpclib::rpc" for configuration "Debug"
 set_property(TARGET rpclib::rpc APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(rpclib::rpc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-  IMPORTED_LOCATION_DEBUG "D:/TFGWorkspace/PruebasRCP/ProyectoVisual/TerrainRPC/RPCLib/Debug/rpc.lib"
+  IMPORTED_LOCATION_DEBUG "C:/Users/Kevin/Desktop/TFGWorkspace/Unreal/PluginGEOControl/RPCLib/Debug/rpc.lib"
   )
 
 # Import target "rpclib::rpc" for configuration "Release"
 set_property(TARGET rpclib::rpc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
 set_target_properties(rpclib::rpc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
-  IMPORTED_LOCATION_RELEASE "D:/TFGWorkspace/PruebasRCP/ProyectoVisual/TerrainRPC/RPCLib/Release/rpc.lib"
+  IMPORTED_LOCATION_RELEASE "C:/Users/Kevin/Desktop/TFGWorkspace/Unreal/PluginGEOControl/RPCLib/Release/rpc.lib"
   )
 
 # Import target "rpclib::rpc" for configuration "MinSizeRel"
 set_property(TARGET rpclib::rpc APPEND PROPERTY IMPORTED_CONFIGURATIONS MINSIZEREL)
 set_target_properties(rpclib::rpc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_MINSIZEREL "CXX"
-  IMPORTED_LOCATION_MINSIZEREL "D:/TFGWorkspace/PruebasRCP/ProyectoVisual/TerrainRPC/RPCLib/MinSizeRel/rpc.lib"
+  IMPORTED_LOCATION_MINSIZEREL "C:/Users/Kevin/Desktop/TFGWorkspace/Unreal/PluginGEOControl/RPCLib/MinSizeRel/rpc.lib"
   )
 
 # Import target "rpclib::rpc" for configuration "RelWithDebInfo"
 set_property(TARGET rpclib::rpc APPEND PROPERTY IMPORTED_CONFIGURATIONS RELWITHDEBINFO)
 set_target_properties(rpclib::rpc PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_RELWITHDEBINFO "CXX"
-  IMPORTED_LOCATION_RELWITHDEBINFO "D:/TFGWorkspace/PruebasRCP/ProyectoVisual/TerrainRPC/RPCLib/RelWithDebInfo/rpc.lib"
+  IMPORTED_LOCATION_RELWITHDEBINFO "C:/Users/Kevin/Desktop/TFGWorkspace/Unreal/PluginGEOControl/RPCLib/RelWithDebInfo/rpc.lib"
   )
 
 # This file does not depend on other imported targets which have
