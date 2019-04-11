@@ -1,0 +1,28 @@
+{
+  "type": "latlong",
+  "coordinates" : {
+    "lat": 41.4677021,
+    "long": 2.2859777
+  },
+  "dimensions": {
+    "bbox":{
+      "height": 225,
+      "width": 225
+    },
+    "texture":{
+      "height": 1500,
+      "width": 1500
+    }
+  },
+  "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
+  "outputWcs": "outputwcs",
+  "formatWcs": "obj",
+  "wmsRequests": [
+    {
+      "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+      "layers": "orto25c2016",
+      "output": "outputwms",
+      "outputFormat": "jpg"
+    }
+  ]
+}
