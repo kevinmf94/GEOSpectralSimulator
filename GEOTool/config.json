@@ -1,13 +1,13 @@
 {
   "type": "latlong",
   "coordinates" : {
-    "lat": 41.4677021,
-    "long": 2.2859777
+    "lat": 41.576294,
+    "long": 1.850188
   },
   "dimensions": {
     "bbox":{
-      "height": 250,
-      "width": 250
+      "height": 500,
+      "width": 500
     },
     "texture":{
       "height": 1500,

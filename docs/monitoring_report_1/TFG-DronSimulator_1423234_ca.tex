@@ -98,6 +98,11 @@
 %\end{abstract}
 
 \vspace{-1cm}
+\section{Introducció}
+La simulació d'espais per a la generació d'imatges artificials és un àmbit en el qual es busca representa el món real de la forma més realista possible per tal de poder generar informació que en entorns reals ens representaria un perill o un cost econòmic elevat.
+\\
+\\
+En aquest treball es vol aconseguir que mitjançant dades de mapes d'elevacions i imatges aèries de terrenys reals generar-ho en un entorn simulat per tal de poder generar imatges fictícies amb la màxima realitat possible per tal de generar datasets d'imatges per la utilització en diversos camps de l'aprenentatge computacional.
 
 \section{Actualització dels objectius}
 En aquest apartat veurem els objectius complets (Verd) i els objectius que estan començats però no acabats (Taronja).
@@ -145,6 +150,126 @@ En aquest apartat veurem els objectius complets (Verd) i els objectius que estan
 && \textcolor{RedOrange}{Gestionar la documentació del dossier}
 \end{easylist}
 
+\newpage
+\section{Metodologia}
+
+En aquest projecte s'ha decidit utilitzar una metodologia de tipus Agile\cite{agile}, ja que això ens permetrà identificar d'una forma millor les petites parts de les quals es compon aquest projecte, a més a més d'adaptar-se als canvis imprevistos. En concret s'ha escollit la tècnica Kanban\cite{kanban} que consisteix en organitza el nostre backlog (tasques de curta duració) en
+targetes que ficarem en un taulell segons en quin punt del cicle de vida de la tasca es trobi (pendent, començada, ...) per això s'ha decidit utilitzar l'eina Trello\cite{trello} que permet de forma visual crear targetes i moure-les entre les diferents llistes.
+
+\section{Estat de l'art}
+\label{estatart}
+
+Actualment existeixen diverses aplicacions per la generació d'imatges en entorns que simulen la realitat amb la finalitat de generar dades per algoritmes d'aprenentatge.
+En aquest àmbit unes de les més importants és AirSim\cite{airsim} desenvolupat per Microsoft i Carla SIMULATOR\cite{carla} desenvolupat pel centre de visió per computador, també s'analitzarà  d'altres com poden ser LESS\cite{less} o DIRSIG\cite{dirsig} d'àmbit més específic.
+
+\subsection{AirSim}
+AirSim és un simulador gràfic elaborat en Unreal Engine\cite{unreal} aquest simulador té la finalitat de generar imatges en un entorn totalment fictici, incorpora diversos mòduls que ens ofereix les següents funcionalitats (podem veure un exemple a la figura \ref{fig-airsim}):
+\\
+\begin{easylist}[itemize]
+& Simulació de cotxes
+& Simulació de drons
+& Compatibilitat amb controladors reals de drons
+& Gravació 
+& Vista de mapa de profunditats
+& Vista segmentada
+& Efectes de pluja
+& Control d'il·luminació segons l'hora diària
+& Control dels vehicles mitjançant scripts en python
+\end{easylist}
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.4\textwidth]{airsim}
+  \caption{Simulador Airsim}
+  \label{fig-airsim}
+\end{figure}
+
+\subsection{Carla SIMULATOR}
+Carla és un simulador gràfic elaborat en Unreal Engine aquest simulador té la finalitat de generar imatges en entorn fictici amb la màxima realitat possible per generar imatges que serveixin per a l'aprenentatge de xarxes neuronals capaces de conduir un cotxe autònom de forma segura tenint en compte els casos poc probables que no es podrien generar en un entorn físic. Aquest entorn compte amb les següents funcionalitats:
+
+\begin{easylist}[itemize]
+& Simulació de cotxes
+& Vista de mapa de profunditats
+& Vista segmentada
+& Simulació de tràfic
+& Control dels actors amb scripts de python
+\end{easylist}
+
+\subsection{LESS}
+LESS és un model de la redacció (com podem veure en la figura \ref{fig-lessradiacio}) efectuada en un objecte/terreny tridimensional per diferents raigs, generat a partir de tècniques de ray-tracing ens permet simular dades i imatges sobre escenes 3D realistes. Aquest model implementa un mètode de seguiment de fotons ponderats per simular el factor de reflectància bidireccional multi-espectral.
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.4\textwidth]{lessradiacio}
+  \caption{Exemple de resultats de radiació en un terreny}
+  \label{fig-lessradiacio}
+\end{figure}
+
+\subsection{DIRSIG}
+
+El model Digital Imaging i Remote Sensing Image Generation (DIRSIG) és un model de generació d'imatges sintètiques desenvolupat pel laboratori de Digital Imaging i Remote Sensing del Rochester Institute of Technology. El model pot produir imatges d'una sola banda, multiespectrals o hiperespectrals des del visible a través de la regió tèrmica d'infrarojos de l'espectre electromagnètic.
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.4\textwidth]{tacoma}
+  \caption{Frame del port de tacoma}
+  \label{fig-tacoma}
+\end{figure}
+
+\section{Estructura del projecte}
+
+Per tal de determinar l'estructura del nostre projecte s'han estudiat vàries alternatives vistes a l'apartat \ref{estatart} en les quals es pot veure com estan organitzats altres projectes similars. En aquest apartat veurem l'estructura de diferents projectes amb l'objectiu de decidir l'estructura del projecte i diferents llibreries.
+
+\subsection{AirSim} 
+
+AirSim està compost per múltiples mòduls escrits en diversos llenguatges com es pot veure a continuació:
+\\
+\begin{easylist}[itemize]
+& \textbf{AirLib (C++)}: Mòdul per a Unreal Engine que proporciona les classes bàsiques per comunicar-se mitjançant el protocol RCP i control dels vehicles simulats.
+& \textbf{DroneServer (C++)}: Servidor per rebre ordres de Dron mitjançant RCP.
+& \textbf{DroneShell (C++)}: Client de consola per enviar ordres al mòdul de dron.
+& \textbf{PythonClient (Python)}: Client que envia ordres mitjançant RCP, també incorpora codi per al tractament, segmentació d'imatges, etc.
+& \textbf{SGM (C++)}: Codi per tractar imatges i generar les vistes segmentada i stereo.
+& \textbf{Unity (C\# i C++)}: Demostració en el motor gràfic Unity, incorpora una sèrie de mòduls per Unity per visualitzar la informació d'AirSim.
+& \textbf{Unreal Engine (C++)}: Demostració en el motor gràfic Unreal Engine, incorpora una sèrie de mòduls per Unreal Engine per visualitzar la informació d'AirSim.
+\end{easylist}
+
+\subsection{Carla SIMULATOR}
+
+Carla SIMULATOR està compost per múltiples mòduls com podem veure en la figura \ref{fig-carlamodules} escrits en diversos llenguatges com es pot veure a continuació:
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.5\textwidth]{carlamodules}
+  \caption{Relació entre els mòduls de Carla}
+  \label{fig-carlamodules}
+\end{figure}
+
+\begin{easylist}[itemize]
+& \textbf{LibCarla (C++)}: Llibreria principal de Carla
+& \textbf{Unreal (C++)}: Motor gràfic amb el plugin de carla, que incorpora totes les funcionalitats afegides a Unreal.
+& \textbf{PythonAPI (Python)}: API que ens permetrà enviar comandes al mòdul de Carla que fa de servidor, aquest api serveix per crear scripts propis.
+\end{easylist}
+
+
+\subsection{Estructura escollida}
+
+Analitzant diversos projectes de característiques similars s'ha decidit per una estructura pròpia com podrem veure en la figura \ref{fig-dronsimulatormodules} podent reutilitzar alguns dels petits mòduls open-source d'altres projectes. S'ha pres aquesta decisió a causa del fet que els altres projectes es basen en la creació terrenys predefinits mitjançant l'entorn d'Unreal, contrari a la finalitat d'aquest projecte en el qual es volen elaborar de forma automàtica terrenys a partir de dades reals.
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.45\textwidth]{structuretfg}
+  \caption{Estructura DronSimulator}
+  \label{fig-dronsimulatormodules}
+\end{figure}
+
+En el nostre projecte constarà d'aquests mòduls:
+\\
+\begin{easylist}[itemize]
+& \textbf{GEOTool (Python)}: Aquest mòdul té la finalitat de donar les eines necessàries per a l'obtenció i adaptació de les dades proveïdes per webservices estàndard en l'àmbit de l'obtenció de dades geogràfiques amb l'objectiu de poder importar-les en qualsevol motor gràfic, podent generar diferents capes d'informació per als terrenys descarregats.
+& \textbf{ScriptAPI (Python)}: API que ens permetrà fer scripts en Python per tal de controlar la càmera en l'entorn gràfic. D'aquesta forma també ens permetrà l'obtenció d'imatges en l'entorn Unreal Engine.
+& \textbf{Unreal Engine Simulator (C++)}: Incorporarà tot el motor gràfic i connectors necessaris per a la comunicació amb els fitxers generats amb el mòdul GEOTool, visualització de dades, obtenció d'imatge, etc.
+\end{easylist}
 
 \section{Mòdul GeoTools}
 
@@ -158,7 +283,7 @@ Amb l'objectiu d'obtenir dades geogràfiques s'ha optat per la comunicació amb 
 
 Per tal de determinar quines dades volem obtenir i de quins webservices l'aplicació accepta per paràmetre un fitxer de configuració en format JSON que ens permet determinar diferents propietats de les dades que demanarem com es pot veure en l'apèndix \ref{appendix:geotoolconfig}. En aquest fitxer es pot configurar els següents paràmetres:
 
-\begin{easylist}[itemize]
+\begin{easylist}
 & \textbf{Type}: Fa referència al tipus de coordenades que li passarem, pot ser latlong o xy en el primer cas farà la corresponent transformació al format UTM (xy)
 & \textbf{Coordinates}: Coordenades sobre les quals volem fer la petició en el format indicat en el camp type. Si s'escull "xy" es definirà els atributs x, y en cas d'escollir "latlong" definirem els atributs lat, long.
 & \textbf{Dimensions}: En aquesta secció escollirem les dimensions que volem que es demanin en les peticions per tal de mantenir la mateixa zona geogràfica.
@@ -173,6 +298,8 @@ Per tal de determinar quines dades volem obtenir i de quins webservices l'aplica
 && Output: Nom del fitxer de sortida
 && OutputFormat: Format del fitxer de sortida. Disponibles: JPG
 \end{easylist}
+
+\subsection{Estructura de GEOTool}
 
 \subsection{Generació de Terrenys a partir dun mapa d'altures}
 En aquesta secció s'explicarà les diverses formes que s'han optat per generar terrenys que puguin ser interpretats en diferents motors gràfics.
@@ -222,26 +349,25 @@ v = f(fila) = 1 - (fila / (altura - 1))
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.6\textwidth]{caranormal}
-	\caption{Patró per càlcul de normals en les cares}
-	\label{fig-normalcara}
+    \includegraphics[width=0.4\textwidth]{caranormal}
+  \caption{Patró per càlcul de normals en les cares}
+  \label{fig-normalcara}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.4\textwidth]{vertexnormal}
-	\caption{Patró per càlcul de normals en un vèrtex}
-	\label{fig-normalvertex}
+    \includegraphics[width=0.2\textwidth]{vertexnormal}
+  \caption{Patró per càlcul de normals en un vèrtex}
+  \label{fig-normalvertex}
 \end{figure}
 
-\newpage
 Un cop realitzat el procés de generació l'aplicació haurà generat una malla que podem obrir en qualsevol editor com podem veure en la figura \ref{fig-meshlab}
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.45\textwidth]{mesh_example_meshlab}
-	\caption{Malla d'un terreny visualitzada en l'aplicació MeshLab}
-	\label{fig-meshlab}
+    \includegraphics[width=0.35\textwidth]{mesh_example_meshlab}
+  \caption{Malla d'un terreny visualitzada en l'aplicació MeshLab}
+  \label{fig-meshlab}
 \end{figure}
 
 \section{Mòdul: Simulador}
@@ -257,18 +383,77 @@ El terreny és carregat mitjançant codi obtenint la malla i assignant aquesta a
 \\
 Aquest material tindrà la capacitat de canviar entre diverses textures per tal de poder carregar informació en diferents espectres i canviar aquesta visualització segons un paràmetre que és podrà canviar des de el client Python.
 
-\subsection{Comunicació amb el client d'scripts}
+\subsubsection{Resultats en la visualització de terrenys}
+En aquest apartat veurem diferents resultats obtinguts a partir dels models 3D generats pel mòdul GEOTool incorporades ja en l'entorn d'Unreal.
 
-Aquesta comunicació es farà utilitzant el protocol RPC, en aquest cas s'utilitza la llibreria Rpclib\cite{rpclib} per a C++ per la creació del servidor, la gestió del servidor RPC es fa mitjançant una llibreria estàtica escrita en C++ que s'incorpora al projecte d'Unreal per tal d'abstraure la comunicació RPC amb les crides a codi Unreal.
+Com podem veure en les figures \ref{fig-cenitalview} i \ref{fig-montserratir} es pot generar vistes zenitals de la zona interessants per poder crear conjunts de dades que es puguin utilitzar posteriorment en algorismes d'aprenentatge. En les imatges \ref{fig-montserrat} i \ref{fig-barceloneta} veiem dos tipus de terrenys molt diferents aquest últim a l'altura del mar i amb unes elevacions molt menys notables.
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.7\textwidth]{simulator_example}
-	\caption{Captura de pantalla del simulador}
-	\label{fig-screenshotsimulator}
+    \includegraphics[width=0.5\textwidth]{montserrat}
+  \caption{Vista de Montserrat en el simulador}
+  \label{fig-montserrat}
 \end{figure}
 
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.5\textwidth]{cenitalview}
+  \caption{Vista zenital RGB de Montserrat}
+  \label{fig-cenitalview}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.5\textwidth]{cenitalviewir}
+  \caption{Vista zenital infraroja de Montserrat}
+  \label{fig-montserratir}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.5\textwidth]{barceloneta}
+  \caption{Vista de la Barceloneta}
+  \label{fig-barceloneta}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+    \includegraphics[width=0.5\textwidth]{simulator_example}
+  \caption{Vista des de el dron de la platja de Montgat}
+  \label{fig-viewdrone}
+\end{figure}
+
+\subsection{Comunicació amb el client d'scripts}
+
+Aquesta comunicació es farà utilitzant el protocol RPC, en aquest cas s'utilitza la llibreria Rpclib\cite{rpclib} per a C++ per la creació del servidor, la gestió del servidor RPC es fa mitjançant un mòdul escrit en C++ que s'incorpora al projecte d'Unreal per tal d'abstraure la comunicació RPC amb les crides a codi Unreal.
+
 \begin{thebibliography}{11}
+\bibitem{agile}
+Agile software development
+\\ \url{https://en.wikipedia.org/wiki/Agile_software_development}
+[19/02/2019]
+
+\bibitem{kanban}
+Kanban
+\\ \url{https://www.iebschool.com/blog/metodologia-kanban-agile-scrum/} [19/02/2019]
+
+\bibitem{trello}
+Trello - \url{https://trello.com/} [19/02/2019]
+
+\bibitem{airsim}
+AirSim - \url{https://github.com/Microsoft/AirSim} [19/02/2019]
+
+\bibitem{carla}
+Carla SIMULATOR - \url{http://carla.org} [19/02/2019]
+
+\bibitem{less}
+LESS - \url{http://lessrt.org/} [11/04/2019]
+
+\bibitem{dirsig}
+Digital Imaging and Remote Sensing Image Generation - \url{http://dirsig.org/} [11/04/2019]
+
+\bibitem{unreal}
+Unreal Engine - \url{https://www.unrealengine.com/en-US/what-is-unreal-engine-4} [09/03/2019]
 
 \bibitem{ogc}
 Open Geospatial Consortium (OGC) -  \url{http://www.opengeospatial.org/} [08/04/2019]
@@ -308,4 +493,3 @@ RPC Lib - Modern mgspack-rpc for C++ - \url{http://rpclib.net/} [10/04/2019]
 
 
 \end{document}
-
