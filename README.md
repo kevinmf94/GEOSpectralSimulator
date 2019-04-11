@@ -1,1 +1,1 @@
-# TFG_TerrainSimulator
+# TFG_GEOSimulator
