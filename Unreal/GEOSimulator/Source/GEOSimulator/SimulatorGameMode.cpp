@@ -4,6 +4,9 @@
 #include "VehiclePawn.h"
 #include "CameraHUD.h"
 
+#include "GEORPCServer.h"
+using namespace geocontrol;
+
 ASimulatorGameMode::ASimulatorGameMode()
 {
 	DefaultPawnClass = AVehiclePawn::StaticClass();
@@ -12,5 +15,15 @@ ASimulatorGameMode::ASimulatorGameMode()
 
 void ASimulatorGameMode::BeginPlay()
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("Begin Play ASimulatorGameMode"));
+	server = new GEORPCServer();
+	server->init();
+	server->bindGeoControl();
+	server->run();
+	UE_LOG(LogTemp, Warning, TEXT("Server started"));
+}
+
+ASimulatorGameMode::~ASimulatorGameMode()
+{
+	this->server->stop();
 }

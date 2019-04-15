@@ -1,11 +1,23 @@
-#include "GEOControl.h"
+#include "GEORPCServer.h"
+#include <stdio.h>
+#include "rpc/server.h"
 
 using namespace geocontrol;
 
 int main()
 {
-	GEOControl control;
-	control.start();
+	GEORPCServer server;
+	server.init();
+	server.bindGeoControl();
+	server.run();
+
+	char c;
+	do
+	{
+		c = getchar();
+	} while (c != 'c');
+
+	server.stop();
 
 	return 0;
 }

@@ -1,17 +1,14 @@
 #pragma once
-#include "rpc/server.h"
 
-namespace geocontrol {
-
+namespace geocontrol
+{
 	class GEOControl
 	{
 	public:
 		GEOControl();
 		~GEOControl();
+		int printHello(int x);
 
-		void start();
-
-		rpc::server* server;
+		void moveTo(double x, double y);
 	};
 }
-

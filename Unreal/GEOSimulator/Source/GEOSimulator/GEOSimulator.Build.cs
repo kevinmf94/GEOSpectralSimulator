@@ -15,6 +15,9 @@ public class GEOSimulator : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
         PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/GEOControl.lib");
+        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/rpc.lib");
+        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName+ "/PluginGEOControl/GEOControl/");
+        
 
 
 
@@ -27,3 +30,4 @@ public class GEOSimulator : ModuleRules
         // To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
     }
 }
+

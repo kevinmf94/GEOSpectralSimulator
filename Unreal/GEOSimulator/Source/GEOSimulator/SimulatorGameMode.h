@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GEORPCServer.h"
 #include "SimulatorGameMode.generated.h"
 
 /**
@@ -14,7 +15,10 @@ class GEOSIMULATOR_API ASimulatorGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
-	ASimulatorGameMode();
+	ASimulatorGameMode();	
+	~ASimulatorGameMode();
+
+	geocontrol::GEORPCServer* server;
 
 	void BeginPlay() override;
 };
