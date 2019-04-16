@@ -2,6 +2,10 @@
 
 #pragma once
 
+#include "compiler/disable-ue4-macros.h"
+#include "rpc/server.h"
+#include "compiler/enable-ue4-macros.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "VehiclePawn.generated.h"
@@ -18,6 +22,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	
 	// Called every frame
@@ -32,6 +37,8 @@ public:
 	void Move_ZAxis(float AxisValue);
 	void ChangeCamera();
 	void SaveImage();
+
+	void MoveToXYZ(double x, double y, double z);
 
 	FVector CurrentVelocity;
 	bool firstCamera = true;
@@ -53,4 +60,5 @@ public:
 	UPROPERTY(EditAnywhere)
 	class USceneCaptureComponent2D* sceneCapture;
 
+	rpc::server* server;
 };

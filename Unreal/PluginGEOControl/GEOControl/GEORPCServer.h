@@ -2,28 +2,28 @@
 #include "GEOControl.h"
 #include <stdint.h>
 #include <string>
+#include "rpc/server.h"
 
 namespace geocontrol
 {
 	class GEORPCServer
 	{
 	public:
-		GEORPCServer();
-		GEORPCServer(uint16_t port);
+		static GEORPCServer* getInstance();
 		~GEORPCServer();
 
-		void init();
 		void run();
 		void stop();
 		
-		void setPort(uint16_t port);
-		void bindGeoControl();
-
+		template <typename F> void bind(std::string name, F func) {
+			server->bind(name, func);
+		}
+	
 	private:
-
-		GEOControl* geoControl;
-		void* server;
-		uint16_t port = 9999;
+		GEORPCServer();
+		
+		rpc::server* server;
+		uint16_t port;
 	};
 
 }

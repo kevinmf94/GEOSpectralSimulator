@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="compiler\disable-ue4-macros.h" />
+    <ClInclude Include="compiler\enable-ue4-macros.h" />
     <ClInclude Include="GEOControl.h" />
     <ClInclude Include="GEORPCServer.h" />
   </ItemGroup>

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de encabezado\Compiler">
+      <UniqueIdentifier>{2dd8e9f5-2235-4fc8-9f06-c0a50fec4729}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GEOControl.h">
@@ -20,6 +23,12 @@
     </ClInclude>
     <ClInclude Include="GEORPCServer.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\disable-ue4-macros.h">
+      <Filter>Archivos de encabezado\Compiler</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler\enable-ue4-macros.h">
+      <Filter>Archivos de encabezado\Compiler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

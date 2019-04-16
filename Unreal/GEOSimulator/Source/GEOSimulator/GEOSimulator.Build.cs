@@ -14,12 +14,13 @@ public class GEOSimulator : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/GEOControl.lib");
+        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/GEOControl.lib");
         //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/rpc.lib");
-        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName+ "/PluginGEOControl/GEOControl/");
-        
+        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/x64/Release/GEOControl.lib");
+        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/rpc.lib");
 
-
+        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/GEOControl/");
+        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/include/");
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

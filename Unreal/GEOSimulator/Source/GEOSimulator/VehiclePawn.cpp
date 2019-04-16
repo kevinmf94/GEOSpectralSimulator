@@ -22,9 +22,15 @@
 #include "Serialization/Archive.h"
 #include "HAL/FileManagerGeneric.h"
 
+//RPC
+#include "compiler/disable-ue4-macros.h"
+#include "rpc/server.h"
+#include "compiler/enable-ue4-macros.h"
+
 // Sets default values
 AVehiclePawn::AVehiclePawn()
 {
+
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bEditable = true;
@@ -69,8 +75,37 @@ AVehiclePawn::AVehiclePawn()
 void AVehiclePawn::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("VehiclePawn BeginPlay"));
+	server = new rpc::server(9999);
+	server->bind("test", [](int x) { UE_LOG(LogTemp, Warning, TEXT("Called function test")); });
+	server->bind("moveToXYZ", [this](double x, double y, double z) {
+		MoveToXYZ(x, y, z);
+	});
 
+	UE_LOG(LogTemp, Warning, TEXT("RunServer PlayerController With Movev1"));
+	server->async_run();
 }
+
+void AVehiclePawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	UE_LOG(LogTemp, Warning, TEXT("VehiclePawn EndPlay"));
+	server->stop();
+	delete(server);
+}
+
+void AVehiclePawn::MoveToXYZ(double x, double y, double z)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Move TO X: %f Y: %f Z: %f"), x, y, z);
+	UWorld* world = GetWorld();
+	APawn* pawn = world->GetFirstPlayerController()->GetPawn();
+	FVector pos = pawn->GetActorLocation();
+	pos.X = x;
+	pos.Y = y;
+	pos.Z = z;
+	pawn->SetActorLocation(pos);
+}
+
 
 // Called every frame
 void AVehiclePawn::Tick(float DeltaTime)

@@ -12,8 +12,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGEOControl", "TestGEOCo
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		BuiltWithUnrealBuildTool|x64 = BuiltWithUnrealBuildTool|x64
+		BuiltWithUnrealBuildTool|x86 = BuiltWithUnrealBuildTool|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Invalid|x64 = Invalid|x64
+		Invalid|x86 = Invalid|x86
 		MinSizeRel|x64 = MinSizeRel|x64
 		MinSizeRel|x86 = MinSizeRel|x86
 		Release|x64 = Release|x64
@@ -22,10 +26,18 @@ Global
 		RelWithDebInfo|x86 = RelWithDebInfo|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8458CF42-FAB3-4032-A47D-11577981057F}.BuiltWithUnrealBuildTool|x64.ActiveCfg = Release|x64
+		{8458CF42-FAB3-4032-A47D-11577981057F}.BuiltWithUnrealBuildTool|x64.Build.0 = Release|x64
+		{8458CF42-FAB3-4032-A47D-11577981057F}.BuiltWithUnrealBuildTool|x86.ActiveCfg = Release|Win32
+		{8458CF42-FAB3-4032-A47D-11577981057F}.BuiltWithUnrealBuildTool|x86.Build.0 = Release|Win32
 		{8458CF42-FAB3-4032-A47D-11577981057F}.Debug|x64.ActiveCfg = Debug|x64
 		{8458CF42-FAB3-4032-A47D-11577981057F}.Debug|x64.Build.0 = Debug|x64
 		{8458CF42-FAB3-4032-A47D-11577981057F}.Debug|x86.ActiveCfg = Debug|Win32
 		{8458CF42-FAB3-4032-A47D-11577981057F}.Debug|x86.Build.0 = Debug|Win32
+		{8458CF42-FAB3-4032-A47D-11577981057F}.Invalid|x64.ActiveCfg = Release|x64
+		{8458CF42-FAB3-4032-A47D-11577981057F}.Invalid|x64.Build.0 = Release|x64
+		{8458CF42-FAB3-4032-A47D-11577981057F}.Invalid|x86.ActiveCfg = Release|Win32
+		{8458CF42-FAB3-4032-A47D-11577981057F}.Invalid|x86.Build.0 = Release|Win32
 		{8458CF42-FAB3-4032-A47D-11577981057F}.MinSizeRel|x64.ActiveCfg = Release|x64
 		{8458CF42-FAB3-4032-A47D-11577981057F}.MinSizeRel|x64.Build.0 = Release|x64
 		{8458CF42-FAB3-4032-A47D-11577981057F}.MinSizeRel|x86.ActiveCfg = Release|Win32
@@ -38,10 +50,18 @@ Global
 		{8458CF42-FAB3-4032-A47D-11577981057F}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{8458CF42-FAB3-4032-A47D-11577981057F}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{8458CF42-FAB3-4032-A47D-11577981057F}.RelWithDebInfo|x86.Build.0 = Release|Win32
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.BuiltWithUnrealBuildTool|x64.ActiveCfg = Release|x64
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.BuiltWithUnrealBuildTool|x64.Build.0 = Release|x64
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.BuiltWithUnrealBuildTool|x86.ActiveCfg = Release|Win32
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.BuiltWithUnrealBuildTool|x86.Build.0 = Release|Win32
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Debug|x64.ActiveCfg = Debug|x64
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Debug|x64.Build.0 = Debug|x64
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Debug|x86.ActiveCfg = Debug|Win32
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Debug|x86.Build.0 = Debug|Win32
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Invalid|x64.ActiveCfg = Release|x64
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Invalid|x64.Build.0 = Release|x64
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Invalid|x86.ActiveCfg = Release|Win32
+		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.Invalid|x86.Build.0 = Release|Win32
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.MinSizeRel|x64.ActiveCfg = Release|x64
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.MinSizeRel|x64.Build.0 = Release|x64
 		{AE6BEB58-54ED-4436-A2A2-A4AFCD4B59FF}.MinSizeRel|x86.ActiveCfg = Release|Win32

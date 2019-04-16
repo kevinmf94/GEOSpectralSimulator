@@ -6,10 +6,10 @@ using namespace geocontrol;
 
 int main()
 {
-	GEORPCServer server;
-	server.init();
-	server.bindGeoControl();
-	server.run();
+	GEORPCServer* server = GEORPCServer::getInstance();
+	server->bind("test", [](int x) { printf("Hello %d\n", x); });
+	server->bind("moveToXYZ", [](double x, double y, double z) { printf("moveToXYZ %f %f %f\n", x, y, z); });
+	server->run();
 
 	char c;
 	do
@@ -17,7 +17,7 @@ int main()
 		c = getchar();
 	} while (c != 'c');
 
-	server.stop();
+	server->stop();
 
 	return 0;
 }
