@@ -35,12 +35,18 @@ public:
 	void Move_XAxis(float AxisValue);
 	void Move_YAxis(float AxisValue);
 	void Move_ZAxis(float AxisValue);
+	void Rotate_ZAxis(float AxisValue);
 	void ChangeCamera();
 	void SaveImage();
 
 	void MoveToXYZ(double x, double y, double z);
 
+	void StartServer();
+	void StopServer();
+
 	FVector CurrentVelocity;
+	FRotator CurrentVelocityRotate;
+	FVector MoveLocation;
 	bool firstCamera = true;
 
 	UPROPERTY(EditAnywhere)
@@ -60,5 +66,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	class USceneCaptureComponent2D* sceneCapture;
 
-	rpc::server* server;
+	class UTextureRenderTarget2D* texture;
+
+	rpc::server* server = nullptr;
 };

@@ -2,10 +2,6 @@
 
 #pragma once
 
-#include "compiler/disable-ue4-macros.h"
-#include "rpc/server.h"
-#include "compiler/enable-ue4-macros.h"
-
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "GEOPlayerController.generated.h"

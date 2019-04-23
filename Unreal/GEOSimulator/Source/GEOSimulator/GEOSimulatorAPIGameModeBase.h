@@ -2,10 +2,6 @@
 
 #pragma once
 
-/*#include "compiler/disable-ue4-macros.h"
-#include "GEORPCServer.h"
-#include "compiler/enable-ue4-macros.h"*/
-
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "GEOSimulatorAPIGameModeBase.generated.h"
