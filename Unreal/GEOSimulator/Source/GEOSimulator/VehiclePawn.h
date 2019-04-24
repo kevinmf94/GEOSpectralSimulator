@@ -44,7 +44,8 @@ public:
 	void StartServer();
 	void StopServer();
 
-	FVector CurrentVelocity;
+	FVector CurrentVelocityXAxis;
+	FVector CurrentVelocityYAxis;
 	FRotator CurrentVelocityRotate;
 	FVector MoveLocation;
 	bool firstCamera = true;

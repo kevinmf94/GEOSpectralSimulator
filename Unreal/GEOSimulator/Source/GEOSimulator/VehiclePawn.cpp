@@ -120,9 +120,9 @@ void AVehiclePawn::Tick(float DeltaTime)
 
 	// Handle movement based on our "MoveX" and "MoveY" axes
 	{
-		if (!CurrentVelocity.IsZero())
+		if (!CurrentVelocityYAxis.IsZero() || !CurrentVelocityXAxis.IsZero())
 		{
-			FVector NewLocation = GetActorLocation() + (CurrentVelocity * DeltaTime);
+			FVector NewLocation = GetActorLocation() + (CurrentVelocityYAxis * DeltaTime) + (CurrentVelocityXAxis * DeltaTime);
 			SetActorLocation(NewLocation);
 		}
 	}
@@ -209,19 +209,34 @@ void AVehiclePawn::StopServer()
 void AVehiclePawn::Move_XAxis(float AxisValue)
 {
 	// Move at 100 units per second forward or backward
-	CurrentVelocity.X = FMath::Clamp(AxisValue, -1.0f, 1.0f) * 1000.0f;
+	float sin;
+	float cos;
+	float yaw = FMath::DegreesToRadians(GetActorRotation().Yaw);
+	cos = FGenericPlatformMath::Cos(yaw);
+	sin = FGenericPlatformMath::Sin(yaw);
+	CurrentVelocityXAxis.X = cos * AxisValue * 1000.0f;
+	CurrentVelocityXAxis.Y = sin * AxisValue * 1000.0f;
+	UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityXAxis: %f %f"), CurrentVelocityXAxis.X, CurrentVelocityXAxis.Y);
 }
 
 void AVehiclePawn::Move_YAxis(float AxisValue)
 {
 	// Move at 100 units per second right or left
-	CurrentVelocity.Y = FMath::Clamp(AxisValue, -1.0f, 1.0f) * 1000.0f;
+	// Move at 100 units per second forward or backward
+	float sin;
+	float cos;
+	float yaw = FMath::DegreesToRadians(GetActorRotation().Yaw);
+	cos = FGenericPlatformMath::Cos(yaw);
+	sin = FGenericPlatformMath::Sin(yaw);
+	CurrentVelocityYAxis.X = sin * (AxisValue*-1.f) * 1000.0f;
+	CurrentVelocityYAxis.Y = cos * AxisValue * 1000.0f;
+	UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityYAxis: %f %f"), CurrentVelocityYAxis.X, CurrentVelocityYAxis.Y);
 }
 
 void AVehiclePawn::Move_ZAxis(float AxisValue)
 {
 	// Move at 100 units per second right or left
-	CurrentVelocity.Z = FMath::Clamp(AxisValue, -1.0f, 1.0f) * 1000.0f;
+	CurrentVelocityXAxis.Z = FMath::Clamp(AxisValue, -1.0f, 1.0f) * 1000.0f;
 }
 
 void AVehiclePawn::Rotate_ZAxis(float AxisValue)
