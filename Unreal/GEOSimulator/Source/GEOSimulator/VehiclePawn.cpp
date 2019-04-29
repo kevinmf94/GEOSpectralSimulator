@@ -37,7 +37,7 @@ AVehiclePawn::AVehiclePawn()
 	bEditable = true;
 
 	//Load Mesh
-	staticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	staticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VehiclePawnMesh"));
 	RootComponent = staticMeshComponent;
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Vehicle.Vehicle"));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Drone/drone.drone"));
