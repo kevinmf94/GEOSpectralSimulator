@@ -216,7 +216,7 @@ void AVehiclePawn::Move_XAxis(float AxisValue)
 	sin = FGenericPlatformMath::Sin(yaw);
 	CurrentVelocityXAxis.X = cos * AxisValue * 1000.0f;
 	CurrentVelocityXAxis.Y = sin * AxisValue * 1000.0f;
-	UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityXAxis: %f %f"), CurrentVelocityXAxis.X, CurrentVelocityXAxis.Y);
+	//UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityXAxis: %f %f"), CurrentVelocityXAxis.X, CurrentVelocityXAxis.Y);
 }
 
 void AVehiclePawn::Move_YAxis(float AxisValue)
@@ -230,7 +230,7 @@ void AVehiclePawn::Move_YAxis(float AxisValue)
 	sin = FGenericPlatformMath::Sin(yaw);
 	CurrentVelocityYAxis.X = sin * (AxisValue*-1.f) * 1000.0f;
 	CurrentVelocityYAxis.Y = cos * AxisValue * 1000.0f;
-	UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityYAxis: %f %f"), CurrentVelocityYAxis.X, CurrentVelocityYAxis.Y);
+	//UE_LOG(LogTemp, Warning, TEXT("CurrentVelocityYAxis: %f %f"), CurrentVelocityYAxis.X, CurrentVelocityYAxis.Y);
 }
 
 void AVehiclePawn::Move_ZAxis(float AxisValue)

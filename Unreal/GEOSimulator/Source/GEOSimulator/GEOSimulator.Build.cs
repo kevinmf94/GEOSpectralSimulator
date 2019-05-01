@@ -10,9 +10,12 @@ public class GEOSimulator : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Slate" });
+		PublicDependencyModuleNames.AddRange(new string[] {
+            "Core", "CoreUObject", "Engine", "InputCore", "Slate", "ProceduralMeshComponent", "ImageWrapper", "RenderCore"
+        });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+
+        PrivateDependencyModuleNames.AddRange(new string[] {  });
 
         //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/GEOControl.lib");
         //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/rpc.lib");

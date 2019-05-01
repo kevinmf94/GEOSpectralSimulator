@@ -1,14 +1,14 @@
 {
   "type": "xy",
   "coordinates" : {
-    "x": 442875.95,
+    "x": 440375.95,
     "y": 4590924.56,
     "zone": "31T"
   },
   "dimensions": {
     "bbox":{
-      "height": 500,
-      "width": 500
+      "height": 250,
+      "width": 250
     },
     "texture":{
       "height": 1500,

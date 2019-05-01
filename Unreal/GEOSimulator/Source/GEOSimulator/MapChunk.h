@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ProceduralMeshComponent.h"
+#include "Components/InputComponent.h"
 #include "MapChunk.generated.h"
 
 UCLASS()
@@ -23,6 +25,29 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void ChangeTexture();
+	
+	void PostActorCreated() override;
+	void PostLoad() override;
+	void ProcessFile();
+	void LoadTexture();
+
+	//Setters
+	void AddTexture(FName param, FString pathfile);
+	void SetMeshFile(FString pathfile);
+
 private:
-	UStaticMeshComponent* mesh;
+
+	UPROPERTY(EditAnywhere)
+	UProceduralMeshComponent* mesh;
+
+	UMaterial* material;
+
+	UPROPERTY(EditAnywhere)
+	UMaterialInstanceDynamic* materialDynamic;
+
+	TMap<FName, FString> texturesFiles;
+	FString meshFile;
+
+	bool basic = true;
 };

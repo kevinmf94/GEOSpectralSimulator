@@ -80,8 +80,8 @@ class WCSSaverOBJ(WCSSaver):
 
 		# Generate UV Map
 		uvMap = np.zeros((h*w, 2))
-		uvMap[:, 0] = j / (w - 1)
-		uvMap[:, 1] = 1 - (i / (h - 1))
+		uvMap[:, 0] = (j / (w - 1))
+		uvMap[:, 1] = (i / (h - 1))
 
 		# Generate normal faces upperFaces
 		#mask = np.logical_and(i > 0, j < h-1)

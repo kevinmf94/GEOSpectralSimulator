@@ -9,14 +9,14 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine", "ProceduralMeshComponent"
 			]
 		}
 	],
 	"Plugins": [
-		{
-			"Name": "GEOSimulatorAPI",
-			"Enabled": false
-		}
+    { 
+      "Name": "ProceduralMeshComponent", 
+      "Enabled": true
+    } 
 	]
 }
