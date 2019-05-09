@@ -1,12 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MapChunk.h"
+
+//Read files and manipulate strings
 #include "Misc/FileHelper.h"
 #include "Public/Containers/UnrealString.h"
 #include "ImageLoader.h"
+
+//Material
 #include "Classes/Materials/Material.h"
-#include "UObject/ConstructorHelpers.h"
 #include "Classes/Materials/MaterialInstanceDynamic.h"
+
+//Load mesh
+#include "UObject/ConstructorHelpers.h"
 #include "ProceduralMeshComponent.h"
 
 //Keys
@@ -41,7 +47,7 @@ void AMapChunk::PostActorCreated()
 	Super::PostActorCreated();
 
 	#if WITH_EDITOR
-		ProcessFile();
+		LoadMeshFile();
 		UE_LOG(LogTemp, Warning, TEXT("SetActorRotation"));
 		if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
 		{
@@ -68,33 +74,38 @@ void AMapChunk::LoadTexture()
 	
 }
 
-void AMapChunk::ChangeTexture()
+void AMapChunk::ChangeTexture(TextureSelected textureSelected)
 {
-	UE_LOG(LogTemp, Warning, TEXT("ChangeTexture"));
-	if (basic)
+	DisableAllTextures();
+	switch (textureSelected)
 	{
-		materialDynamic->SetScalarParameterValue(FName("TexSelected"), 1.f);
+		case B02:
+			materialDynamic->SetScalarParameterValue(FName("B02Selected"), 1.f);
+		case B01:
+			materialDynamic->SetScalarParameterValue(FName("B01Selected"), 1.f);
+		case IR:
+			materialDynamic->SetScalarParameterValue(FName("IRSelected"), 1.f);
 	}
-	else
-	{
-		materialDynamic->SetScalarParameterValue(FName("TexSelected"), 0.f);
-	}
+}
 
-	basic = !basic;
-	
+void AMapChunk::DisableAllTextures()
+{
+	materialDynamic->SetScalarParameterValue(FName("IRSelected"), 0.f);
+	materialDynamic->SetScalarParameterValue(FName("B01Selected"), 0.f);
+	materialDynamic->SetScalarParameterValue(FName("B02Selected"), 0.f);
 }
 
 void AMapChunk::PostLoad()
 {
 	Super::PostLoad();
 	//CreateTriangle();
-	//ProcessFile();
+	//LoadMeshFile();
 	//LoadTexture();
 	UE_LOG(LogTemp, Warning, TEXT("AMapChunk::PostLoad"));
 	
 }
 
-void AMapChunk::ProcessFile()
+void AMapChunk::LoadMeshFile()
 {
 	TArray<FVector> vertices;
 	TArray<int32> Triangles;
@@ -197,7 +208,7 @@ void AMapChunk::BeginPlay()
 {
 	Super::BeginPlay();
 
-	ProcessFile();
+	LoadMeshFile();
 	UE_LOG(LogTemp, Warning, TEXT("SetActorRotation"));
 	if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
 	{
@@ -205,6 +216,7 @@ void AMapChunk::BeginPlay()
 	}
 
 	materialDynamic = UMaterialInstanceDynamic::Create(material, this);
+	DisableAllTextures();
 	LoadTexture();
 	mesh->SetMaterial(0, materialDynamic);
 }

@@ -8,6 +8,10 @@
 #include "Components/InputComponent.h"
 #include "MapChunk.generated.h"
 
+enum TextureSelected {
+	RGB, IR, B01, B02
+};
+
 UCLASS()
 class GEOSIMULATOR_API AMapChunk : public AActor
 {
@@ -25,11 +29,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void ChangeTexture();
+	void ChangeTexture(TextureSelected texture);
 	
 	void PostActorCreated() override;
 	void PostLoad() override;
-	void ProcessFile();
+	void LoadMeshFile();
 	void LoadTexture();
 
 	//Setters
@@ -37,6 +41,8 @@ public:
 	void SetMeshFile(FString pathfile);
 
 private:
+
+	void DisableAllTextures();
 
 	UPROPERTY(EditAnywhere)
 	UProceduralMeshComponent* mesh;
@@ -46,8 +52,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	UMaterialInstanceDynamic* materialDynamic;
 
+	UPROPERTY(EditAnywhere)
 	TMap<FName, FString> texturesFiles;
-	FString meshFile;
 
-	bool basic = true;
+	UPROPERTY(EditAnywhere)
+	FString meshFile;
 };

@@ -1,22 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CameraHUD.h"
-#include "Engine/World.h"
-#include "Engine/GameViewportClient.h"
-#include "VehiclePawn.h"
-#include "GameFramework/PlayerController.h"
-#include "Camera/CameraComponent.h"
 
 void ACameraHUD::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UWorld* world = this->GetWorld();
-	UGameViewportClient* viewPort = world->GetGameViewport();
-
-	APlayerController* controller = world->GetFirstPlayerController();
-	player = (AVehiclePawn*) controller->GetPawn();
-	camera = player->onBoardCamera;
 }
 
 void ACameraHUD::Tick(float DeltaTime)

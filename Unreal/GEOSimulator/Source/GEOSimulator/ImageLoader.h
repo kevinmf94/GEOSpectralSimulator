@@ -20,9 +20,4 @@ public:
 private:
 	/** Helper function to dynamically create a new texture from raw pixel data. */
 	static UTexture2D* CreateTexture(UObject* Outer, const TArray<uint8>& PixelData, int32 InSizeX, int32 InSizeY, EPixelFormat PixelFormat = EPixelFormat::PF_B8G8R8A8, FName BaseName = NAME_None);
-
-private:
-
-	/** Holds the future value which represents the asynchronous loading operation. */
-	TFuture<UTexture2D*> Future;
 };

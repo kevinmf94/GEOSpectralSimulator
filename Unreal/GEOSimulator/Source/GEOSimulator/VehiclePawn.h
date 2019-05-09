@@ -8,7 +8,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "GEOCameraComponent.h"
 #include "VehiclePawn.generated.h"
+
+class UCameraComponent;
 
 UCLASS()
 class GEOSIMULATOR_API AVehiclePawn : public APawn
@@ -31,42 +34,28 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	//Movement
-	void Move_XAxis(float AxisValue);
-	void Move_YAxis(float AxisValue);
-	void Move_ZAxis(float AxisValue);
-	void Rotate_ZAxis(float AxisValue);
+	virtual void LoadMesh();
+	UGEOCameraComponent* CreateCamera(FVector position, FRotator rotation, USceneComponent* root);
 	void ChangeCamera();
+	void ChangeTexture();
 	void SaveImage();
+
+	int indexCamera = 1;
 
 	void MoveToXYZ(double x, double y, double z);
 
 	void StartServer();
 	void StopServer();
 
-	FVector CurrentVelocityXAxis;
-	FVector CurrentVelocityYAxis;
-	FRotator CurrentVelocityRotate;
 	FVector MoveLocation;
-	bool firstCamera = true;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* staticMeshComponent;
+	TArray<UGEOCameraComponent*> cameras;
 
 	UPROPERTY(EditAnywhere)
-	class USpringArmComponent* ourCameraSpringArm;
+	UStaticMeshComponent* staticMesh;
 
 	UPROPERTY(EditAnywhere)
-	class UCameraComponent* ourCamera;
-
-	UPROPERTY(EditAnywhere)
-	class USpringArmComponent* onBoardCameraArm;
-	UPROPERTY(EditAnywhere)
-	class UCameraComponent* onBoardCamera;
-
-	UPROPERTY(EditAnywhere)
-	class USceneCaptureComponent2D* sceneCapture;
-
 	class UTextureRenderTarget2D* texture;
 
 	rpc::server* server = nullptr;

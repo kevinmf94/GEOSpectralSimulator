@@ -6,8 +6,6 @@
 #include "RenderUtils.h"
 #include "Engine/Texture2D.h"
 #include "Public/Modules/ModuleManager.h"
-#include "Public/Async/Async.h"
-#include "Public/Async/Future.h"
 #include "Public/Misc/FileHelper.h"
 #include "Public/GenericPlatform/GenericPlatformMisc.h"
 #include "Public/RenderUtils.h"
@@ -44,7 +42,7 @@ UTexture2D* UImageLoader::LoadImageFromDisk(UObject* Outer, const FString& Image
 	}
 
 	// Create an image wrapper for the detected image format
-	IImageWrapperPtr ImageWrapper = ImageWrapperModule.CreateImageWrapper(ImageFormat);
+	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(ImageFormat);
 	if (!ImageWrapper.IsValid())
 	{
 		UIL_LOG(Error, TEXT("Failed to create image wrapper for file: %s"), *ImagePath);

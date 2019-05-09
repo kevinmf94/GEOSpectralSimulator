@@ -1,8 +1,9 @@
 {
-  "type": "latlong",
+  "type": "xy",
   "coordinates" : {
-    "lat": 41.4677021,
-    "long": 2.2789877
+	"x": 441625.95,
+    "y": 4590924.56,
+    "zone": "31T"
   },
   "dimensions": {
     "bbox":{

@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "VehiclePawn.h"
 #include "CameraHUD.generated.h"
 
 /**
@@ -21,9 +20,6 @@ public:
 	virtual void DrawHUD() override;
 	void SetTexture(UTexture* texture);
 
-	AVehiclePawn* player;
-	UCameraComponent* camera;
-	
 	UPROPERTY()
 	UTexture* texture = nullptr;
 

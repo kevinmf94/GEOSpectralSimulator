@@ -1,16 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GEOSimulatorAPIGameModeBase.h"
-#include "VehiclePawn.h"
+#include "DronePawn.h"
 #include "CameraHUD.h"
-#include "MapChunk.h"
-#include "GEOPlayerController.h"
+#include "WorldManager.h"
+#include "Engine/World.h"
 
 AGEOSimulatorAPIGameModeBase::AGEOSimulatorAPIGameModeBase()
 {
-	DefaultPawnClass = AVehiclePawn::StaticClass();
+	DefaultPawnClass = ADronePawn::StaticClass();
 	HUDClass = ACameraHUD::StaticClass();
-	PlayerControllerClass = AGEOPlayerController::StaticClass();
 }
 
 AGEOSimulatorAPIGameModeBase::~AGEOSimulatorAPIGameModeBase()
@@ -19,21 +18,11 @@ AGEOSimulatorAPIGameModeBase::~AGEOSimulatorAPIGameModeBase()
 
 void AGEOSimulatorAPIGameModeBase::BeginPlay()
 {
-	FVector Location(0.0f, 0.0f, 0.0f);
-	FRotator Rotation(0.0f, 0.0f, 0.0f);
-
-	FTransform transform;
-	//FActorSpawnParameters SpawnInfo;
-	//SpawnInfo.Name = FName("Chunk1");
-	//AMapChunk* chunk1 = GetWorld()->SpawnActorDeferred<AMapChunk>(Location, Rotation, SpawnInfo);
-
-	AMapChunk* chunk1 = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr,
-		ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-
-	UE_LOG(LogTemp, Warning, TEXT("SetTexturesAndMesh"));
-	chunk1->AddTexture("RGB", FPaths::ProjectDir() + "Maps/outputwms.jpg");
-	chunk1->AddTexture("IR", FPaths::ProjectDir() + "Maps/outputwmsi.jpg");
-	chunk1->SetMeshFile(FPaths::ProjectDir() + "Maps/outputwcs.obj");
-
-	chunk1->FinishSpawning(transform);
+	worldManager = GetWorld()->SpawnActor<AWorldManager>(FVector(0.f, 0.f, 0.f), FRotator(0.f, 0.f, 0.f));
 }
+
+AWorldManager* AGEOSimulatorAPIGameModeBase::GetWorldManager()
+{
+	return worldManager;
+}
+

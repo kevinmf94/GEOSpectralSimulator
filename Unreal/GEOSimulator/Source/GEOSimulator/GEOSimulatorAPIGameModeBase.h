@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "WorldManager.h"
 #include "GEOSimulatorAPIGameModeBase.generated.h"
+
 
 /**
  * 
@@ -17,7 +19,10 @@ public:
 	AGEOSimulatorAPIGameModeBase();
 	~AGEOSimulatorAPIGameModeBase();
 
-	//geocontrol::GEORPCServer* server;
-
 	void BeginPlay() override;
+
+	AWorldManager* GetWorldManager();
+
+private:
+	AWorldManager* worldManager;
 };
