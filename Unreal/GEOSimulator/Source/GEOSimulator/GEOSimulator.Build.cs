@@ -11,7 +11,8 @@ public class GEOSimulator : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] {
-            "Core", "CoreUObject", "Engine", "InputCore", "Slate", "ProceduralMeshComponent", "ImageWrapper", "RenderCore"
+            "Core", "CoreUObject", "Engine", "InputCore", "Slate", "ProceduralMeshComponent",
+            "ImageWrapper", "RenderCore", "JsonUtilities", "Json"
         });
 
 

@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
+#include "GEOSceneCaptureComponent2D.h"
+#include "Engine/TextureRenderTarget2D.h"
 #include "GEOCameraComponent.generated.h"
-
-class UGEOSceneCaptureComponent2D;
 
 /**
  * 
@@ -19,6 +19,7 @@ public:
 	UGEOCameraComponent();
 
 	UGEOSceneCaptureComponent2D* GetSceneCapture();
+	UTextureRenderTarget2D* GetTexture();
 
 private:
 	UPROPERTY()

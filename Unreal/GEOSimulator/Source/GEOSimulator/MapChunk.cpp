@@ -47,7 +47,7 @@ void AMapChunk::PostActorCreated()
 	Super::PostActorCreated();
 
 	#if WITH_EDITOR
-		LoadMeshFile();
+		/*LoadMeshFile();
 		UE_LOG(LogTemp, Warning, TEXT("SetActorRotation"));
 		if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
 		{
@@ -56,7 +56,7 @@ void AMapChunk::PostActorCreated()
 
 		materialDynamic = UMaterialInstanceDynamic::Create(material, this);
 		LoadTexture();
-		mesh->SetMaterial(0, materialDynamic);
+		mesh->SetMaterial(0, materialDynamic);*/
 	#endif
 }
 

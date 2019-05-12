@@ -4,26 +4,24 @@
 #include "DronePawn.h"
 
 //Instantiate Mesh
-//#include "UObject/ConstructorHelpers.h"
-
-//Keys
-//#include "Classes/InputCoreTypes.h"
-//#include "Framework/Commands/InputChord.h"
+#include "UObject/ConstructorHelpers.h"
 
 ADronePawn::ADronePawn()
 {
 
-}
-
-void ADronePawn::LoadMesh()
-{
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Drone/drone.drone"));
-	if (staticMeshAsset.Succeeded())
+	UE_LOG(LogTemp, Warning, TEXT("Constructor PostADronePawn"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> asset(TEXT("/Game/Drone/drone.drone"));
+	if (asset.Succeeded())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Loaded static mesh"));
-		bool loaded = staticMesh->SetStaticMesh(staticMeshAsset.Object);
-		UE_LOG(LogTemp, Warning, TEXT("Setted Mesh: %s"), loaded ? TEXT("OK") : TEXT("NO"));
+		UE_LOG(LogTemp, Warning, TEXT("Loaded Mesh Drone"));
+		staticMeshAsset = asset.Object;
 	}
+
+	UGEOCameraComponent* cam1 = CreateCamera(FVector(-40.f, 0.0f, 10.f), FRotator(-10.0f, 0.0f, 0.0f), RootComponent);
+	cameras.Add(cam1);
+
+	UGEOCameraComponent* cam2 = CreateCamera(FVector(0.0f, 0.0f, 0.0f), FRotator(-90.0f, 0.0f, 0.0f), RootComponent);
+	cameras.Add(cam2);
 }
 
 void ADronePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

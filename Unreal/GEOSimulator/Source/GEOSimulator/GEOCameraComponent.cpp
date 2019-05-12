@@ -20,3 +20,8 @@ UGEOSceneCaptureComponent2D* UGEOCameraComponent::GetSceneCapture()
 {
 	return sceneCapture;
 }
+
+UTextureRenderTarget2D* UGEOCameraComponent::GetTexture()
+{
+	return sceneCapture->GetTexture();
+}

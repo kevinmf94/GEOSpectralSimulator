@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{8DC577E7-21D4-458E-886D-AA421461D8B4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{5CEA6788-1522-488B-B6F8-027769BCEC09}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{9AC4CC75-FC38-4828-92D5-3089B3D821CE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{E5ED9610-E2B1-460F-B5E6-33512E10CEB4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GEOSimulator", "Intermediate\ProjectFiles\GEOSimulator.vcxproj", "{113CE3FE-6319-4098-81F8-9329CB406F20}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{309098BB-DC5E-4733-8B0A-325923BCFE2F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{CA039B04-DFA0-443F-B2F4-62218CF8EB35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{A23B0B62-EE40-411A-8170-A382F03104DD}"
 	ProjectSection(SolutionItems) = preProject
 		F:\Programas\Unreal\Unreal Engine\UE_4.22\Engine\Extras\VisualStudioDebugging\UE4.natvis = F:\Programas\Unreal\Unreal Engine\UE_4.22\Engine\Extras\VisualStudioDebugging\UE4.natvis
 	EndProjectSection
@@ -81,7 +81,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{309098BB-DC5E-4733-8B0A-325923BCFE2F} = {8DC577E7-21D4-458E-886D-AA421461D8B4}
-		{113CE3FE-6319-4098-81F8-9329CB406F20} = {9AC4CC75-FC38-4828-92D5-3089B3D821CE}
+		{309098BB-DC5E-4733-8B0A-325923BCFE2F} = {5CEA6788-1522-488B-B6F8-027769BCEC09}
+		{113CE3FE-6319-4098-81F8-9329CB406F20} = {E5ED9610-E2B1-460F-B5E6-33512E10CEB4}
 	EndGlobalSection
 EndGlobal

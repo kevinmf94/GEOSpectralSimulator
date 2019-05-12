@@ -9,26 +9,23 @@
 //GEOClasses
 #include "GEOCameraComponent.h"
 #include "GEOSceneCaptureComponent2D.h"
-#include "CameraHUD.h"
 #include "GEOSimulatorAPIGameModeBase.h"
+#include "CameraHUD.h"
 
 //Keys
 #include "Classes/InputCoreTypes.h"
-#include "Framework/Commands/InputChord.h"
 
 //SaveImage
-#include "Engine/TextureRenderTarget2D.h"
 #include "Public/ImageUtils.h"
-
 #include "UObject/UObjectGlobals.h"
 #include "GenericPlatform/GenericPlatformFile.h"
 #include "Serialization/Archive.h"
 #include "HAL/FileManagerGeneric.h"
 
-//RPC
-#include "compiler/disable-ue4-macros.h"
-#include "rpc/server.h"
-#include "compiler/enable-ue4-macros.h"
+#include <string.h>
+
+//Async
+#include "Async.h"
 
 // Sets default values
 AVehiclePawn::AVehiclePawn()
@@ -37,14 +34,9 @@ AVehiclePawn::AVehiclePawn()
 	PrimaryActorTick.bCanEverTick = true;
 	bEditable = true;
 
-	//Load Mesh
+	//Create mesh component
 	staticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VehiclePawnMesh"));
 	RootComponent = staticMesh;
-
-	LoadMesh();
-
-	UGEOCameraComponent* cam1 = CreateCamera(FVector(0.0f, 0.0f, 0.0f), FRotator(-90.0f, 0.0f, 0.0f), RootComponent);
-	cameras.Add(cam1);
 }
 
 UGEOCameraComponent* AVehiclePawn::CreateCamera(FVector position, FRotator rotation, USceneComponent* Root)
@@ -60,14 +52,13 @@ UGEOCameraComponent* AVehiclePawn::CreateCamera(FVector position, FRotator rotat
 	return camera;
 }
 
-void AVehiclePawn::LoadMesh()
+void AVehiclePawn::PostActorCreated()
 {
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("/Game/Vehicle.Vehicle"));
-	if (staticMeshAsset.Succeeded())
+	Super::PostActorCreated();
+
+	if (staticMeshAsset != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Loaded static mesh"));
-		bool loaded = staticMesh->SetStaticMesh(staticMeshAsset.Object);
-		UE_LOG(LogTemp, Warning, TEXT("Setted Mesh: %s"), loaded ? TEXT("OK") : TEXT("NO"));
+		staticMesh->SetStaticMesh(staticMeshAsset);
 	}
 }
 
@@ -77,47 +68,19 @@ void AVehiclePawn::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("VehiclePawn BeginPlay"));
 
-	texture = NewObject<UTextureRenderTarget2D>();
-	//texture->InitAutoFormat(1000, 1000);
-	texture->InitCustomFormat(1000, 1000, PF_B8G8R8A8, false);
-	cameras[0]->GetSceneCapture()->TextureTarget = texture;
-	//sceneCapture->CaptureSceneDeferred();
-
 	ACameraHUD* hud = (ACameraHUD*)GetWorld()->GetFirstPlayerController()->GetHUD();
-	hud->SetTexture(texture);
+	hud->SetTexture(cameras[1]->GetTexture());
 }
 
 void AVehiclePawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-	if (server != nullptr)
-	{
-		StopServer();
-	}
-	UE_LOG(LogTemp, Warning, TEXT("VehiclePawn EndPlay"));
-}
-
-void AVehiclePawn::MoveToXYZ(double x, double y, double z)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Move TO X: %f Y: %f Z: %f"), x, y, z);
-	MoveLocation.X = x;
-	MoveLocation.Y = y;
-	MoveLocation.Z = z;
 }
 
 // Called every frame
 void AVehiclePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	//Handle new location
-	{
-		if (!MoveLocation.IsZero())
-		{
-			SetActorLocation(MoveLocation);
-			MoveLocation = FVector::ZeroVector;
-		}
-	}
 }
 
 // Called to bind functionality to input
@@ -128,34 +91,44 @@ void AVehiclePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 	PlayerInputComponent->BindKey(EKeys::C, IE_Pressed, this, &AVehiclePawn::ChangeCamera);
 	PlayerInputComponent->BindKey(EKeys::T, IE_Pressed, this, &AVehiclePawn::ChangeTexture);
 	PlayerInputComponent->BindKey(EKeys::K, IE_Pressed, this, &AVehiclePawn::SaveImage);
-	PlayerInputComponent->BindKey(EKeys::Y, IE_Pressed, this, &AVehiclePawn::StartServer);
-	PlayerInputComponent->BindKey(EKeys::U, IE_Pressed, this, &AVehiclePawn::StopServer);
 }
 
-void AVehiclePawn::StartServer()
+void AVehiclePawn::BindFunctions(rpc::server* server)
 {
-	if (server == nullptr)
-	{
-		server = new rpc::server(9999);
-		server->bind("test", [](int x) { UE_LOG(LogTemp, Warning, TEXT("Called function test")); });
-		server->bind("moveToXYZ", [this](double x, double y, double z) {
-			MoveToXYZ(x, y, z);
+	Super::BindFunctions(server);
+
+	server->bind("getImage", [this](std::string text) {
+
+		FString* str = new FString(UTF8_TO_TCHAR(text.c_str()));
+		UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"), **str);
+
+		AsyncTask(ENamedThreads::GameThread, [this, str]() {
+			UE_LOG(LogTemp, Warning, TEXT("Save2 Image Path [%s]"), **str);
+			SaveImage(**str);
+			delete str;
 		});
 
-		UE_LOG(LogTemp, Warning, TEXT("Server started!"));
-		server->async_run();
-	}	
+		return 1;
+	});
+
 }
 
-void AVehiclePawn::StopServer()
+FString* AVehiclePawn::BmpToJson(TArray<FColor> &bmp)
 {
-	if (server != nullptr)
+	FString* result = new FString(TEXT("{\"data\":["));
+
+	for (int i = 0; i < bmp.Num(); i++)
 	{
-		server->stop();
-		delete(server);
-		server = nullptr;
-		UE_LOG(LogTemp, Warning, TEXT("Stop server!"));
+		result->Append(FString::Printf(TEXT("[ %d, %d, %d ]"), bmp[i].R, bmp[i].G, bmp[i].B));
+		if (i <= bmp.Num()-2)
+		{
+			result->Append(TEXT(","));
+		}
 	}
+
+	result->Append(TEXT("]}"));
+
+	return result;
 }
 
 void AVehiclePawn::ChangeCamera()
@@ -172,30 +145,38 @@ void AVehiclePawn::ChangeTexture()
 	manager->ChangeTexture();
 }
 
-void AVehiclePawn::SaveImage()
+FTextureRenderTargetResource* AVehiclePawn::GetImageResource(int cameraId)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Save image"));
+	UE_LOG(LogTemp, Warning, TEXT("GetImage"));
 
 	//Capture bmp pixels
-	FTextureRenderTargetResource* rt_resource = texture->GameThread_GetRenderTargetResource();
+	FTextureRenderTargetResource* rt_resource = cameras[cameraId]->GetTexture()->GameThread_GetRenderTargetResource();
 	FIntPoint size = rt_resource->GetSizeXY();
+	return rt_resource;
+}
+
+void AVehiclePawn::GetImageBmp(FTextureRenderTargetResource* resource, TArray<FColor> &output)
+{
 	FReadSurfaceDataFlags flags(RCM_UNorm, CubeFace_MAX);
 	flags.SetLinearToGamma(false);
-	TArray<FColor> bmp;
-	bool success = rt_resource->ReadPixels(bmp, flags);
-	
-	UE_LOG(LogTemp, Warning, TEXT("X: %d Y: %d"), size.X, size.Y);
+	bool success = resource->ReadPixels(output, flags);
 	UE_LOG(LogTemp, Warning, TEXT("ReadSucess"), success ? TEXT("OK") : TEXT("KO"));
-	int32 r = bmp[0].R;
-	int32 g = bmp[0].G;
-	int32 b = bmp[0].B;
-	UE_LOG(LogTemp, Warning, TEXT("Tick Pixel 0,0: %d %d %d"), r, g, b);
-	
+}
+
+void AVehiclePawn::SaveImage()
+{
+	SaveImage(ANSI_TO_TCHAR("C:\\Users\\Kevin\\Desktop\\prueba.png"));
+}
+
+void AVehiclePawn::SaveImage(const TCHAR* pathname)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Save image %s"), pathname);
+
 	//Funciona pero guarda el png en negro funciona con PF_R8G8B8A8
-	TCHAR* fileName = ANSI_TO_TCHAR("C:\\Users\\Kevin\\Desktop\\prueba.png");
 	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
-	IFileHandle* fileHandle = PlatformFile.OpenWrite(fileName);
-	FArchiveFileWriterGeneric archive(fileHandle, fileName, 0);
-	success = FImageUtils::ExportRenderTarget2DAsPNG(texture, archive);
+	IFileHandle* fileHandle = PlatformFile.OpenWrite(pathname);
+	FArchiveFileWriterGeneric archive(fileHandle, pathname, 0);
+	UTextureRenderTarget2D* texture = cameras[1]->GetTexture();
+	bool success = FImageUtils::ExportRenderTarget2DAsPNG(texture, archive);
 	UE_LOG(LogTemp, Warning, TEXT("Save success: %s"), success ? TEXT("Success") : TEXT("Error"));
 }

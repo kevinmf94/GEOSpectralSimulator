@@ -6,6 +6,8 @@
 #include "Components/SceneCaptureComponent2D.h"
 #include "GEOSceneCaptureComponent2D.generated.h"
 
+class UTextureRenderTarget2D;
+
 /**
  * 
  */
@@ -14,5 +16,12 @@ class GEOSIMULATOR_API UGEOSceneCaptureComponent2D : public USceneCaptureCompone
 {
 	GENERATED_BODY()
 public:
+	UGEOSceneCaptureComponent2D();
+
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UTextureRenderTarget2D* GetTexture();
+private:
+
+	UTextureRenderTarget2D* texture;
 };
