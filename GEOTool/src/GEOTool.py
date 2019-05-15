@@ -4,7 +4,7 @@ from geotool import *
 if __name__ == '__main__':
 	config = GEOConfig(sys.argv[1])
 
-	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.bboxSize)
+	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.bboxSize, config.offset)
 	data = wcsClient.send_request()
 	data = WCSSaverRAW.parse_wcs(data, config.bboxSize)
 
@@ -18,6 +18,8 @@ if __name__ == '__main__':
 	print("")
 
 	for wms_request in config.wmsRequests:
-		wmsClient = WMSClient(wms_request[URL], config.coordinates, config.bboxSize, config.textureSize, wms_request[LAYERS])
+		wmsClient = WMSClient(wms_request[URL], config.coordinates, config.bboxSize,
+		                      config.textureSize, wms_request[LAYERS], config.offset)
+
 		data = wmsClient.send_request()
 		WMSSaverJPG().save(wms_request[OUTPUT], data)

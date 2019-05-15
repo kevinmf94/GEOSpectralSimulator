@@ -1,8 +1,8 @@
 {
   "type": "xy",
   "coordinates" : {
-    "x": 440375.95,
-    "y": 4590924.56,
+    "x": 413894.13,
+	"y": 4610649.22,
     "zone": "31T"
   },
   "dimensions": {
@@ -31,5 +31,9 @@
       "output": "outputwmsi",
       "outputFormat": "jpg"
     }
-  ]
+  ],
+  "offset": {
+    "x" : 0,
+    "y" : 0
+  }
 }

@@ -4,8 +4,8 @@ from geotool.constants.Constants import *
 
 class WCSClient(GEOClient):
 
-    def __init__(self, url, coord, size):
-        GEOClient.__init__(self, url, "WCS", "GetCoverage", "1.0.0", "ArcGrid", coord, size, 5)
+    def __init__(self, url, coord, size, offset=(0, 0)):
+        GEOClient.__init__(self, url, "WCS", "GetCoverage", "1.0.0", "ArcGrid", coord, size, 5, offset)
         self.crs = "EPSG:23031"
         self.coverage = "icc:met"
         self.exceptions = "XML"

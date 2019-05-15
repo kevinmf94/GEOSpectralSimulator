@@ -9,7 +9,7 @@ import sys
 class GEOClient(ABC):
 	__running = True
 
-	def __init__(self, url, service, request, version, format, coord, size, block_size=1):
+	def __init__(self, url, service, request, version, format, coord, size, block_size=1, offset=(0, 0)):
 		self.url = url
 		self.service = service
 		self.request = request
@@ -19,6 +19,7 @@ class GEOClient(ABC):
 		self.coord = coord
 		self.size = size
 		self.block_size = block_size
+		self.offset = offset
 
 	def generate_params(self):
 		self.add_param("SERVICE", self.service)
@@ -28,8 +29,8 @@ class GEOClient(ABC):
 		self.add_param("BBOX", self.generate_bbox())
 
 	def generate_bbox(self):
-		x = self.coord[X]
-		y = self.coord[Y]
+		x = self.coord[X] + (self.offset[0]*self.block_size)
+		y = self.coord[Y] + (self.offset[1]*self.block_size)
 		x2 = x + self.block_size * self.size[HEIGHT]
 		y2 = y + self.block_size * self.size[WIDTH]
 

@@ -20,6 +20,7 @@ class GEOConfig:
 		self.outputWcs = self.file["outputWcs"]
 		self.wmsRequests = self.file["wmsRequests"]
 		self.formatWcs = self.file['formatWcs']
+		self.offset = self.file['offset']['x'], self.file['offset']['y']
 
 	@staticmethod
 	def read_json(file_name):
