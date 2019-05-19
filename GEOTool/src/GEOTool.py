@@ -4,13 +4,13 @@ from geotool import *
 if __name__ == '__main__':
 	config = GEOConfig(sys.argv[1])
 
-	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.bboxSize, config.offset)
+	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.cellsize, config.bboxSize, config.offset)
 	wcsData = wcsClient.send_request()
 
 	if config.formatWcs == "raw":
 		WCSSaverRAW().save(config.outputWcs, wcsData)
 	elif config.formatWcs == "obj":
-		WCSSaverOBJ().save(config.outputWcs, wcsData)
+		WCSSaverOBJ().save(config.outputWcs, wcsData, config.meshQuality)
 	else:
 		raise Exception("WCS Format is not implemented")
 

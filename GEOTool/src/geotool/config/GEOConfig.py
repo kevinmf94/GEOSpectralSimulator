@@ -21,6 +21,8 @@ class GEOConfig:
 		self.wmsRequests = self.file["wmsRequests"]
 		self.formatWcs = self.file['formatWcs']
 		self.offset = self.file['offset']['x'], self.file['offset']['y']
+		self.cellsize = self.file['cellsize']
+		self.meshQuality = self.file['meshQuality']
 
 	@staticmethod
 	def read_json(file_name):

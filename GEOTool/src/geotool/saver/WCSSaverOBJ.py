@@ -4,14 +4,43 @@ import numpy as np
 
 class WCSSaverOBJ(WCSSaver):
 
-	def save(self, file_name, wcs):
+	def save(self, file_name, wcs, quality=5):
 
-		data = wcs.data
+		data = self.set_quality(wcs, quality)
+
+		# Filter NoData Values to 0
 		data[data < 0] = 0
-		values = data
 
-		vertex, faces, uvMap, normalVertex = self.generate_obj(values)
-		self.write(file_name, vertex, faces, uvMap, normalVertex)
+		vertex, faces, uv_map, normal_vertex = self.generate_obj(data, wcs.cellsize)
+		self.write(file_name, vertex, faces, uv_map, normal_vertex)
+
+	@staticmethod
+	def set_quality(wcs, quality=5):
+
+		values = wcs.data
+
+		if quality == 5:
+			return values
+
+		if quality == 4:
+			__filter = 2
+
+		elif quality == 3:
+			__filter = 4
+
+		elif quality == 2:
+			__filter = 8
+
+		elif quality == 1:
+			__filter = 16
+
+		# Filter data with the quality value
+		nrowsrange = np.arange(wcs.nrows) % __filter == 0
+		ncolsrange = np.arange(wcs.ncols) % __filter == 0
+		wcs.cellsize = wcs.cellsize * __filter
+		values = values[nrowsrange][:, ncolsrange]
+
+		return values
 
 	@staticmethod
 	def write(file_name, vertex, faces, uvMap, normalVertex):
@@ -39,32 +68,32 @@ class WCSSaverOBJ(WCSSaver):
 		file.write("#######################################\n")
 		file.write("# Faces: {}\n".format(len(faces)))
 		for face in faces:
-			file.write("f {}/{}/{} {}/{}/{} {}/{}/{}\n".format(face[0],face[0],face[0],
+			file.write("f {}/{}/{} {}/{}/{} {}/{}/{}\n".format(face[0], face[0], face[0],
 			                                                   face[1], face[1], face[1],
-			                                                   face[2],face[2],face[2]))
+			                                                   face[2], face[2], face[2]))
 
 		file.close()
 
 	@staticmethod
-	def generate_obj(values, k=5):
+	def generate_obj(values, k):
 
 		h, w = values.shape
 
 		ij = np.meshgrid(np.arange(h), np.arange(w), indexing='ij')
-		i = ij[0].reshape(h*w)
-		j = ij[1].reshape(h*w)
-		values = values.reshape(h*w)
+		i = ij[0].reshape(h * w)
+		j = ij[1].reshape(h * w)
+		values = values.reshape(h * w)
 
 		# Generate list of vertex
-		vertex = np.zeros((h*w, 3))
-		vertex[:, 0] = i*k
-		vertex[:, 1] = j*k
+		vertex = np.zeros((h * w, 3))
+		vertex[:, 0] = i * k
+		vertex[:, 1] = j * k
 		vertex[:, 2] = values
 
 		# Generate faces
-		mask = np.logical_and(i < (h-1), j < (w-1))
-		uFaces = np.zeros((h*w, 3), dtype=np.int32)
-		indexVertex = np.arange(h*w)+1
+		mask = np.logical_and(i < (h - 1), j < (w - 1))
+		uFaces = np.zeros((h * w, 3), dtype=np.int32)
+		indexVertex = np.arange(h * w) + 1
 
 		uFaces[mask, 0] = indexVertex[mask]
 		uFaces[mask, 1] = indexVertex[mask] + w
@@ -80,12 +109,12 @@ class WCSSaverOBJ(WCSSaver):
 		faces = np.concatenate((uFaces, dFaces), 0)
 
 		# Generate UV Map
-		uvMap = np.zeros((h*w, 2))
+		uvMap = np.zeros((h * w, 2))
 		uvMap[:, 0] = (j / (w - 1))
 		uvMap[:, 1] = (i / (h - 1))
 
 		# Generate normal faces upperFaces
-		#mask = np.logical_and(i > 0, j < h-1)
+		# mask = np.logical_and(i > 0, j < h-1)
 		aUpper = (np.roll(vertex, h, axis=0) - vertex)
 		bUpper = (np.roll(vertex, -1, axis=0) - vertex)
 
@@ -96,7 +125,7 @@ class WCSSaverOBJ(WCSSaver):
 		normalUpperFaces[:, 2] = normalUpperFaces[:, 2] / module
 
 		# Generate normal faces downFaces
-		#mask = np.logical_and(i < w-1, j > 0)
+		# mask = np.logical_and(i < w-1, j > 0)
 		aDown = (np.roll(vertex, -h, axis=0) - vertex)
 		bDown = (np.roll(vertex, 1, axis=0) - vertex)
 
@@ -107,8 +136,8 @@ class WCSSaverOBJ(WCSSaver):
 		normalDownFaces[:, 2] = normalDownFaces[:, 2] / module
 
 		# Generate vertex normals
-		normalVertex = np.zeros((h*w, 3))
-		mask = np.logical_and(np.logical_and(i > 0, j > 0), np.logical_and(i < w-1, j < h-1))
+		normalVertex = np.zeros((h * w, 3))
+		mask = np.logical_and(np.logical_and(i > 0, j > 0), np.logical_and(i < w - 1, j < h - 1))
 
 		normalVertex = np.roll(normalUpperFaces, 1, axis=0)
 		normalVertex += normalUpperFaces

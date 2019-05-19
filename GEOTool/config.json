@@ -15,20 +15,22 @@
       "width": 1500
     }
   },
+  "cellsize": 5,
+  "meshQuality": 3,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "outputwcs",
+  "outputWcs": "outputwcs00",
   "formatWcs": "obj",
   "wmsRequests": [
     {
       "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
       "layers": "orto25c2016",
-      "output": "outputwms",
+      "output": "outputwms00",
       "outputFormat": "jpg"
     },
     {
       "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
       "layers": "ortoi25c2016",
-      "output": "outputwmsi",
+      "output": "outputwmsi00",
       "outputFormat": "jpg"
     }
   ],
