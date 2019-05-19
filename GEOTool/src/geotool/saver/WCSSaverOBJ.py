@@ -4,8 +4,9 @@ import numpy as np
 
 class WCSSaverOBJ(WCSSaver):
 
-	def save(self, file_name, data):
+	def save(self, file_name, wcs):
 
+		data = wcs.data
 		data[data < 0] = 0
 		values = data
 

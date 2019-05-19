@@ -5,10 +5,10 @@ import struct
 
 class WCSSaverRAW(WCSSaver):
 
-	def save(self, file_name, data):
+	def save(self, file_name, wcs):
 
 		file = open(file_name+".raw", "wb")
-		values = data.astype(np.int16)
+		values = wcs.data.astype(np.int16)
 		values = values+128
 		for row in values:
 			for item in row:

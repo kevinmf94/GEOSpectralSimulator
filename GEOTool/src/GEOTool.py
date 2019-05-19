@@ -5,15 +5,16 @@ if __name__ == '__main__':
 	config = GEOConfig(sys.argv[1])
 
 	wcsClient = WCSClient(config.wcsUrl, config.coordinates, config.bboxSize, config.offset)
-	data = wcsClient.send_request()
-	data = WCSSaverRAW.parse_wcs(data, config.bboxSize)
+	wcsData = wcsClient.send_request()
 
 	if config.formatWcs == "raw":
-		WCSSaverRAW().save(config.outputWcs, data)
+		WCSSaverRAW().save(config.outputWcs, wcsData)
 	elif config.formatWcs == "obj":
-		WCSSaverOBJ().save(config.outputWcs, data)
+		WCSSaverOBJ().save(config.outputWcs, wcsData)
 	else:
 		raise Exception("WCS Format is not implemented")
+
+	WCSSaver.generate_geojson(config.outputWcs, wcsData)
 
 	print("")
 

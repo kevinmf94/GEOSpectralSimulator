@@ -7,8 +7,8 @@
   },
   "dimensions": {
     "bbox":{
-      "height": 250,
-      "width": 250
+      "height": 300,
+      "width": 300
     },
     "texture":{
       "height": 1500,

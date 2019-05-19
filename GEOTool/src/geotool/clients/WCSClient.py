@@ -1,5 +1,5 @@
 from geotool.clients.GEOClient import GEOClient
-from geotool.constants.Constants import *
+from geotool.model.WCSData import *
 
 
 class WCSClient(GEOClient):
@@ -19,4 +19,16 @@ class WCSClient(GEOClient):
         self.add_param("EXCEPTIONS", self.exceptions)
 
     def send_request(self):
-        return super().send_request().text
+        data = super().send_request().text
+        data = data.split("\n")
+
+        ncols = int(data[0].split(" ")[1])
+        nrows = int(data[1].split(" ")[1])
+        xllcorner = float(data[2].split(" ")[1])
+        yllcorner = float(data[3].split(" ")[1])
+        cellsize = float(data[4].split(" ")[1])
+        nodatavalue = float(data[5].split(" ")[1])
+        values = WCSData.parse_wcs(data[6:-1], (nrows, ncols))
+
+        return WCSData(ncols, nrows, xllcorner, yllcorner, cellsize, nodatavalue,
+                     self.crs, values)

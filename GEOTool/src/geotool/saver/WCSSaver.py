@@ -1,26 +1,49 @@
 from abc import ABC
-from geotool.constants.Constants import *
 from .FileSaver import FileSaver
-import numpy as np
+import json
 
 
 class WCSSaver(FileSaver, ABC):
 
     @staticmethod
-    def parse_wcs(wcs_data, size, data_start=6):
+    def generate_geojson(file_name, wcs_data):
 
-        values = np.zeros((size[HEIGHT], size[WIDTH]))
-        col = 0
-        row = 0
+        x = wcs_data.xllcorner
+        y = wcs_data.yllcorner
+        x2 = x + wcs_data.ncols * wcs_data.cellsize
+        y2 = y + wcs_data.nrows * wcs_data.cellsize
 
-        # -1 Magic number because the last line is empty line
-        for line in wcs_data.split("\n")[data_start:-1]:
-            for value in line.split(" "):
-                values[row][col] = float(value)
+        data = {
+           'type': 'FeatureCollection',
+           'name': file_name,
+           'crs': {
+              'type': 'name',
+              'properties': {
+                 'name': 'urn:ogc:def:crs:'+wcs_data.srs
+              }
+           },
+           'features': [
+              {
+                 'type': 'Feature',
+                 'properties': {},
+                 'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': [
+                       [
+                          [x, y],
+                          [x, y2],
+                          [x2, y2],
+                          [x2, y],
+                          [x, y]
+                       ]
+                    ]
+                 }
+              }
+           ]
+        }
+        json_data = json.dumps(data, ensure_ascii=False)
 
-                col += 1
-                if col == size[1]:
-                    row += 1
-                    col = 0
+        with open(file_name+".json", 'w') as f:
+            f.write(json_data)
 
-        return values
+
