@@ -6,21 +6,19 @@ class WCSSaverOBJ(WCSSaver):
 
 	def save(self, file_name, wcs, quality=5):
 
-		data = self.set_quality(wcs, quality)
+		wcs = self.set_quality(wcs, quality)
 
 		# Filter NoData Values to 0
-		data[data < 0] = 0
+		wcs.data[wcs.data < 0] = 0
 
-		vertex, faces, uv_map, normal_vertex = self.generate_obj(data, wcs.cellsize)
+		vertex, faces, uv_map, normal_vertex = self.generate_obj(wcs.data, wcs.cellsize)
 		self.write(file_name, vertex, faces, uv_map, normal_vertex)
 
 	@staticmethod
 	def set_quality(wcs, quality=5):
 
-		values = wcs.data
-
 		if quality == 5:
-			return values
+			return wcs
 
 		if quality == 4:
 			__filter = 2
@@ -38,9 +36,11 @@ class WCSSaverOBJ(WCSSaver):
 		nrowsrange = np.arange(wcs.nrows) % __filter == 0
 		ncolsrange = np.arange(wcs.ncols) % __filter == 0
 		wcs.cellsize = wcs.cellsize * __filter
-		values = values[nrowsrange][:, ncolsrange]
+		wcs.data = wcs.data[nrowsrange][:, ncolsrange]
+		wcs.nrows = wcs.data.shape[0]
+		wcs.ncols = wcs.data.shape[1]
 
-		return values
+		return wcs
 
 	@staticmethod
 	def write(file_name, vertex, faces, uvMap, normalVertex):

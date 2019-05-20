@@ -18,24 +18,24 @@
   "cellsize": 5,
   "meshQuality": 3,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "outputwcs00",
+  "outputWcs": "example9x9q3/outputwcs22",
   "formatWcs": "obj",
   "wmsRequests": [
-    {
-      "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
-      "layers": "orto25c2016",
-      "output": "outputwms00",
-      "outputFormat": "jpg"
-    },
-    {
-      "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
-      "layers": "ortoi25c2016",
-      "output": "outputwmsi00",
-      "outputFormat": "jpg"
-    }
+	{
+		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+		"layers": "orto25c2016",
+		"output": "example9x9q3/outputwcs22",
+		"outputFormat": "jpg"
+	},
+	{
+		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+		"layers": "ortoi25c2016",
+		"output": "example9x9q3/outputwmsi22",
+		"outputFormat": "jpg"
+	}
   ],
   "offset": {
-    "x" : 0,
-    "y" : 0
+    "x" : 300,
+    "y" : -300
   }
 }
