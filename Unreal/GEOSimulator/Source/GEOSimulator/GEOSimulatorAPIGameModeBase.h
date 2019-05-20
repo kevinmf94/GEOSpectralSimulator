@@ -21,6 +21,8 @@ public:
 
 	void BeginPlay() override;
 
+	//AActor* ChoosePlayerStart_Implementation(AController* Player) override;
+
 	AWorldManager* GetWorldManager();
 
 private:

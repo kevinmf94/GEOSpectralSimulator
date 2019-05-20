@@ -28,6 +28,8 @@ private:
 
 	static void NextTexture(TextureSelected& textureActual);
 
+	void LoadExample9x9();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
