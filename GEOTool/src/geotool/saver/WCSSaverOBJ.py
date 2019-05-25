@@ -4,9 +4,9 @@ import numpy as np
 
 class WCSSaverOBJ(WCSSaver):
 
-	def save(self, file_name, wcs, quality=5):
+	def save(self, file_name, wcs, mesh_step=1):
 
-		wcs = self.set_quality(wcs, quality)
+		wcs = self.set_quality(wcs, mesh_step)
 
 		# Filter NoData Values to 0
 		wcs.data[wcs.data < 0] = 0
@@ -15,27 +15,12 @@ class WCSSaverOBJ(WCSSaver):
 		self.write(file_name, vertex, faces, uv_map, normal_vertex)
 
 	@staticmethod
-	def set_quality(wcs, quality=5):
-
-		if quality == 5:
-			return wcs
-
-		if quality == 4:
-			__filter = 2
-
-		elif quality == 3:
-			__filter = 4
-
-		elif quality == 2:
-			__filter = 8
-
-		elif quality == 1:
-			__filter = 16
+	def set_quality(wcs, mesh_step=1):
 
 		# Filter data with the quality value
-		nrowsrange = np.arange(wcs.nrows) % __filter == 0
-		ncolsrange = np.arange(wcs.ncols) % __filter == 0
-		wcs.cellsize = wcs.cellsize * __filter
+		nrowsrange = np.arange(wcs.nrows) % mesh_step == 0
+		ncolsrange = np.arange(wcs.ncols) % mesh_step == 0
+		wcs.cellsize = wcs.cellsize * mesh_step
 		wcs.data = wcs.data[nrowsrange][:, ncolsrange]
 		wcs.nrows = wcs.data.shape[0]
 		wcs.ncols = wcs.data.shape[1]

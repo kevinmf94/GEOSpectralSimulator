@@ -22,7 +22,11 @@ class GEOConfig:
 		self.formatWcs = self.file['formatWcs']
 		self.offset = self.file['offset']['x'], self.file['offset']['y']
 		self.cellsize = self.file['cellsize']
-		self.meshQuality = self.file['meshQuality']
+
+		if 'meshStep' not in self.file:
+			self.meshStep = 1
+		else:
+			self.meshStep = self.file['meshStep']
 
 	@staticmethod
 	def read_json(file_name):

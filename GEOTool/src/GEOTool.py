@@ -10,7 +10,7 @@ if __name__ == '__main__':
 	if config.formatWcs == "raw":
 		WCSSaverRAW().save(config.outputWcs, wcsData)
 	elif config.formatWcs == "obj":
-		WCSSaverOBJ().save(config.outputWcs, wcsData, config.meshQuality)
+		WCSSaverOBJ().save(config.outputWcs, wcsData, config.meshStep)
 	else:
 		raise Exception("WCS Format is not implemented")
 
@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
 	for wms_request in config.wmsRequests:
 		wmsClient = WMSClient(wms_request[URL], config.coordinates, config.bboxSize,
-		                      config.textureSize, wms_request[LAYERS], config.offset)
+		                      config.textureSize, wms_request[LAYERS], config.offset, config.cellsize)
 
 		data = wmsClient.send_request()
 		WMSSaverJPG().save(wms_request[OUTPUT], data)

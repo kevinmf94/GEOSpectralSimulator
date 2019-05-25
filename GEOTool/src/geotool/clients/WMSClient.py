@@ -4,8 +4,8 @@ from geotool.constants.Constants import *
 
 class WMSClient(GEOClient):
 
-    def __init__(self, url, coord, size, texture_size, layer, offset=(0, 0)):
-        GEOClient.__init__(self, url, "WMS", "GetMap", "1.1.0", "JPEG", coord, size, 5, offset)
+    def __init__(self, url, coord, size, texture_size, layer, offset=(0, 0), cellsize = 5):
+        GEOClient.__init__(self, url, "WMS", "GetMap", "1.1.0", "JPEG", coord, size, cellsize, offset)
         self.srs = "EPSG:23031"
         self.layers = layer
         self.styles = ""

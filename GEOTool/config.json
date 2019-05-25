@@ -1,14 +1,14 @@
 {
   "type": "xy",
   "coordinates" : {
-    "x": 413894.13,
-	"y": 4610649.22,
-    "zone": "31T"
+  	"x": 326737.23,
+	"y": 4676971.49,
+	"zone": "31T"
   },
   "dimensions": {
     "bbox":{
-      "height": 300,
-      "width": 300
+      "height": 1500,
+      "width": 1500
     },
     "texture":{
       "height": 1500,
@@ -16,26 +16,26 @@
     }
   },
   "cellsize": 5,
-  "meshQuality": 3,
+  "meshStep": 4,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "example9x9q3/outputwcs22",
+  "outputWcs": "example_terrain_big/pallars5",
   "formatWcs": "obj",
   "wmsRequests": [
 	{
 		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
 		"layers": "orto25c2016",
-		"output": "example9x9q3/outputwcs22",
+		"output": "example_terrain_big/pallarstex5",
 		"outputFormat": "jpg"
 	},
 	{
 		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
 		"layers": "ortoi25c2016",
-		"output": "example9x9q3/outputwmsi22",
+		"output": "example_terrain_big/pallarstexi5",
 		"outputFormat": "jpg"
 	}
   ],
   "offset": {
-    "x" : 300,
-    "y" : -300
+    "x" : 0,
+    "y" : 0
   }
 }
