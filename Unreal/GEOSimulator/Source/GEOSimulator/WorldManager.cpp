@@ -19,7 +19,7 @@ void AWorldManager::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	LoadExample9x9();
+	//LoadExample9x9();
 
 	/*FVector Location(0.0f, 0.0f, 0.0f);
 	FRotator Rotation(0.0f, 0.0f, 0.0f);
