@@ -1,0 +1,41 @@
+{
+  "type": "xy",
+  "coordinates" : {
+    "x": 413894.13,
+  "y": 4610649.22,
+    "zone": "31T"
+  },
+  "dimensions": {
+    "bbox":{
+      "height": 300,
+      "width": 300
+    },
+    "texture":{
+      "height": 1500,
+      "width": 1500
+    }
+  },
+  "cellsize": 5,
+  "meshQuality": 3,
+  "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
+  "outputWcs": "example9x9q3/outputwcs02",
+  "formatWcs": "obj",
+  "wmsRequests": [
+  {
+    "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+    "layers": "orto25c2016",
+    "output": "example9x9q3/outputwcs02",
+    "outputFormat": "jpg"
+  },
+  {
+    "url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
+    "layers": "ortoi25c2016",
+    "output": "example9x9q3/outputwmsi02",
+    "outputFormat": "jpg"
+  }
+  ],
+  "offset": {
+    "x" : 300,
+    "y" : 300
+  }
+}
