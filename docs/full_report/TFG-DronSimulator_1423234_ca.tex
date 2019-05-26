@@ -328,7 +328,6 @@ En el nostre projecte constarà d'aquests mòduls:
   \item \textbf{Unreal Engine Simulator (C++)}: Incorporarà tot el motor gràfic i connectors necessaris per a la comunicació amb els fitxers generats amb el mòdul GEOTool, visualització de dades, obtenció d'imatge, etc.
 \end{itemize}
 
-\newpage
 \section{Mòdul GeoTools}
 
 Mòdul generat en Python amb l'objectiu d'obtenir informació de mapes d'elevacions, ortofotos, etc. Amb l'objectiu posterior de fer un tractament d'aquestes dades per la generació de terrenys tridimensional i informació en format visible per tal de poder visualitzar-ho en un motor gràfic de tipus Unreal, Unity, OpenGL, etc.
@@ -448,7 +447,6 @@ Un cop realitzat el procés de generació l'aplicació haurà generat una malla 
 \subsubsection{GEOJson associat al terreny}
 Per tal de poder localitzar el terreny que hem generat en altres aplicatius que treballin amb dades geoespacials o en el mateix simulador d'Unreal s'hi ha incorporat la generació d'un GEOJson que ens indica la zona al qual pertany el fitxer generat. Podem veure un exemple de GEOJson a l'annexa \ref{appendix:geojson}.
 
-\newpage
 \subsection{Temps de generació}
 En aquest apartat s'analitzaran les dues versions implementades i es podrà veure les diferencies en temps de generació. Aquest és un punt important per futures implementacions en les quals es desitjaria implementar un visor en temps real del món carregant nova informació segons l'usuari es mogui pel món. 
 \\
@@ -467,7 +465,6 @@ En aquest apartat es mirarà la forma en la qual reduïm la qualitat del terreny
 
 Per tal de fer aquesta reducció fem salts de la mida que volem reduir (2,4,8,16,...) en la nostra matriu de punts. Les proves s'han fet amb un terreny de 300x300 pixels. 
 
-\newpage
 Com podem veure en la figura \ref{fig-qualitatmegas} al reduir la quantitat de punts reduïm de forma exponencial la mida que ocupa en disc dur fent més lleugera la càrrega dels fitxers per l'entorn d'Unreal.
 \\
 \\
@@ -492,7 +489,6 @@ Com podem veure en la figura \ref{fig-qualityvisual} es pot visualitzar la pèrd
 
 En aquesta secció explicarem els diferents punts dels quals es compon el mòdul de simulació amb el que se cerca l'objectiu de posar a disposició una eina que ens permeti simular un viatge amb un vehicle genèric per sobre d'un terreny obtenint imatges des de diferents càmeres configurades anteriorment.
 
-\newpage
 \subsection{Visualització i control del Vehicle}
 Aquesta part serà l'encarregada de donar la interfície per moure un vehicle genèric pel nostre món simulat, aquest vehicle es configurarà amb una sèrie de càmeres que es podran visualitzar en la pantalla i generar imatges de cada una d'elles afegint la possibilitat de obtenir múltiples vistes d'una mateixa localització. Podem veure una vista zenital en la figura \ref{fig-montserratir}.
 
@@ -517,8 +513,13 @@ L'assignació de les funcionalitats es fa en la funció ''void BindFunctions(rpc
 
 \begin{itemize}
 \item setLocation(double x, double y, double z): Enviem la localització en la qual volem que és situí el nostre vehicle.
-\item setRotation(double x, double y, double z): Enviem el vector amb la posició en el món que volem visualitzar, d'aquesta forma calcularem en quin punt del simulador es ha de mantenir la vista de la càmera.
-\item setLocationAndRotation(double x, double y, double z, double lx, double ly, double lz): Funció que crida d'un a les dues anteriors.
+
+\item setLookAt(double x, double y, double z): Enviem el vector amb la posició en el món que volem visualitzar, d'aquesta forma calcularem en quin punt del simulador es ha de mantenir la vista de la càmera.
+
+\item setLocationAndLookAt(double x, double y, double z, double lx, double ly, double lz): Funció que crida d'un a les dues anteriors.
+
+\item setCameraLookAt(int cameraId, double x, double y, double z): Funció que canvia la direcció en la que mira la càmera que l'indiquem.
+
 \item getImage(int idCamera, std::string path): Ens permet indicar de quina càmera i on volem guardar la imatge.
 \end{itemize}
 
@@ -563,7 +564,7 @@ D'aquesta forma amb aquestes bandes podem obtenir informació composta per diver
 }
 \end{itemize} 
 
-En l'última vista de la figura \ref{fig-spectralindexes} es pot veure la de profunditat o proximitat utilitzada en l'àmbit de la visió per computador per "introduir aplicacions". TODO
+En l'última vista de la figura \ref{fig-spectralindexes} es pot veure la de profunditat o proximitat utilitzada per algoritmes de reconstrucció 3D amb monocular stereo, prevenció de col·lisions, algoritmes de multiview stereo, etc.
 
 \begin{figure*}[!h]
 \centering
@@ -579,26 +580,79 @@ En l'última vista de la figura \ref{fig-spectralindexes} es pot veure la de pro
 	\label{fig-spectralindexes}
 \end{figure*}
 
-\subsection{Interacció amb el simulador TODO}
+\subsection{Interacció amb el simulador}
+Per tal d'interaccionar amb el simulador s'han definit les següents tecles:
+
+\begin{itemize}
+\item A,W,S,D: Per moure'ns en el simulador.
+\item Q,E: Per rotar la vista.
+\item Y: Inicia el servidor RPC.
+\item U: Para el servidor RPC.
+\item H: Mostra/oculta la visualització del vehicle.
+\item K: Guarda en un fitxer la vista actual de la segona càmera.
+\end{itemize}
 
 \section{Mòdul d'Scripting}
 En aquest apartat explicarem i veurem els principals punts del mòdul d'scripting en el qual podrem gestionar el simulador de forma que podrem recrear viatges llegint fitxers de trajectòries, generar imatges, generar soroll a les trajectòries, etc.
 
 \subsection{Trajectòries}
+El mòdul d'scripting permet fer vols llegint trajectòries creades en el món real (adaptant-les al nostre format) o generades sintèticament d'aquesta forma podem recrear en el simulador la trajectòria feta anteriorment podent reproduir tants cops com vulguem aquesta, això ens permetrà fer diverses proves amb diferents visualitzacions del terreny. Per aquesta finalitat s'ha generat el fitxer que expliquem a la secció \ref{file-trajectories}.
 
+\subsubsection{Fitxer de trajectòries}
+\label{file-trajectories}
+En aquest apartat explicarem com està formatjat el fitxer de trajectòries i el fitxer per posicionar la càmera. Els fitxers estaran en format CSV i seran llegits des de mòdul GEOControl per a indicar al simulador les posicions del vehicle i cap a quina posició del món mira tant el vehicle com les càmeres.
 
-\subsubsection{Fitxer de trajectories}
+El fitxer que controla al vehicle està compost pels següents camps:
 
-\subsection{Simulació de soroll TODO}
+\begin{itemize}
+\item Time: Temps en mil·lisegons d'ençà que comença el script.
+\item x: Posició X en format UTM.
+\item y: Posició Y en format UTM.
+\item z: Posició Z en format UTM.
+\item LookX: Posició X a la que mirem en format UTM.
+\item LookY: Posició Y a la que mirem en format UTM.
+\item LookZ: Posició Z a la que mirem en format UTM.
+\end{itemize}
 
-\subsection{Generació de Datasets TODO}
+Per tal de controlar a on miran les cameras tindrem un altre fitxer composat per els camps:
+
+\begin{itemize}
+\item Time: Time en milisegons des de que comença el script.
+\item cameraId: Id de la camera que volem modificar.
+\item LookX: Posició X a la que mirem en format UTM.
+\item LookY: Posició Y a la que mirem en format UTM.
+\item LookZ: Posició Z a la que mirem en format UTM.
+\item GetImage: Booleà de 0 o 1 en el que indiquem si volem generar una imatge d'aquesta càmera en aquell instant de temps.
+\end{itemize}
+
+Podem veure un exemple dels fitxers CSV a l'apèndix \ref{appendix:fitxerscsv} generats amb Excel.
+
+\subsection{Simulació de soroll}
+Ja que els vehicles tenen moviments inesperats a conseqüència de l'aire, l'asfalt entre d'altres s'ha implementat un generador de soroll aplicat a la trajectòria que volem reproduir d'aquesta forma podem generar imatges amb soroll i moviments inesperats. Aquest soroll s'ha implementat mitjançant un soroll gaussià en el qual utilitzem com a centre el punt al qual ens volem moure i una sigma petita (entre 0 i 1) que ens generarà un moviment lleuger.
+
+\subsection{Generació de Datasets}
+Un dels objectius d'aquest treball és la possibilitat de generar datasets d'imatges sintètiques amb dades generades per satèl·lits, per tal de poder generar datasets s'utilitza el camp GetImage vist a la secció \ref{file-trajectories} que ens generarà una imatge cada cop que trobi aquest camp.
+
+En la figura \ref{fig-dataset} podem veure una petita mostra amb poques imatges d'un recorregut en el qual hem fixat que la càmera mires a un punt en concret que deixàvem enrere amb el transcurs del temps. 
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.45\textwidth]{dataset/dataset}
+	\caption{Conjunt d'imatges generades per GEOControl}
+	\label{fig-dataset}
+\end{figure}
 
 \section{Conclusions}
+En aquest projecte hem vist com hem pogut obtenir textures i mapes d'elevacions de fonts procedents de satèl·lits i convertir-les en informació 3D que pugui ser afegida a un motor gràfic com és Unreal Engine. S'ha tingut en compte aspectes com la velocitat en generar el model 3D on s'ha pogut veure com afecta llibreries com NumPy en el tractament de matrius accelerant aquest procés gràcies a la paral·lelització, s'ha pogut veure l'efecte que té quantitativament i qualitativament en les malles en reduir la quantitat de punts amb els quals es genera el model 3D necessari per a la renderització de models de grans dimensions.
+
+Per la part del mòdul simulador hem pogut veure com podem visualitzar informació en un entorn 3D generat amb Unreal Engine. Es poden afegir càmeres a un vehicle simulat i veure des de diferents perspectives una mateixa informació per això s'ha creat un altre modulo que envia comandes al servidor RPC que s'ha implementat en Unreal Engine el qual pot moure, dir cap a on mira el vehicle, dir cap a on mira les càmeres i obtenir imatges d'aquestes càmeres.
+S'han fet proves amb diverses visualitzacions provinents d'informació de satèl·lits com és el Sentinel 2 en el que s'ha pogut veure com és representa'n en el món simulat i quines utilitats té aquesta informació.
+
+Per la part del mòdul d'scripting s'ha vist com es poden generar trajectòries reproduïbles en l'entorn simulat per tal de fer diversos viatges amb diferents informacions i extraure dades en forma de dataset. Aquestes trajectòries poden controlar diversos paràmetres del vehicle i càmeres indicant en quins punts es vol obtenir una imatge i de quina càmera. Per tal de simular el moviment a causa del vent o altres factors s'ha afegit un petit filtre com és la generació de soroll per tal de fer que se sacsegi el vehicle.
 
 
 \section*{Agraïments}
 
-\newpage
 \begin{thebibliography}{11}
 \bibitem{agile}
 Agile software development
@@ -684,7 +738,6 @@ Cálculo del índice NDWI - \url{http://www.gisandbeers.com/calculo-del-indice-n
 \label{appendix:generateobj}
 \lstinputlisting[language=Python]{generateobj.py}
 
-\newpage
 \subsection{GEOJson d'exemple}
 \label{appendix:geojson}
 \lstinputlisting{geojson.json}
@@ -708,6 +761,26 @@ void MyClass::BindFunctions(rpc::server* server)
 }
 
 \end{lstlisting}
+
+\subsection{Fitxers CSV d'exemple per controlar el vehicle i les càmeres}
+\label{appendix:fitxerscsv}
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.45\textwidth]{fitxervehicle}
+	\captionsetup{labelformat=empty}
+	\caption{Fitxer CSV per controlar el vehicle}
+	\label{fig-fitxervehicle}
+\end{figure}
+
+
+\begin{figure}[!h]
+\centering
+  	\includegraphics[width=0.45\textwidth]{fitxercameres}
+  	\captionsetup{labelformat=empty}
+	\caption{Fitxer CSV per controlar les càmeres}
+	\label{fig-fitxercameres}
+\end{figure}
 
 
 \end{document}
