@@ -27,6 +27,9 @@
 //Async
 #include "Async.h"
 
+//VectorLookAt
+#include "Kismet/KismetMathLibrary.h"
+
 // Sets default values
 AVehiclePawn::AVehiclePawn()
 {
@@ -35,8 +38,8 @@ AVehiclePawn::AVehiclePawn()
 	bEditable = true;
 
 	//Create mesh component
-	staticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VehiclePawnMesh"));
-	RootComponent = staticMesh;
+	staticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VehiclePawnMesh"));
+	RootComponent = staticMeshComponent;
 }
 
 UGEOCameraComponent* AVehiclePawn::CreateCamera(FVector position, FRotator rotation, USceneComponent* Root)
@@ -56,9 +59,9 @@ void AVehiclePawn::PostActorCreated()
 {
 	Super::PostActorCreated();
 
-	if (staticMeshAsset != nullptr)
+	if (staticMesh != nullptr)
 	{
-		staticMesh->SetStaticMesh(staticMeshAsset);
+		staticMeshComponent->SetStaticMesh(staticMesh);
 	}
 }
 
@@ -81,6 +84,26 @@ void AVehiclePawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void AVehiclePawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//Handle new location
+	{
+		if (!NewLocation.IsZero())
+		{
+			SetActorLocation(NewLocation);
+			NewLocation = FVector::ZeroVector;
+		}
+	}
+
+	//Handle LookAt
+	{
+		if (!NewLookAt.IsZero())
+		{
+			FVector ActorLocation = GetActorLocation();
+			FRotator rotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewLookAt);
+			SetActorRotation(rotation);
+			NewLookAt = FVector::ZeroVector;
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -91,20 +114,37 @@ void AVehiclePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 	PlayerInputComponent->BindKey(EKeys::C, IE_Pressed, this, &AVehiclePawn::ChangeCamera);
 	PlayerInputComponent->BindKey(EKeys::T, IE_Pressed, this, &AVehiclePawn::ChangeTexture);
 	PlayerInputComponent->BindKey(EKeys::K, IE_Pressed, this, &AVehiclePawn::SaveImage);
+	PlayerInputComponent->BindKey(EKeys::H, IE_Pressed, this, &AVehiclePawn::HiddenVehicle);
 }
 
 void AVehiclePawn::BindFunctions(rpc::server* server)
 {
 	Super::BindFunctions(server);
 
-	server->bind("getImage", [this](std::string text) {
+	server->bind("setLocation", [this](double x, double y, double z) {
+		SetLocation(x, y, z);
+	});
+
+	server->bind("setLookAt", [this](double x, double y, double z) {
+		SetRotationByLookAt(x, y, z);
+	});
+
+	server->bind("setLocationAndLookAt", [this](double x, double y, double z, double xl, double yl, double zl) {
+		SetLocation(x, y, z);
+		SetRotationByLookAt(xl, yl, zl);
+	});
+
+	server->bind("setCameraLookAt", [this](int cameraId, double x, double y, double z) {
+		SetCameraLookAt(cameraId, x, y, z);
+	});
+
+	server->bind("getImage", [this](int cameraId, std::string text) {
 
 		FString* str = new FString(UTF8_TO_TCHAR(text.c_str()));
-		UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"), **str);
 
-		AsyncTask(ENamedThreads::GameThread, [this, str]() {
-			UE_LOG(LogTemp, Warning, TEXT("Save2 Image Path [%s]"), **str);
-			SaveImage(**str);
+		AsyncTask(ENamedThreads::GameThread, [this, cameraId, str]() {
+			UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"), **str);
+			SaveImage(cameraId, **str);
 			delete str;
 		});
 
@@ -113,22 +153,10 @@ void AVehiclePawn::BindFunctions(rpc::server* server)
 
 }
 
-FString* AVehiclePawn::BmpToJson(TArray<FColor> &bmp)
+void AVehiclePawn::HiddenVehicle()
 {
-	FString* result = new FString(TEXT("{\"data\":["));
-
-	for (int i = 0; i < bmp.Num(); i++)
-	{
-		result->Append(FString::Printf(TEXT("[ %d, %d, %d ]"), bmp[i].R, bmp[i].G, bmp[i].B));
-		if (i <= bmp.Num()-2)
-		{
-			result->Append(TEXT(","));
-		}
-	}
-
-	result->Append(TEXT("]}"));
-
-	return result;
+	UE_LOG(LogTemp, Warning, TEXT("Toogle StaticMesh"));
+	staticMeshComponent->ToggleVisibility();
 }
 
 void AVehiclePawn::ChangeCamera()
@@ -145,6 +173,34 @@ void AVehiclePawn::ChangeTexture()
 	manager->ChangeTexture();
 }
 
+void AVehiclePawn::SetLocation(double x, double y, double z)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Move TO X: %f Y: %f Z: %f"), x, y, z);
+	NewLocation.X = x;
+	NewLocation.Y = y;
+	NewLocation.Z = z;
+}
+
+void AVehiclePawn::SetRotationByLookAt(double x, double y, double z)
+{
+	UE_LOG(LogTemp, Warning, TEXT("LookAt TO X: %f Y: %f Z: %f"), x, y, z);
+	NewLookAt.X = x;
+	NewLookAt.Y = y;
+	NewLookAt.Z = z;
+}
+
+void AVehiclePawn::SetCameraLookAt(int cameraId, double x, double y, double z)
+{
+	UE_LOG(LogTemp, Warning, TEXT("CameraID: %d LookAt TO X: %f Y: %f Z: %f"), cameraId, x, y, z);
+	if(cameras.Num() > cameraId)
+	{	
+		cameras[cameraId]->SetNewRotation(FVector(x, y, z));
+	}
+}
+
+/**
+* Save Images
+*/
 FTextureRenderTargetResource* AVehiclePawn::GetImageResource(int cameraId)
 {
 	UE_LOG(LogTemp, Warning, TEXT("GetImage"));
@@ -165,10 +221,10 @@ void AVehiclePawn::GetImageBmp(FTextureRenderTargetResource* resource, TArray<FC
 
 void AVehiclePawn::SaveImage()
 {
-	SaveImage(ANSI_TO_TCHAR("C:\\Users\\Kevin\\Desktop\\prueba.png"));
+	SaveImage(1, *FPaths::ConvertRelativePathToFull(FPaths::ProjectDir()+ANSI_TO_TCHAR("Output.png")));
 }
 
-void AVehiclePawn::SaveImage(const TCHAR* pathname)
+void AVehiclePawn::SaveImage(int cameraId, const TCHAR* pathname)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Save image %s"), pathname);
 
@@ -176,7 +232,7 @@ void AVehiclePawn::SaveImage(const TCHAR* pathname)
 	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
 	IFileHandle* fileHandle = PlatformFile.OpenWrite(pathname);
 	FArchiveFileWriterGeneric archive(fileHandle, pathname, 0);
-	UTextureRenderTarget2D* texture = cameras[1]->GetTexture();
+	UTextureRenderTarget2D* texture = cameras[cameraId]->GetTexture();
 	bool success = FImageUtils::ExportRenderTarget2DAsPNG(texture, archive);
 	UE_LOG(LogTemp, Warning, TEXT("Save success: %s"), success ? TEXT("Success") : TEXT("Error"));
 }

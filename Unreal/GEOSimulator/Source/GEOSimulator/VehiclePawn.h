@@ -24,32 +24,40 @@ protected:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	virtual void PostActorCreated() override;
 
-	UStaticMesh* staticMeshAsset = nullptr;
 private:
 	int indexCamera = 1;
 
+	FVector NewLocation;
+	FVector NewLookAt;
 public:	
-	// Called every frame
+	// Override API UE4
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	virtual void BindFunctions(rpc::server* server) override;
 
 	UGEOCameraComponent* CreateCamera(FVector position, FRotator rotation, USceneComponent* root);
+	
+	//Events
 	void ChangeCamera();
 	void ChangeTexture();
+	void HiddenVehicle();
+
+	//Save Images
 	void SaveImage();
-	void SaveImage(const TCHAR* pathname);
+	void SaveImage(int cameraId, const TCHAR* pathname);
 	FTextureRenderTargetResource* GetImageResource(int camera);
 	void GetImageBmp(FTextureRenderTargetResource* resource, TArray<FColor>& output);
 
-	static FString* BmpToJson(TArray<FColor>& bmp);
+	//Functions RPC
+	void SetLocation(double x, double y, double z);
+	void SetRotationByLookAt(double x, double y, double z);
+	void SetCameraLookAt(int cameraId, double x, double y, double z);
 
 	UPROPERTY(EditAnywhere)
 	TArray<UGEOCameraComponent*> cameras;
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* staticMesh;
+	UStaticMeshComponent* staticMeshComponent;
+
+	UStaticMesh* staticMesh;
 };

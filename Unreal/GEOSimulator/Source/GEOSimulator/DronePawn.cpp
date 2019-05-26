@@ -14,7 +14,7 @@ ADronePawn::ADronePawn()
 	if (asset.Succeeded())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Loaded Mesh Drone"));
-		staticMeshAsset = asset.Object;
+		staticMesh = asset.Object;
 	}
 
 	UGEOCameraComponent* cam1 = CreateCamera(FVector(-40.f, 0.0f, 10.f), FRotator(-10.0f, 0.0f, 0.0f), RootComponent);

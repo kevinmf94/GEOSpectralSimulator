@@ -18,10 +18,17 @@ class GEOSIMULATOR_API UGEOCameraComponent : public UCameraComponent
 public:
 	UGEOCameraComponent();
 
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	void SetNewRotation(FVector lookAt);
+
 	UGEOSceneCaptureComponent2D* GetSceneCapture();
 	UTextureRenderTarget2D* GetTexture();
 
 private:
+
+	FVector NewLookAt;
+
 	UPROPERTY()
 	UGEOSceneCaptureComponent2D* sceneCapture;
 };

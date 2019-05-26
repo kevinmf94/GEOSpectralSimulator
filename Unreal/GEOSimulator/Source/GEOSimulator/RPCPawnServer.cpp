@@ -37,15 +37,6 @@ void ARPCPawnServer::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void ARPCPawnServer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	//Handle new location
-	{
-		if (!NewLocation.IsZero())
-		{
-			SetActorLocation(NewLocation);
-			NewLocation = FVector::ZeroVector;
-		}
-	}
 }
 
 void ARPCPawnServer::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -57,10 +48,6 @@ void ARPCPawnServer::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 void ARPCPawnServer::StartServer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ARPCPawnServer StartServer"));
-	//server = RPCServer::GetInstance();
-	//server->InitServer(9999);
-	//BindFunctions(server);
-	//server->StartServer();
 	
 	if (!server)
 	{
@@ -87,29 +74,5 @@ void ARPCPawnServer::StopServer()
 
 void ARPCPawnServer::BindFunctions(rpc::server* server)
 {
-	server->bind("test", [](int x) { UE_LOG(LogTemp, Warning, TEXT("Called function test")); });
-	server->bind("setLocation", [this](double x, double y, double z) {
-		SetLocation(x, y, z);
-		});
-	server->bind("setRotation", [this](double x, double y, double z) {
-		SetRotationByLookAt(x, y, z);
-		});
-	server->bind("setLocationAndRotation", [this](double x, double y, double z) {
-		SetLocation(x, y, z);
-	});
+	
 }
-
-
-void ARPCPawnServer::SetLocation(double x, double y, double z)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Move TO X: %f Y: %f Z: %f"), x, y, z);
-	NewLocation.X = x;
-	NewLocation.Y = y;
-	NewLocation.Z = z;
-}
-
-void ARPCPawnServer::SetRotationByLookAt(double x, double y, double z)
-{
-	//TODO
-}
-

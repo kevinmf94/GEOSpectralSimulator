@@ -29,7 +29,6 @@ private:
 	void StartServer();
 	void StopServer();
 
-	//rpc::server* server = nullptr;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -39,14 +38,5 @@ public:
 
 	virtual void BindFunctions(rpc::server* server);
 
-	//Functions
-	void SetLocation(double x, double y, double z);
-	void SetRotationByLookAt(double x, double y, double z);
-
-	FVector NewLocation;
-	FRotator NewRotate;
-
-	//RPCServer* server;
-	rpc::server* server;
-	
+	rpc::server* server = nullptr;
 };
