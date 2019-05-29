@@ -7,35 +7,33 @@
   },
   "dimensions": {
     "bbox":{
-      "height": 1500,
-      "width": 1500
+      "height": 100,
+      "width": 100
     },
     "texture":{
       "height": 1500,
       "width": 1500
     }
   },
+  "chunks": {
+    "width": 3,
+    "height": 3
+  },
   "cellsize": 5,
   "meshStep": 4,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "example_terrain_big/pallars5",
+  "outputWcs": "pruebagrid/pallars5",
   "formatWcs": "obj",
   "wmsRequests": [
 	{
 		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
 		"layers": "orto25c2016",
-		"output": "example_terrain_big/pallarstex5",
 		"outputFormat": "jpg"
 	},
 	{
 		"url": "http://geoserveis.icc.cat/icc_ortohistorica/wms/service",
 		"layers": "ortoi25c2016",
-		"output": "example_terrain_big/pallarstexi5",
 		"outputFormat": "jpg"
 	}
-  ],
-  "offset": {
-    "x" : 0,
-    "y" : 0
-  }
+  ]
 }

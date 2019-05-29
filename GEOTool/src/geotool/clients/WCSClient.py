@@ -1,5 +1,5 @@
+from geotool import WCSData
 from geotool.clients.GEOClient import GEOClient
-from geotool.model.WCSData import *
 
 
 class WCSClient(GEOClient):
@@ -12,8 +12,8 @@ class WCSClient(GEOClient):
 
     def generate_params(self):
         super().generate_params()
-        self.add_param("HEIGHT", self.size[HEIGHT])
-        self.add_param("WIDTH", self.size[WIDTH])
+        self.add_param("HEIGHT", self.size[0])
+        self.add_param("WIDTH", self.size[1])
         self.add_param("CRS", self.crs)
         self.add_param("COVERAGE", self.coverage)
         self.add_param("EXCEPTIONS", self.exceptions)

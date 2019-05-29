@@ -1,5 +1,4 @@
 from abc import ABC
-from geotool.constants.Constants import *
 import time
 import requests
 import threading
@@ -29,19 +28,24 @@ class GEOClient(ABC):
 		self.add_param("BBOX", self.generate_bbox())
 
 	def generate_bbox(self):
-		x = self.coord[X] + (self.offset[0]*self.cellsize)
-		y = self.coord[Y] + (self.offset[1]*self.cellsize)
-		x2 = x + self.cellsize * self.size[HEIGHT]
-		y2 = y + self.cellsize * self.size[WIDTH]
+		x = self.coord[0] + (self.offset[0]*self.cellsize)
+		y = self.coord[1] + (self.offset[1]*self.cellsize)
+		x2 = x + self.cellsize * self.size[0]
+		y2 = y + self.cellsize * self.size[1]
 
 		return "{},{},{},{}".format(x, y, x2, y2)
 
 	@staticmethod
 	def progress_bar_worker():
+		count = 0
 		while GEOClient.__running:
 			print(".", end="")
+			if count % 100 == 0:
+				print("")
+
 			sys.stdout.flush()
 			time.sleep(0.1)
+			count = count + 1
 
 	@staticmethod
 	def start_progress_bar():

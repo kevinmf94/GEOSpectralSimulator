@@ -1,11 +1,13 @@
 import json
 import utm
 
-# Constants GEOConfig
+# Constants GEOTool
 URL = "url"
 LAYERS = "layers"
-OUTPUT = "output"
-
+HEIGHT = 0
+WIDTH = 1
+X = 0
+Y = 1
 
 class GEOConfig:
 
@@ -20,8 +22,9 @@ class GEOConfig:
 		self.outputWcs = self.file["outputWcs"]
 		self.wmsRequests = self.file["wmsRequests"]
 		self.formatWcs = self.file['formatWcs']
-		self.offset = self.file['offset']['x'], self.file['offset']['y']
+		# self.offset = self.file['offset']['x'], self.file['offset']['y']
 		self.cellsize = self.file['cellsize']
+		self.chunks = self.file['chunks']['height'], self.file['chunks']['width']
 
 		if 'meshStep' not in self.file:
 			self.meshStep = 1

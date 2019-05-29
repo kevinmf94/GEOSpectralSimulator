@@ -1,5 +1,4 @@
 from geotool.clients.GEOClient import GEOClient
-from geotool.constants.Constants import *
 
 
 class WMSClient(GEOClient):
@@ -22,8 +21,8 @@ class WMSClient(GEOClient):
         self.add_param("EXCEPTION", self.exception)
         self.add_param("BGCOLOR", self.bgcolor)
         self.add_param("TRANSPARENT", self.transparent)
-        self.add_param("HEIGHT", self.texture_size[HEIGHT])
-        self.add_param("WIDTH", self.texture_size[WIDTH])
+        self.add_param("HEIGHT", self.texture_size[0])
+        self.add_param("WIDTH", self.texture_size[1])
 
     def send_request(self):
         return super().send_request().content

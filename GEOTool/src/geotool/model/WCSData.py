@@ -1,4 +1,4 @@
-from geotool.constants.Constants import *
+from geotool import *
 import numpy as np
 
 
@@ -17,7 +17,7 @@ class WCSData:
 	@staticmethod
 	def parse_wcs(wcs_data, size):
 
-		values = np.zeros((size[HEIGHT], size[WIDTH]))
+		values = np.zeros((size[0], size[1]))
 		col = 0
 		row = 0
 
@@ -32,3 +32,12 @@ class WCSData:
 					col = 0
 
 		return values
+
+	def save(self, filename, format='obj', mesh_step=1):
+		if format == "raw":
+			WCSSaverRAW().save(filename, self)
+		elif format == "obj":
+			WCSSaverOBJ().save(filename, self, mesh_step)
+		else:
+			raise Exception("WCS Format is not implemented")
+

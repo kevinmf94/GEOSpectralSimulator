@@ -1,7 +1,4 @@
-from .clients.WMSClient import WMSClient
-from .clients.WCSClient import WCSClient
-from .config.GEOConfig import *
-from .saver.WCSSaver import WCSSaver
-from .saver.WCSSaverRAW import WCSSaverRAW
-from .saver.WCSSaverOBJ import WCSSaverOBJ
-from .saver.WMSSaverJPG import WMSSaverJPG
+from .saver import WCSSaverRAW, WCSSaverOBJ, WMSSaverJPG, WCSSaver, WMSSaver
+from .model import WCSData
+from .config import GEOConfig
+from .clients import WCSClient, WMSClient
