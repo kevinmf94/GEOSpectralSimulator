@@ -569,74 +569,77 @@ This way with these bands can obtain composed data from the multiple spectrum th
 }
 \end{itemize} 
 
-En l'última vista de la figura \ref{fig-spectralindexes} es pot veure la de profunditat o proximitat utilitzada per algoritmes de reconstrucció 3D amb monocular stereo, prevenció de col·lisions, algoritmes de multiview stereo, etc.
+The last view of the figure \ref{fig-spectralindexes} can see the depth or proximity used by algorithms of 3D reconstruction with monocular stereo, prevention of collisions, algorithm of multiview stereo, etc.
 
 \begin{figure*}[!h]
 \centering
   	\includegraphics[width=1\textwidth]{multispectral/bands}
-	\caption{Vista de Sales de Pallars en 6 bandes diferents}
+	\caption{View of ''Sales de Pallars'' in six spectral bands differents.}
 	\label{fig-bands}
 \end{figure*}
 
 \begin{figure*}[!h]
 \centering
   	\includegraphics[width=1\textwidth]{multispectral/spectralindexes}
-	\caption{Vista de Sales de Pallars en RGB, Infraroig, NDVI, Moisture, NDWI i profunditat}
+	\caption{View of ''Sales de Pallars'' in RGB, infrared, NDVI, moisture, NDWI and depth.}
 	\label{fig-spectralindexes}
 \end{figure*}
 
 \subsection{Interacció amb el simulador}
-Per tal d'interaccionar amb el simulador s'han definit les següents tecles:
+In order to interact with the simulator the following keys have been defined:
 
 \begin{itemize}
-\item A,W,S,D: Per moure'ns en el simulador.
-\item Q,E: Per rotar la vista.
-\item Y: Inicia el servidor RPC.
-\item U: Para el servidor RPC.
-\item H: Mostra/oculta la visualització del vehicle.
-\item K: Guarda en un fitxer la vista actual de la segona càmera.
+\item A,W,S,D: Left, Front, Back, Right movement of the vehicle.
+\item Alt, SpaceBar: Down and up the vehicle.
+\item Q,E: Left and right rotation of vehicle.
+\item Y: Starts an RPC Server.
+\item U: Stops an RPC Server.
+\item H: Show/Hide the visualization of vehicle.
+\item K: Save image in the simulator folder from the second camera.
 \end{itemize}
 
-\section{Mòdul d'Scripting}
+\section{Scripting module}
 \label{modulescript}
-En aquest apartat explicarem i veurem els principals punts del mòdul d'scripting en el qual podrem gestionar el simulador de forma que podrem recrear viatges llegint fitxers de trajectòries, generar imatges, generar soroll a les trajectòries, etc.
 
-\subsection{Trajectòries}
-El mòdul d'scripting permet fer vols llegint trajectòries creades en el món real (adaptant-les al nostre format) o generades sintèticament d'aquesta forma podem recrear en el simulador la trajectòria feta anteriorment podent reproduir tants cops com vulguem aquesta, això ens permetrà fer diverses proves amb diferents visualitzacions del terreny. Per aquesta finalitat s'ha generat el fitxer que expliquem a la secció \ref{file-trajectories}.
+In this section it is explained and see the principal points of the scripting module in which can control the simulator in a way that can be reproduce travels, reading trajectories from files, generate images, generate noise to the trajectories, etc.
+
+\subsection{Trajectories}
+The module of scripting allow to make travel, reading trajectories created in a real world (adapt this to the own format) or generated synthetic this way can recreate on the simulator a trajectory done previously were able reproduce so many times, this allows to do multiple tests with different visualizations of the terrain. For this finally its generate a file that explained in the section \ref{file-trajectories}.
 
 \subsubsection{Fitxer de trajectòries}
 \label{file-trajectories}
-En aquest apartat explicarem com està formatjat el fitxer de trajectòries i el fitxer per posicionar la càmera. Els fitxers estaran en format CSV i seran llegits des de mòdul GEOControl per a indicar al simulador les posicions del vehicle i cap a quina posició del món mira tant el vehicle com les càmeres.
+This section explains how to form the path file and the file to place the cameras. The file is in CSV format and can be read from the GEOControl module to indicate to the simulator the positions of the vehicle and where it looks both the vehicle and the cameras in coordinates of the world.
 
-El fitxer que controla al vehicle està compost pels següents camps:
-
-\begin{itemize}
-\item Time: Temps en mil·lisegons d'ençà que comença el script.
-\item x: Posició X en format UTM.
-\item y: Posició Y en format UTM.
-\item z: Posició Z en format UTM.
-\item LookX: Posició X a la que mirem en format UTM.
-\item LookY: Posició Y a la que mirem en format UTM.
-\item LookZ: Posició Z a la que mirem en format UTM.
-\end{itemize}
-
-Per tal de controlar a on miran les cameras tindrem un altre fitxer composat per els camps:
+The file controls the vehicle are composed by the next fields:
 
 \begin{itemize}
-\item Time: Time en milisegons des de que comença el script.
-\item cameraId: Id de la camera que volem modificar.
-\item LookX: Posició X a la que mirem en format UTM.
-\item LookY: Posició Y a la que mirem en format UTM.
-\item LookZ: Posició Z a la que mirem en format UTM.
-\item GetImage: Booleà de 0 o 1 en el que indiquem si volem generar una imatge d'aquesta càmera en aquell instant de temps.
+\item Time: Time in milliseconds from start of the script.
+\item x: Position X in UTM format.
+\item y: Position Y in UTM format.
+\item z: Position Z in UTM format.
+\item LookX: Position X to which we look in UTM format.
+\item LookY: Position Y to which we look in UTM format.
+\item LookZ: Position Z to which we look in UTM format.
 \end{itemize}
 
-Podem veure un exemple dels fitxers CSV a l'apèndix \ref{appendix:fitxerscsv} generats amb Excel.
+The file controls the cameras are in another file composed of the fields:
 
-\subsection{Simulació de soroll}
-Ja que els vehicles tenen moviments inesperats a conseqüència de l'aire, l'asfalt entre d'altres s'ha implementat un generador de soroll aplicat a la trajectòria que volem reproduir d'aquesta forma podem generar imatges amb soroll i moviments inesperats. Aquest soroll s'ha implementat mitjançant un soroll gaussià en el qual utilitzem com a centre el punt al qual ens volem moure i una sigma petita (entre 0 i 1) que ens generarà un moviment lleuger.
+\begin{itemize}
+\item Time: Time in milliseconds from start of the script.
+\item cameraId: The Id of the camera that want to modify.
+\item LookX: Position X to which we look in UTM format.
+\item LookY: Position Y to which we look in UTM format.
+\item LookZ: Position Z to which we look in UTM format.
+\item GetImage: Boolean (0 or 1) that indicates if you want to generate an image from this camera in this instant of time.
+\end{itemize}
 
-\subsection{Generació de Datasets}
+It can see an example from the CSV files in the appendix \ref{appendix:fitxerscsv} generates with Excel.
+
+\subsection{Noise simulation}
+
+As vehicles have unexpected movements due to the wind, the condition of the asphalt among others, is implementing a generator of noise applied to the trajectory you want to play, this way they are can generate images with noise and unexpected movements. This noise is implemented through a Gaussian noise in which the point at which you want to move is used as the center and the sigma is small (between 0 and 1) that generate a lightweight movement.
+
+\subsection{Generation of Datasets}
 Un dels objectius d'aquest treball és la possibilitat de generar datasets d'imatges sintètiques amb dades generades per satèl·lits, per tal de poder generar datasets s'utilitza el camp GetImage vist a la secció \ref{file-trajectories} que ens generarà una imatge cada cop que trobi aquest camp.
 
 En la figura \ref{fig-dataset} podem veure una petita mostra amb poques imatges d'un recorregut en el qual hem fixat que la càmera mires a un punt en concret que deixàvem enrere amb el transcurs del temps. 
@@ -657,14 +660,16 @@ S'han fet proves amb diverses visualitzacions provinents d'informació de satèl
 Per la part del mòdul d'scripting s'ha vist com es poden generar trajectòries reproduïbles en l'entorn simulat per tal de fer diversos viatges amb diferents informacions i extraure dades en forma de dataset. Aquestes trajectòries poden controlar diversos paràmetres del vehicle i càmeres indicant en quins punts es vol obtenir una imatge i de quina càmera. Per tal de simular el moviment a causa del vent o altres factors s'ha afegit un petit filtre com és la generació de soroll per tal de fer que se sacsegi el vehicle.
 
 
-\section*{Agraïments}
+\section*{Acknowledgments}
+
+First of all I want to thanks to my tutor Felipe Lumbreras for the time spent in this project, the help to consult to experts and all the ideas generated on the reunions, in second thanks to Marc... from guide me with the Unreal Engine and the best way to realize this project successful and for last thanks a my friend Javi Cantero for the help to check the English version of this document.
 
 \begin{thebibliography}{11}
 \bibitem{agile}
 Agile software development
 \\ \url{https://en.wikipedia.org/wiki/Agile_software_development}
 [19/02/2019]
-
+ 
 \bibitem{kanban}
 Kanban
 \\ \url{https://www.iebschool.com/blog/metodologia-kanban-agile-scrum/} [19/02/2019]

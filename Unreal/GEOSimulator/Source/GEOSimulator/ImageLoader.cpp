@@ -71,7 +71,7 @@ UTexture2D* UImageLoader::CreateTexture(UObject* Outer, const TArray<uint8>& Pix
 		(InSizeX % GPixelFormats[InFormat].BlockSizeX) != 0 ||
 		(InSizeY % GPixelFormats[InFormat].BlockSizeY) != 0)
 	{
-		UIL_LOG(Warning, TEXT("Invalid parameters specified for UImageLoader::CreateTexture()"));
+		//UIL_LOG(Warning, TEXT("Invalid parameters specified for UImageLoader::CreateTexture()"));
 		return nullptr;
 	}
 

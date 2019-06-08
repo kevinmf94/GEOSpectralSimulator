@@ -22,7 +22,8 @@ public class GEOSimulator : ModuleRules
         //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/rpc.lib");
         
         PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/x64/Release/GEOControl.lib");
-        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/rpc.lib");
+        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/rpc.lib");
+        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/librpc.a");
 
         PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/GEOControl/");
         PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/include/");
