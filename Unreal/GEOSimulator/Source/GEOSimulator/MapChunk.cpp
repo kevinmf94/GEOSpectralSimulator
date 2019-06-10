@@ -36,9 +36,9 @@ AMapChunk::AMapChunk()
 	}
 
 	#if WITH_EDITOR
-		this->AddTexture("RGB", FPaths::ProjectDir() + "Maps/outputwms.jpg");
-		this->AddTexture("IR", FPaths::ProjectDir() + "Maps/outputwmsi.jpg");
-		this->SetMeshFile(FPaths::ProjectDir() + "Maps/outputwcs.obj");
+//        this->AddTexture("RGB", FPaths::ProjectDir() + "Maps/outputwms.jpg");
+//        this->AddTexture("IR", FPaths::ProjectDir() + "Maps/outputwmsi.jpg");
+//        this->SetMeshFile(FPaths::ProjectDir() + "Maps/outputwcs.obj");
 	#endif
 }
 

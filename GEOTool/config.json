@@ -7,8 +7,8 @@
   },
   "dimensions": {
     "bbox":{
-      "height": 1500,
-      "width": 1500
+      "height": 300,
+      "width": 300
     },
     "texture":{
       "height": 1500,
@@ -22,7 +22,8 @@
   "cellsize": 15,
   "meshStep": 4,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "outputWcs": "example9x9big/pallars15",
+  "folderWcs": "example9x9big",
+  "outputWcs": "pallars15",
   "formatWcs": "obj",
   "wmsRequests": [
 	{

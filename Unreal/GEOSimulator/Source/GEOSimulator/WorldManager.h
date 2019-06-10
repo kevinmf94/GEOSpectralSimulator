@@ -29,6 +29,9 @@ private:
 	static void NextTexture(TextureSelected& textureActual);
 
 	void LoadExample9x9();
+    void LoadFile(FString path, FString fileName);
+    
+    FVector originVector;
 
 public:	
 	// Called every frame

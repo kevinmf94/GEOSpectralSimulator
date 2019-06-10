@@ -19,6 +19,7 @@ class GEOConfig:
 			"width"]
 		self.textureSize = self.file["dimensions"]["texture"]["height"], self.file["dimensions"]["texture"]["width"]
 		self.wcsUrl = self.file["wcsUrl"]
+		self.folderWcs = self.file["folderWcs"]
 		self.outputWcs = self.file["outputWcs"]
 		self.wmsRequests = self.file["wmsRequests"]
 		self.formatWcs = self.file['formatWcs']
