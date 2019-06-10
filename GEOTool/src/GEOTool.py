@@ -20,16 +20,20 @@ if __name__ == '__main__':
 			wcsData.save(filename, config.formatWcs, config.meshStep)
 			WCSSaver.generate_geojson(filename, wcsData)
 		
-			textures = {}
+			textures = []
 			for wms_request in config.wmsRequests:
 				filename_tex = filename+"_"+wms_request["name"]
 
 				wmsClient = WMSClient(wms_request["url"], config.coordinates, config.bboxSize,
-				                      config.textureSize, wms_request["layers"], offset, config.cellsize)
+									  config.textureSize, wms_request["layers"], offset, config.cellsize)
 
 				data = wmsClient.send_request()
 				WMSSaverJPG().save(filename_tex, data)
-				textures[wms_request["name"]] = name+"_"+wms_request["name"]+"."+wms_request['format']
+				
+				textures.append({
+					"name": wms_request["name"],
+					"file": name+"_"+wms_request["name"]+"."+wms_request['format']
+				})
 
 			mapData.append({
 				"file": name+"."+config.formatWcs,

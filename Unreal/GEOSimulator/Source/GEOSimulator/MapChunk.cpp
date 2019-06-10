@@ -203,12 +203,112 @@ void AMapChunk::LoadMeshFile()
 	mesh->ContainsPhysicsTriMeshData(false);
 }
 
+void AMapChunk::LoadMeshFileMac()
+{
+    TArray<FVector> vertices;
+    TArray<int32> Triangles;
+    TArray<FVector> normals;
+    TArray<FVector2D> UV0;
+    TArray<FProcMeshTangent> tangents;
+    TArray<FLinearColor> vertexColors;
+    
+    TArray<FString> fileItems;
+    bool success = FFileHelper::LoadFileToStringArray(fileItems, *meshFile);
+    if (success)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("FirstLine %s"), *(fileItems[0]));
+        UE_LOG(LogTemp, Warning, TEXT("File Open NLines = %d"), fileItems.Num());
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Error load mesh"));
+    }
+    
+    UE_LOG(LogTemp, Warning, TEXT("Path %s"), *meshFile);
+    
+    for (int i = 0; i < fileItems.Num(); i++)
+    {
+        if (fileItems[i].Contains(TEXT("vn"), ESearchCase::CaseSensitive))
+        {
+            TArray<FString> vnLine;
+            fileItems[i].ParseIntoArray(vnLine, TEXT(" "));
+            if (vnLine.Num() == 4)
+            {
+                float x = FCString::Atof(*vnLine[1]);
+                float y = FCString::Atof(*vnLine[2]);
+                float z = FCString::Atof(*vnLine[3]);
+                normals.Add(FVector(x, y, z));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vnLine.Num());
+                break;
+            }
+        }
+        else if (fileItems[i].Contains(TEXT("vt"), ESearchCase::CaseSensitive))
+        {
+            TArray<FString> vtLine;
+            fileItems[i].ParseIntoArray(vtLine, TEXT(" "));
+            if (vtLine.Num() == 3)
+            {
+                float x = FCString::Atof(*vtLine[1]);
+                float y = FCString::Atof(*vtLine[2]);
+                UV0.Add(FVector2D(x, y));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vtLine.Num());
+                break;
+            }
+        }
+        else if ( fileItems[i].Contains(TEXT("v"), ESearchCase::CaseSensitive) )
+        {
+            TArray<FString> vLine;
+            int32 count = 0;
+            fileItems[i].ParseIntoArray(vLine, TEXT(" "));
+            if (vLine.Num() == 4)
+            {
+                float x = FCString::Atof(*vLine[1]);
+                float y = FCString::Atof(*vLine[2]);
+                float z = FCString::Atof(*vLine[3]);
+                vertices.Add(FVector(x, -y, z));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vLine.Num());
+                break;
+            }
+        }
+        else if (fileItems[i].Contains(TEXT("f"), ESearchCase::CaseSensitive))
+        {
+            TArray<FString> fLine;
+            TArray<FString> fItem;
+            fileItems[i].ParseIntoArray(fLine, TEXT(" "));
+            for (int j = 1; j < fLine.Num(); j++)
+            {
+                UE_LOG(LogTemp, Warning, TEXT("v LineStr %d [%s]"), i, *fLine[j]);
+                fLine[j].ParseIntoArray(fItem, TEXT("/"));
+                int32 faceId = FCString::Atoi(*fItem[0]);
+                UE_LOG(LogTemp, Warning, TEXT("v Line %d [%d]"), i, faceId-1);
+                Triangles.Add(faceId - 1);
+            }
+            
+            
+        }
+    }
+    
+    mesh->CreateMeshSection_LinearColor(0, vertices, Triangles, normals, UV0, vertexColors, tangents, false);
+    
+    // Enable collision data
+    mesh->ContainsPhysicsTriMeshData(false);
+}
+
 // Called when the game starts or when spawned
 void AMapChunk::BeginPlay()
 {
 	Super::BeginPlay();
 
-	LoadMeshFile();
+	LoadMeshFileMac();
 	UE_LOG(LogTemp, Warning, TEXT("SetActorRotation"));
 	if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
 	{

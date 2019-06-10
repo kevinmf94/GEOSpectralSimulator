@@ -34,6 +34,7 @@ public:
 	void PostActorCreated() override;
 	void PostLoad() override;
 	void LoadMeshFile();
+    void LoadMeshFileMac();
 	void LoadTexture();
 
 	//Setters

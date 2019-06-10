@@ -59,8 +59,6 @@ void AWorldManager::BeginPlay()
 
 void AWorldManager::LoadFile(FString path, FString fileName)
 {
-    
-    
     FString JsonFilePath;
     JsonFilePath.Append(path);
     JsonFilePath.Append(fileName);
@@ -100,15 +98,28 @@ void AWorldManager::LoadFile(FString path, FString fileName)
             transform.SetLocation(location);
             AMapChunk* chunk = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
             
-//            chunk00->AddTexture("RGB", FPaths::ProjectDir() + "Maps/example9x9/outputwms00.jpg");
-//            chunk00->AddTexture("IR", FPaths::ProjectDir() + "Maps/example9x9/outputwmsi00.jpg");
+            
+//          chunk00->AddTexture("RGB", FPaths::ProjectDir() + "Maps/example9x9/outputwms00.jpg");
+//          chunk00->AddTexture("IR", FPaths::ProjectDir() + "Maps/example9x9/outputwmsi00.jpg");
+            
+            
+            TArray<TSharedPtr<FJsonValue>> texturesItems = obj->GetArrayField("textures");
+            for(int j = 0; j < texturesItems.Num(); j++)
+            {
+                TSharedPtr<FJsonValue> txtValue = texturesItems[j];
+                TSharedPtr<FJsonObject> txtPtrObj = txtValue.Get()->AsObject();
+                FJsonObject* txtObj = txtPtrObj.Get();
+                
+                FString txtName = txtObj->GetStringField("name");
+                FString txtFile = path+txtObj->GetStringField("file");
+                
+                UE_LOG(LogTemp, Warning, TEXT("Texture Name[%s] File[%s]"), *txtName, *txtFile);
+                chunk->AddTexture(FName(*txtName), txtFile);
+            }
+            
             chunk->SetMeshFile(fileName);
             chunk->FinishSpawning(transform);
             chunks.Add(chunk);
-            
-            //TArray<TSharedPtr<FJsonValue>> JsonItems = obj->GetArrayField("textures");
-            
-            
             UE_LOG(LogTemp, Warning, TEXT("File N[%d] File[%s]"), i, *fileName);
         }
     }
