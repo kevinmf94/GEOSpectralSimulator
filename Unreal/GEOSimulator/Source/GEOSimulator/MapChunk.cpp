@@ -286,10 +286,8 @@ void AMapChunk::LoadMeshFileMac()
             fileItems[i].ParseIntoArray(fLine, TEXT(" "));
             for (int j = 1; j < fLine.Num(); j++)
             {
-                UE_LOG(LogTemp, Warning, TEXT("v LineStr %d [%s]"), i, *fLine[j]);
                 fLine[j].ParseIntoArray(fItem, TEXT("/"));
                 int32 faceId = FCString::Atoi(*fItem[0]);
-                UE_LOG(LogTemp, Warning, TEXT("v Line %d [%d]"), i, faceId-1);
                 Triangles.Add(faceId - 1);
             }
             

@@ -19,6 +19,8 @@ public:
 	UGEOCameraComponent();
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+    
+    virtual void BeginPlay() override;
 
 	void SetNewRotation(FVector lookAt);
 
@@ -31,4 +33,6 @@ private:
 
 	UPROPERTY()
 	UGEOSceneCaptureComponent2D* sceneCapture;
+    
+    FVector worldOrigin;
 };

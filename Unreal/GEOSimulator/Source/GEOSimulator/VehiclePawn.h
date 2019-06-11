@@ -60,4 +60,6 @@ public:
 	UStaticMeshComponent* staticMeshComponent;
 
 	UStaticMesh* staticMesh;
+    
+    FVector worldOrigin;
 };

@@ -23,4 +23,6 @@ public:
 	UPROPERTY()
 	UTexture* texture = nullptr;
 
+    FVector worldOrigin;
+    FVector playerPosition;
 };

@@ -31,7 +31,7 @@ private:
 	void LoadExample9x9();
     void LoadFile(FString path, FString fileName);
     
-    FVector originVector;
+    FVector worldOrigin;
 
 public:	
 	// Called every frame
@@ -39,4 +39,6 @@ public:
 
 	TArray<AMapChunk*> GetChunks();
 	void ChangeTexture();
+    
+    FVector GetWorldOrigin();
 };

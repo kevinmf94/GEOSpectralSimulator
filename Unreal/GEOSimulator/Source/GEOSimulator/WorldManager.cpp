@@ -21,44 +21,15 @@ void AWorldManager::BeginPlay()
 	Super::BeginPlay();
     
     LoadFile(FPaths::ProjectDir() + "Maps/example9x9big/", "pallars15.json");
-	
-	//LoadExample9x9();
-
-	/*FVector Location(0.0f, 0.0f, 0.0f);
-	FRotator Rotation(0.0f, 0.0f, 0.0f);
-
-	FTransform transform;
-
-	AMapChunk* chunk1 = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr,
-		ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-
-	UE_LOG(LogTemp, Warning, TEXT("SetTexturesAndMesh"));
-	chunk1->AddTexture("RGB", FPaths::ProjectDir() + "Maps/outputwms.jpg");
-	chunk1->AddTexture("IR", FPaths::ProjectDir() + "Maps/outputwmsi.jpg");
-	//chunk1->AddTexture("B02", FPaths::ProjectDir() + "Maps/outputwmsb02.jpg");
-	chunk1->SetMeshFile(FPaths::ProjectDir() + "Maps/outputwcs.obj");
-	chunk1->FinishSpawning(transform);
-
-	chunks.Add(chunk1);
-
-	FVector Location2(1250.0f, 0.0f, 0.0f);
-
-	transform.SetLocation(Location2);
-	AMapChunk* chunk2 = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr,
-		ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-
-	UE_LOG(LogTemp, Warning, TEXT("SetTexturesAndMesh"));
-	chunk2->AddTexture("RGB", FPaths::ProjectDir() + "Maps/outputwms2.jpg");
-	chunk2->AddTexture("IR", FPaths::ProjectDir() + "Maps/outputwmsi2.jpg");
-	chunk2->SetMeshFile(FPaths::ProjectDir() + "Maps/outputwcs2.obj");
-	chunk2->FinishSpawning(transform);
-
-	chunks.Add(chunk2);*/
-	
+    
+    //Example big terrain preloaded
+    //worldOrigin = FVector(326737.05928061914f, -4676971.31928062f, 0.f);
 }
 
 void AWorldManager::LoadFile(FString path, FString fileName)
 {
+    FVector correction(-150.f, 150.f, 0.f);
+    
     FString JsonFilePath;
     JsonFilePath.Append(path);
     JsonFilePath.Append(fileName);
@@ -87,22 +58,41 @@ void AWorldManager::LoadFile(FString path, FString fileName)
             double x = obj->GetNumberField("x");
             double y = obj->GetNumberField("y");
             
-            //Set te origin of data
-            if(i == 0)
-                originVector = FVector(x, -y, 0.f);
+            //Load chunk pos and set correction
+            TSharedPtr<FJsonObject> chunkPtrObj = jsonObject->GetObjectField("chunkpos");
+            FJsonObject* chunkObj = chunkPtrObj.Get();
+            FVector correctionChunk = correction;
+            
+            double chunkX = chunkObj->GetNumberField("x");
+            double chunkY = chunkObj->GetNumberField("y");
+            
+            //correctionChunk.X = correctionChunk.X*chunkX;
+//            correctionChunk.Y = correctionChunk.Y*chunkY;
+            
+            //Get cellsize, sizeofxy and calculate the origin
+            if(i == 0) {
+                TSharedPtr<FJsonObject> sizePtrObj = jsonObject->GetObjectField("size");
+                FJsonObject* sizeObj = sizePtrObj.Get();
+                
+                double sizeY = sizeObj->GetNumberField("y");
+                double cellsize =  jsonObject->GetNumberField("cellsize");
+                
+                worldOrigin = FVector(x, -y+(sizeY*cellsize), 0.f);
+                UE_LOG(LogTemp, Warning, TEXT("Calculated WorldOrigin %f %f"), worldOrigin.X, worldOrigin.Y)
+            }
             
             //Create chunk
             FTransform transform;
-            FVector location = FVector(x, -y, 0.f) - originVector;
+            FVector location = FVector(x, -y, 0.f) - worldOrigin;
+            
+//            if(i != 0)
+//                location = location+correctionChunk;
             
             transform.SetLocation(location);
             AMapChunk* chunk = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
             
             
-//          chunk00->AddTexture("RGB", FPaths::ProjectDir() + "Maps/example9x9/outputwms00.jpg");
-//          chunk00->AddTexture("IR", FPaths::ProjectDir() + "Maps/example9x9/outputwmsi00.jpg");
-            
-            
+            //Load textures
             TArray<TSharedPtr<FJsonValue>> texturesItems = obj->GetArrayField("textures");
             for(int j = 0; j < texturesItems.Num(); j++)
             {
@@ -113,14 +103,13 @@ void AWorldManager::LoadFile(FString path, FString fileName)
                 FString txtName = txtObj->GetStringField("name");
                 FString txtFile = path+txtObj->GetStringField("file");
                 
-                UE_LOG(LogTemp, Warning, TEXT("Texture Name[%s] File[%s]"), *txtName, *txtFile);
                 chunk->AddTexture(FName(*txtName), txtFile);
             }
             
+            //Finish spawn chunk
             chunk->SetMeshFile(fileName);
             chunk->FinishSpawning(transform);
             chunks.Add(chunk);
-            UE_LOG(LogTemp, Warning, TEXT("File N[%d] File[%s]"), i, *fileName);
         }
     }
     else
@@ -169,4 +158,9 @@ void AWorldManager::NextTexture(TextureSelected& textureActual)
 		textureActual = RGB;
 		break;
 	}
+}
+
+FVector AWorldManager::GetWorldOrigin()
+{
+    return worldOrigin;
 }
