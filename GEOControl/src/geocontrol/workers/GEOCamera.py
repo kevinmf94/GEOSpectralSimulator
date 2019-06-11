@@ -1,13 +1,11 @@
 from .GEOWorker import GEOWorker
-from numpy import genfromtxt
 import os
 
 
 class GEOCamera(GEOWorker):
 
     def __init__(self, client, csv_file, generate_images=False, filename="Output", path="../outputs/"):
-        GEOWorker.__init__(self, client)
-        self.data = genfromtxt(csv_file, delimiter=';', skip_header=1)
+        GEOWorker.__init__(self, client, csv_file)
         self.index = 0
         self.item = self.data[self.index]
         self.generate_images = generate_images
