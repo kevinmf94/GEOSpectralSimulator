@@ -37,6 +37,15 @@ if __name__ == '__main__':
 
 			mapData.append({
 				"file": name+"."+config.formatWcs,
+				"size": {
+					"x": config.bboxSize[0],
+					"y": config.bboxSize[1]				
+				},
+				"cellsize": config.cellsize,
+				"chunkpos": {
+					"x": w,
+					"y": h
+				},
 				"x": wcsData.xllcorner,
 				"y": wcsData.yllcorner,
 				"textures": textures

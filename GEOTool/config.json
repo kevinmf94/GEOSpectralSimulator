@@ -7,8 +7,8 @@
   },
   "dimensions": {
     "bbox":{
-      "height": 300,
-      "width": 300
+      "height": 1000,
+      "width": 1000
     },
     "texture":{
       "height": 1500,
@@ -16,8 +16,8 @@
     }
   },
   "chunks": {
-    "width": 3,
-    "height": 3
+    "width": 2,
+    "height": 2
   },
   "cellsize": 15,
   "meshStep": 4,
