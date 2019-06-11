@@ -77,13 +77,14 @@ void AWorldManager::LoadFile(FString path, FString fileName)
                 double sizeY = sizeObj->GetNumberField("y");
                 double cellsize =  jsonObject->GetNumberField("cellsize");
                 
-                worldOrigin = FVector(x, -y+(sizeY*cellsize), 0.f);
+                UE_LOG(LogTemp, Warning, TEXT("Calculated Calc params %f %f %f"), y, sizeY, cellsize)
+                worldOrigin = FVector(x, y-(sizeY*cellsize), 0.f);
                 UE_LOG(LogTemp, Warning, TEXT("Calculated WorldOrigin %f %f"), worldOrigin.X, worldOrigin.Y)
             }
             
             //Create chunk
             FTransform transform;
-            FVector location = FVector(x, -y, 0.f) - worldOrigin;
+            FVector location = WorldToUnreal(FVector(x, y, 0.f));
             
             if(i != 0)
                 location = location+correctionChunk;
@@ -163,4 +164,19 @@ void AWorldManager::NextTexture(TextureSelected& textureActual)
 FVector AWorldManager::GetWorldOrigin()
 {
     return worldOrigin;
+}
+
+FVector AWorldManager::WorldToUnreal(FVector vector)
+{
+    vector = vector-worldOrigin;
+    vector.Y = -vector.Y;
+    return vector;
+}
+
+FVector AWorldManager::UnrealToWorld(FVector vector)
+{
+    FVector worldOriginT = worldOrigin;
+    vector.Y = -vector.Y;
+    vector = vector+worldOriginT;
+    return vector;
 }

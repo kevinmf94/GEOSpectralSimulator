@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "RPCPawnServer.h"
 #include "GEOCameraComponent.h"
+#include "WorldManager.h"
 #include "VehiclePawn.generated.h"
 
 class UCameraComponent;
@@ -61,5 +62,5 @@ public:
 
 	UStaticMesh* staticMesh;
     
-    FVector worldOrigin;
+    AWorldManager* worldManager;
 };

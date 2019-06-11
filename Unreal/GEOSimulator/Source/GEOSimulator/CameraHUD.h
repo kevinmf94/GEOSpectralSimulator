@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "WorldManager.h"
 #include "CameraHUD.generated.h"
 
 /**
@@ -23,6 +24,6 @@ public:
 	UPROPERTY()
 	UTexture* texture = nullptr;
 
-    FVector worldOrigin;
+    AWorldManager* worldManager;
     FVector playerPosition;
 };

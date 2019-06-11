@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GEOSceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
+#include "WorldManager.h"
 #include "GEOCameraComponent.generated.h"
 
 /**
@@ -34,5 +35,5 @@ private:
 	UPROPERTY()
 	UGEOSceneCaptureComponent2D* sceneCapture;
     
-    FVector worldOrigin;
+    AWorldManager* worldManager;
 };

@@ -29,9 +29,7 @@ void UGEOCameraComponent::BeginPlay()
     Super::BeginPlay();
     
     AGEOSimulatorAPIGameModeBase* gameMode = GetWorld()->GetAuthGameMode<AGEOSimulatorAPIGameModeBase>();
-    AWorldManager* manager = gameMode->GetWorldManager();
-    worldOrigin = manager->GetWorldOrigin();
-    worldOrigin.Y = -worldOrigin.Y;
+    worldManager = gameMode->GetWorldManager();
 }
 
 
@@ -44,12 +42,13 @@ void UGEOCameraComponent::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 		if(!NewLookAt.IsZero())
 		{
 			FVector ActorLocation = GetOwner()->GetActorLocation();
-            UE_LOG(LogTemp, Warning, TEXT("NewLookAtCamera [%f %f]"), NewLookAt.X, NewLookAt.Y);
-            UE_LOG(LogTemp, Warning, TEXT("WorldOrigin [%f %f]"), worldOrigin.X, worldOrigin.Y);
-            UE_LOG(LogTemp, Warning, TEXT("NewLookAtCamera-WorldOrigin [%f %f]"), NewLookAt.X-worldOrigin.X, NewLookAt.Y-worldOrigin.Y);
-			FRotator rotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewLookAt-worldOrigin);
+            
+            //Parse ActorLocation to RealWorld
+            FVector playerWorld = worldManager->UnrealToWorld(ActorLocation);
+            FRotator rotation = UKismetMathLibrary::FindLookAtRotation(playerWorld, NewLookAt);
+			
 			SetRelativeRotation(rotation);
-			NewLookAt = FVector::ZeroVector;
+            NewLookAt = FVector::ZeroVector;
 		}
 	}
 }

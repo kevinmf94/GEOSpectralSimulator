@@ -41,4 +41,7 @@ public:
 	void ChangeTexture();
     
     FVector GetWorldOrigin();
+    
+    FVector WorldToUnreal(FVector vector);
+    FVector UnrealToWorld(FVector vector);
 };

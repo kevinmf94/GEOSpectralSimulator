@@ -75,10 +75,7 @@ void AVehiclePawn::BeginPlay()
 	hud->SetTexture(cameras[1]->GetTexture());
     
     AGEOSimulatorAPIGameModeBase* gameMode = GetWorld()->GetAuthGameMode<AGEOSimulatorAPIGameModeBase>();
-    AWorldManager* manager = gameMode->GetWorldManager();
-    worldOrigin = manager->GetWorldOrigin();
-    worldOrigin.Y = -worldOrigin.Y;
-    UE_LOG(LogTemp, Warning, TEXT("World Origin [%f %f]"), worldOrigin.X, worldOrigin.Y);
+    worldManager = gameMode->GetWorldManager();
 }
 
 void AVehiclePawn::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -95,12 +92,7 @@ void AVehiclePawn::Tick(float DeltaTime)
 	{
 		if (!NewLocation.IsZero())
 		{
-            UE_LOG(LogTemp, Warning, TEXT("NewLocation AVehicle %f %f"), NewLocation.X, NewLocation.Y);
-            UE_LOG(LogTemp, Warning, TEXT("worldOrigin AVehicle %f %f"), worldOrigin.X, worldOrigin.Y);
-            FVector normalize = NewLocation-worldOrigin;
-            normalize.Y = -normalize.Y;
-            UE_LOG(LogTemp, Warning, TEXT("normalize AVehicle %f %f"), normalize.X, normalize.Y);
-			SetActorLocation(normalize);
+			SetActorLocation(worldManager->WorldToUnreal(NewLocation));
 			NewLocation = FVector::ZeroVector;
 		}
 	}
@@ -109,11 +101,15 @@ void AVehiclePawn::Tick(float DeltaTime)
 	{
 		if (!NewLookAt.IsZero())
 		{
-			FVector ActorLocation = GetActorLocation()+worldOrigin;
-            ActorLocation.Y = -ActorLocation.Y;
-            NewLookAt.Y = -NewLookAt.Y;
+			FVector ActorLocation = GetActorLocation();
+            
+            
+            NewLookAt = worldManager->WorldToUnreal(NewLookAt);
+            UE_LOG(LogTemp, Warning, TEXT("playerWorld AVehiclePawn %f %f"), ActorLocation.X, ActorLocation.Y);
+            UE_LOG(LogTemp, Warning, TEXT("NewLookAt AVehiclePawn %f %f"), NewLookAt.X, NewLookAt.Y);
 			FRotator rotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewLookAt);
 			SetActorRotation(rotation);
+            
 			NewLookAt = FVector::ZeroVector;
 		}
 	}
