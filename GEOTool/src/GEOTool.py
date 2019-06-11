@@ -35,6 +35,7 @@ if __name__ == '__main__':
 					"file": name+"_"+wms_request["name"]+"."+wms_request['format']
 				})
 
+			# The h correspond to x and the w to y (Problem on GEOClient TODO)
 			mapData.append({
 				"file": name+"."+config.formatWcs,
 				"size": {
@@ -43,8 +44,8 @@ if __name__ == '__main__':
 				},
 				"cellsize": config.cellsize,
 				"chunkpos": {
-					"x": w,
-					"y": h
+					"x": h,
+					"y": w
 				},
 				"x": wcsData.xllcorner,
 				"y": wcsData.yllcorner,

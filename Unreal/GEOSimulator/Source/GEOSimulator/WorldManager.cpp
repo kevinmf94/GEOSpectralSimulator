@@ -66,8 +66,8 @@ void AWorldManager::LoadFile(FString path, FString fileName)
             double chunkX = chunkObj->GetNumberField("x");
             double chunkY = chunkObj->GetNumberField("y");
             
-            //correctionChunk.X = correctionChunk.X*chunkX;
-//            correctionChunk.Y = correctionChunk.Y*chunkY;
+            correctionChunk.X = correctionChunk.X*chunkX;
+            correctionChunk.Y = correctionChunk.Y*chunkY;
             
             //Get cellsize, sizeofxy and calculate the origin
             if(i == 0) {
@@ -85,8 +85,8 @@ void AWorldManager::LoadFile(FString path, FString fileName)
             FTransform transform;
             FVector location = FVector(x, -y, 0.f) - worldOrigin;
             
-//            if(i != 0)
-//                location = location+correctionChunk;
+            if(i != 0)
+                location = location+correctionChunk;
             
             transform.SetLocation(location);
             AMapChunk* chunk = GetWorld()->SpawnActorDeferred<AMapChunk>(AMapChunk::StaticClass(), transform, nullptr, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
