@@ -122,10 +122,10 @@ Simulator, Terrain, Satelite, Multiespectre, Unreal Engine\\
 
 \vspace{-1cm}
 \section{Introduction}
-The simulation of the real world for the generation of synthetic images is a scope in which you are looking to represent the real world more accurately possible, in this way can generate synthetic information that represents real environments that can represent a danger (for the natural environment, people, etc) or a high economic cost.
+The simulation of the real world for the generation of synthetic images is a scope in which you are looking to represent the real world as accurately as possible, to generate synthetic information that represents real environments that can present a danger (for the natural environment, people, etc) or a high economic cost.
 \\
 \\
-On this project you want to get that is able to by means of elevation maps and aerial images of real terrains generates a simulated environment that it can generate its image datasets, which can be used in multiple areas of the computation learning. Also, it can simulate flying, see a geographical area or expand this project in other environments that uses a geographic information. That geographical information it can provided from multiple sources this allows to work with a lot of external data.
+On this project I get this information by means of elevation maps and aerial images of real terrains that we use to create a simulated environment that generates its image datasets, which can be used in multiple areas of computer learning. Also, this project can simulate flying, see a geographical area or expand in other environments that use geographic information. That geographical information can be provided from multiple sources, which allows to work with a lot of external data.
 
 \section{Objectius}
 
@@ -196,21 +196,21 @@ En aquest apartat determinarem els diferents objectius del projecte en format de
 \end{enumerate}
 
 \section{Methodology}
-In this project its decide uses a methodology of Agile\cite{agile} style, this allows to identify more efficiently the little parts that compose the project, besides adapt to the changes. More concretely has used a technique called Kanban\cite{kanban} which consists in organizing this backlog (tasks of short duration) on cards that will be placed on a board according to the point of the life cycle on the tasks founds it. For this to be used the Trello\cite{trello} software that can see the boards on web browser, create cards and move it between different lists.
+In this project I decided to use an Agile methodology\cite{agile}, this allows to identify more efficiently the little parts that compose the project, and to adapt to changes I need to make along the way. More specifically, I used a technique called Kanban\cite{kanban} which consists in organizing the backlog (tasks of short duration) on cards that will be placed on a board according to the point of the life cycle where the tasks currently are. For this purpose, I used the Trello\cite{trello} software that allows me to see the boards on a web browser, create cards and move them between different lists.
 
 \subsection{Gant Diagram}
 
-In order to manage a project you must also include a Gant diagram done with excel. In this diagram several tasks and subtasks are contemplated in order to make a prediction of the work done, the approximate time is what it will take for each task, this will allow an approximation of the time that the project behaves in this way.
+In order to manage a project you must also include a Gantt diagram done with excel. In this diagram several tasks and subtasks are contemplated in order to make a prediction of the work done and left to do and the approximate time each task will take, which will allow us to plan the project with an accurate use of time.
 
 \section{State of the art}
 \label{estatart}
 
-Currently exists diverse applications for the generation of images in simulated environments with the finality of generating data used in machine learning algorithms.
+Currently, a diverse number of applications exist for the generation of images in simulated environments with the goal of generating data used in machine learning algorithms.
 
-In this scope one of the most import is AirSim\cite{airsim} developed by Microsoft and Carla SIMULATOR\cite{carla} developed by ''Centre de Visio per Computador (CVC)'', also it's analyse others, how can they be LESS\cite{less}, DIRSIG {dirsig} or Google Earth Engine\cite{googleearth} of more specific scope.
+In this scope one of the most important is AirSim\cite{airsim} developed by Microsoft and Carla SIMULATOR\cite{carla} developed by ''Centre de Visio per Computador (CVC)'', and others, like LESS\cite{less}, DIRSIG {dirsig} or Google Earth Engine\cite{googleearth} for more specific scopes.
 
 \subsection{AirSim}
-AirSim is a graphic simulator made with Unreal Engine, this simulator has the purpose of generating synthetic images on fake environments, it incorporates multiple modules that are offered the next functionalities (You can see an example in the figure \ref{fig-airsim}):
+AirSim is a graphic simulator made with Unreal Engine, this simulator has the purpose of generating synthetic images on fake environments, it incorporates multiple modules that offer the following functionalities (You can see an example in the figure \ref{fig-airsim}):
 
 \begin{itemize}
   \item Simulation of cars.
@@ -232,7 +232,7 @@ AirSim is a graphic simulator made with Unreal Engine, this simulator has the pu
 \end{figure}
 
 \subsection{Carla SIMULATOR}
-The Carla is a graphical simulator made on the Unreal Engine, this simulator has the finality of generating images on a fake environment with the maximum realism so that possible to generate images that they can serve to a made learning the neural networks able to drive safely a autonomous car taking into the unlikely cases that are difficult to generate in the real world. Its environment has the next functionalities:
+The Carla is a graphical simulator made on the Unreal Engine, this simulator has the finality of generating images on a fake environment with maximum realism to generate images that they can use on neural networks to drive an autonomous car safely, taking into account the unlikely cases that are difficult to generate in the real world. Its environment has the next functionalities:
 
 \begin{itemize}
   \item Simulation of cars.
@@ -243,7 +243,7 @@ The Carla is a graphical simulator made on the Unreal Engine, this simulator has
 \end{itemize}
 
 \subsection{LESS}
-LESS is a model of the radiation (You can see an example, in the figure \ref{fig-lessradiacio}) generated on a three-dimensional object/terrain for different rays, generating from a technique of ray-tracing its able to simulate data and images over realistic three-dimensional scenes. This model implements a method of follow weighted photons for simulating the effect of multi-spectral bidirectional reflectance.
+LESS is a model of the radiation (You can see an example, in the figure \ref{fig-lessradiacio}) generated on a three-dimensional object/terrain for different rays, generating from a technique of ray-tracing, which is able to simulate data and images over realistic three-dimensional scenes. This model implements a method of follow weighted photons for simulating the effect of multi-spectral bidirectional reflectance.
 
 \begin{figure}[!h]
 \centering
@@ -264,7 +264,7 @@ The model of Digital Imaging and Remote Sensing Image Generation (DIRSIG) is a m
 
 \subsection{Google Earth Engine}
 
-Google Earth Engine is a project by Google, dedicated to offer the necessary tools to be able to analyse and visualize geospacial data, intended for an academy studies, non-profit institutions, companies and governments. The principal features of the Google Earth Engine are:
+Google Earth Engine is a project by Google, dedicated to offer the necessary tools to be able to analyse and visualize geospacial data, intended for an academic studies, non-profit institutions, companies and governments. The principal features of the Google Earth Engine are:
 
 \begin{itemize}
   \item We can work with datasets from different satellites such as LANDSAT, MODIS, SENTINEL, etc.
@@ -272,7 +272,7 @@ Google Earth Engine is a project by Google, dedicated to offer the necessary too
 \end{itemize}
 
 \section{Structure of project}
-In order to determine the project structure, it's study the diverse alternatives viewed on section \ref{estatart}. Will be analysed the structure from AirSim and Carla with the objective of deciding the ownership structure and the external libraries to incorporate them into the project.
+In order to determine the project structure, it's study the diverse alternatives viewed on section \ref{estatart}. The structure of AirSim and Carla will be analyzed with the objective of deciding the ownership structure and the external libraries to incorporate them into the project.
 
 \subsection{AirSim} 
 AirSim is composed of multiple modules written in various languages, as can be seen below:
@@ -289,7 +289,7 @@ AirSim is composed of multiple modules written in various languages, as can be s
 
 \subsection{Carla SIMULATOR}
 
-Carla SIMULATOR is composed for multiple modules as you can see in the figure \ref{fig-carlamodules} written in multiple languages. The modules of Carla are:
+Carla SIMULATOR is composed of multiple modules as you can see in the figure \ref{fig-carlamodules} written in multiple languages. The modules of Carla are:
 
 \begin{figure}[!h]
 \centering
@@ -307,7 +307,7 @@ Carla SIMULATOR is composed for multiple modules as you can see in the figure \r
 
 \subsection{The structure chosen}
 
-Analysing multiple projects with similar features, it's decide for a own structure as we can see in the figure \ref{fig-dronsimulatormodules} being able to use something modules with other open-source projects. Its make this decision due to the fact that the other projects are based on the creation of terrain predefined on Unreal Editor, the opposite to the finality of this project in which its make terrain automatically provided by real data.
+Analysing multiple projects with similar features, to decide for our own structure as we can see in the figure \ref{fig-dronsimulatormodules} being able to use something modules with other open-source projects. Its make this decision due to the fact that the other projects are based on the creation of terrain predefined on Unreal Editor, the opposite to the finality of this project in which its make terrain automatically provided by real data.
 
 \begin{figure}[!h]
 \centering
@@ -319,16 +319,16 @@ Analysing multiple projects with similar features, it's decide for a own structu
 Our project will consist of these modules:
 
 \begin{itemize}
-  \item \textbf{GEOTool (Python)}: This module has the finality of provides the needed tools for obtaining and adapt the data from some standards for geographical data web-service with the objective of can import this data on any graphic motor, it can generate diverse layers of data for the downloaded terrains as textures (RGB, infrared, etc.), geojson, etc. 
+  \item \textbf{GEOTool (Python)}: This module has the goal of providing the needed tools for obtaining and adapting the data from some standards for geographical data web-service with the objective of can import this data on any graphic motor, it can generate diverse layers of data for the downloaded terrains as textures (RGB, infrared, etc.), geojson, etc. 
   
-  \item \textbf{ScriptAPI (Python)}: This module provides the interface to control the simulator trough scripts and trajectories files, its allow to control the vehicle, cameras, when generate images for the dataset, etc. Also can implements extra functionality as generation of noise to the vehicle and more.
+  \item \textbf{ScriptAPI (Python)}: This module provides the interface to control the simulator trough scripts and trajectories files, allow it to control the vehicle, cameras, generate images for the dataset, etc. Also can implements extra functionality as generation of noise to the vehicle and more.
   
   \item \textbf{Unreal Engine Simulator (C++)}: Based on the Unreal Engine includes the plugins to implement an RPC Server, interface necessary to read files generated by GEOTool and the generation of images.
 \end{itemize}
 
 \section{Module GEOTool}
 
-In this section can see how works the module GEOTool and which is the functionality implemented, more concretely can see the origin of data, the configuration file, how to prepare data for graphical engines like as Unreal, Unity, OpenGL, etc. Finally it will be analysed the performance of the generation from wavefront object files (.obj).
+In this section we can see how the GEOTool module works and what is the functionality implemented, more concretely can see the origin of data, the configuration file, how to prepare data for graphical engines like as Unreal, Unity, OpenGL, etc. Finally the performance of the generation from wavefront object files (.obj) will be analysed.
 
 \subsection{Obtaining data}
 \label{getdata}
