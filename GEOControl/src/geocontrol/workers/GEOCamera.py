@@ -4,7 +4,7 @@ import os
 
 class GEOCamera(GEOWorker):
 
-    def __init__(self, client, csv_file, generate_images=False, filename="Output", path="../outputs/"):
+    def __init__(self, client, csv_file, generate_images=False, filename="Output", path="outputs/"):
         GEOWorker.__init__(self, client, csv_file)
         self.index = 0
         self.item = self.data[self.index]
@@ -22,6 +22,11 @@ class GEOCamera(GEOWorker):
             self.client.set_camera_lookat(int(self.item[1]), self.item[2], self.item[3], self.item[4])
 
             if self.item[5] == 1:
+                try:
+                    os.mkdir(self.path)
+                except FileExistsError:
+                    pass
+
                 file_path = os.path.abspath(self.path + self.filename + str(self.index) + ".png")
                 self.client.get_image(int(self.item[1]), file_path)
 

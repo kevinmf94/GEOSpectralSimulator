@@ -16,8 +16,8 @@ if __name__ == '__main__':
 	if client.connect():
 
 		clock = GEOClock()
-		vehicle = GEOVehicle(client, '../mavlink_line.csv')
-		camera = GEOCamera(client, '../mavlink_line_camera2.csv')
+		vehicle = GEOVehicle(client, sys.argv[1])
+		camera = GEOCamera(client, sys.argv[2])
 		clock.register(vehicle)
 		clock.register(camera)
 		clock.start()
