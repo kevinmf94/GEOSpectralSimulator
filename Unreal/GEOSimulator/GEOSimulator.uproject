@@ -9,14 +9,20 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine", "ProceduralMeshComponent"
+				"Engine",
+				"ProceduralMeshComponent"
 			]
 		}
 	],
 	"Plugins": [
-    { 
-      "Name": "ProceduralMeshComponent", 
-      "Enabled": true
-    } 
+		{
+			"Name": "ProceduralMeshComponent",
+			"Enabled": true
+		}
+	],
+	"TargetPlatforms": [
+		"LinuxNoEditor",
+		"MacNoEditor",
+		"WindowsNoEditor"
 	]
 }

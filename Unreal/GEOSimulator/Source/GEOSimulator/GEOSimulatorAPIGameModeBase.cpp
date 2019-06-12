@@ -20,6 +20,8 @@ AGEOSimulatorAPIGameModeBase::~AGEOSimulatorAPIGameModeBase()
 
 void AGEOSimulatorAPIGameModeBase::BeginPlay()
 {
+    Super::BeginPlay();
+    
 	worldManager = GetWorld()->SpawnActor<AWorldManager>(FVector(0.f, 0.f, 0.f), FRotator(0.f, 0.f, 0.f));
 	/*AActor* actor;
 

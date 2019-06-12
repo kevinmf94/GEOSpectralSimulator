@@ -37,6 +37,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void BindFunctions(rpc::server* server);
+    
+    bool IsServerRunning();
 
 	rpc::server* server = nullptr;
 };

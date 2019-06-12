@@ -1,0 +1,1 @@
+./GEOSimulator.app/Contents/MacOS/GEOSimulator $1 $2

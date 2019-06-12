@@ -32,6 +32,9 @@ private:
     void LoadFile(FString path, FString fileName);
     
     FVector worldOrigin;
+    
+    FString folderMap;
+    FString map;
 
 public:	
 	// Called every frame

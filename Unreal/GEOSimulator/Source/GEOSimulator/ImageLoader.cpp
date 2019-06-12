@@ -14,10 +14,12 @@
 #define UIL_LOG(Verbosity, Format, ...)	UE_LOG(LogTemp, Verbosity, Format, __VA_ARGS__)
 
 // Module loading is not allowed outside of the main thread, so we load the ImageWrapper module ahead of time.
-static IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
+//static IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
 
 UTexture2D* UImageLoader::LoadImageFromDisk(UObject* Outer, const FString& ImagePath)
 {
+    IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
+    
 	// Check if the file exists first
 	if (!FPaths::FileExists(ImagePath))
 	{

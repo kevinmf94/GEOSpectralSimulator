@@ -4,14 +4,13 @@
 #include "GEOSimulatorAPIGameModeBase.h"
 #include "WorldManager.h"
 #include "Containers/UnrealString.h"
+#include "RPCPawnServer.h"
 #include "Engine/World.h"
 
 void ACameraHUD::BeginPlay()
 {
 	Super::BeginPlay();
     
-    AGEOSimulatorAPIGameModeBase* gameMode = GetWorld()->GetAuthGameMode<AGEOSimulatorAPIGameModeBase>();
-    worldManager = gameMode->GetWorldManager();
 }
 
 void ACameraHUD::Tick(float DeltaTime)
@@ -23,6 +22,13 @@ void ACameraHUD::Tick(float DeltaTime)
     if(pawn)
     {
         playerPosition = pawn->GetActorLocation();
+        isRunningServer = ((ARPCPawnServer*) pawn)->IsServerRunning();
+    }
+    
+    if(!worldManager)
+    {
+        AGEOSimulatorAPIGameModeBase* gameMode = GetWorld()->GetAuthGameMode<AGEOSimulatorAPIGameModeBase>();
+        worldManager = gameMode->GetWorldManager();
     }
 }
 
@@ -33,10 +39,15 @@ void ACameraHUD::DrawHUD()
 		DrawTexture(texture, 100.f, 100.f, 300.f, 300.f, 0.f, 0.f, 1.f, 1.f);
 	}
     
-    FVector posInWorld = worldManager->UnrealToWorld(playerPosition);
-    FString txt = FString::Printf(TEXT("X: %f Y: %f Z: %f"), posInWorld.X, posInWorld.Y, posInWorld.Z);
-    DrawText(txt, FColor::White, 20.f, 20.f, NULL, 1.8f);
-		
+    if(worldManager)
+    {
+        FVector posInWorld = worldManager->UnrealToWorld(playerPosition);
+        FString txt = FString::Printf(TEXT("X: %f Y: %f Z: %f"), posInWorld.X, posInWorld.Y, posInWorld.Z);
+        DrawText(txt, FColor::White, 20.f, 20.f, NULL, 1.4f);
+    }
+    
+    FString serverState = FString::Printf(TEXT("Server state: %s"), isRunningServer ? TEXT("Running") : TEXT("Off"));
+    DrawText(serverState, FColor::White, 20.f, 40.f, NULL, 1.4f);
 }
 
 void ACameraHUD::SetTexture(UTexture* texture)

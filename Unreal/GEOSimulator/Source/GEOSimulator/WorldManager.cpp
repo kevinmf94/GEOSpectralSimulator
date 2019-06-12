@@ -6,13 +6,22 @@
 #include "GameFramework/PlayerStart.h"
 #include "MapChunk.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Parse.h"
 
 // Sets default values
 AWorldManager::AWorldManager()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+    
+    //string
+    if (FParse::Value(FCommandLine::Get(), TEXT("-folderMap"), folderMap)) {
+        folderMap = folderMap.Replace(TEXT("="), TEXT(""));
+    }
+    
+    if (FParse::Value(FCommandLine::Get(), TEXT("-map"), map)) {
+        map = map.Replace(TEXT("="), TEXT(""));
+    }
 }
 
 // Called when the game starts or when spawned
@@ -20,7 +29,14 @@ void AWorldManager::BeginPlay()
 {
 	Super::BeginPlay();
     
-    LoadFile(FPaths::ProjectDir() + "Maps/example9x9big/", "pallars15.json");
+    //LoadFile(FPaths::ProjectDir() + "Maps/example9x9big/", "pallars15.json");
+    #if WITH_EDITOR
+        LoadFile(FPaths::ProjectDir() + folderMap, map);
+    #else
+        LoadFile(FPaths::LaunchDir() + folderMap, map);
+    #endif
+    
+    //LoadFile(FPaths::ProjectDir() + folderMap, map);
     
     //Example big terrain preloaded
     //worldOrigin = FVector(326737.05928061914f, -4676971.31928062f, 0.f);

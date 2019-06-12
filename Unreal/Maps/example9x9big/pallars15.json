@@ -1,0 +1,98 @@
+[
+    {
+        "file": "pallars15_0_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 15,
+        "chunkpos": {
+            "x": 0,
+            "y": 0
+        },
+        "x": 326737.1161870794,
+        "y": 4676971.3761870805,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "pallars15_0_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "pallars15_0_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "pallars15_0_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 15,
+        "chunkpos": {
+            "x": 0,
+            "y": 1
+        },
+        "x": 326737.11618707946,
+        "y": 4691971.37618708,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "pallars15_0_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "pallars15_0_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "pallars15_1_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 15,
+        "chunkpos": {
+            "x": 1,
+            "y": 0
+        },
+        "x": 341737.1161870794,
+        "y": 4676971.37618708,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "pallars15_1_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "pallars15_1_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "pallars15_1_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 15,
+        "chunkpos": {
+            "x": 1,
+            "y": 1
+        },
+        "x": 341737.11618707946,
+        "y": 4691971.3761870805,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "pallars15_1_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "pallars15_1_1_ir.jpg"
+            }
+        ]
+    }
+]

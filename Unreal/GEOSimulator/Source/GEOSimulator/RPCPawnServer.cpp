@@ -49,7 +49,7 @@ void ARPCPawnServer::StartServer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ARPCPawnServer StartServer"));
 	
-	if (!server)
+	if (!IsServerRunning())
 	{
 		server = new rpc::server(9999);
 		BindFunctions(server);
@@ -62,7 +62,7 @@ void ARPCPawnServer::StopServer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ARPCPawnServer StopServer"));
 
-	if (server)
+	if (IsServerRunning())
 	{
 		server->close_sessions();
 		server->stop();
@@ -70,6 +70,11 @@ void ARPCPawnServer::StopServer()
 		server = nullptr;
 	}
 	
+}
+
+bool ARPCPawnServer::IsServerRunning()
+{
+    return server == nullptr ? false : true;
 }
 
 void ARPCPawnServer::BindFunctions(rpc::server* server)

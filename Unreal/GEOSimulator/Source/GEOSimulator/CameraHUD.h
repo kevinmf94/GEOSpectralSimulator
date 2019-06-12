@@ -21,9 +21,12 @@ public:
 	virtual void DrawHUD() override;
 	void SetTexture(UTexture* texture);
 
-	UPROPERTY()
-	UTexture* texture = nullptr;
-
+private:
+    UPROPERTY()
+    UTexture* texture = nullptr;
+    
     AWorldManager* worldManager;
     FVector playerPosition;
+    
+    bool isRunningServer;
 };
