@@ -122,10 +122,10 @@ Simulator, Terrain, Satelite, Multiespectre, Unreal Engine\\
 
 \vspace{-1cm}
 \section{Introduction}
-The simulation of the real world for the generation of synthetic images is a scope in which you are looking to represent the real world as accurately as possible, to generate synthetic information that represents real environments that can present a danger (for the natural environment, people, etc) or a high economic cost.
+The simulation of real worlds for the generation of synthetic images is a field in which we want to represent the real world as accurately as possible, to generate synthetic information that represents real environments that can present a danger (for the natural environment, people, etc) or a high economic cost.
 \\
 \\
-On this project I get this information by means of elevation maps and aerial images of real terrains that we use to create a simulated environment that generates its image datasets, which can be used in multiple areas of computer learning. Also, this project can simulate flying, see a geographical area or expand in other environments that use geographic information. That geographical information can be provided from multiple sources, which allows to work with a lot of external data.
+On this project the informations is acquired using elevation maps and aerial images of real terrains that it is used to create a simulated environment that generates its image datasets, which can be used in multiple areas of computer learning. Also, this project can simulate flying, see a geographical area or expand in other environments that use geographic information. That geographical information can be provided from multiple sources, which allows to work with a lot of external data.
 
 \section{Objectius}
 
@@ -196,11 +196,11 @@ En aquest apartat determinarem els diferents objectius del projecte en format de
 \end{enumerate}
 
 \section{Methodology}
-In this project I decided to use an Agile methodology\cite{agile}, this allows to identify more efficiently the little parts that compose the project, and to adapt to changes I need to make along the way. More specifically, I used a technique called Kanban\cite{kanban} which consists in organizing the backlog (tasks of short duration) on cards that will be placed on a board according to the point of the life cycle where the tasks currently are. For this purpose, I used the Trello\cite{trello} software that allows me to see the boards on a web browser, create cards and move them between different lists.
+In this project an Agile methodology is used,  this allows to identify more efficiently the little parts that compose the project, and to adapt to changes needed along the way. More specifically, a technique called Kanban\cite{kanban} is used, which consists in organizing the backlog (tasks of short duration) on cards that will be placed on a board according to the point of the life cycle where the tasks currently are. For this purpose Trello\cite{trello} is used, a software that allows to see the boards on a web browser, create cards and move them between different lists.
 
 \subsection{Gant Diagram}
 
-In order to manage a project you must also include a Gantt diagram done with excel. In this diagram several tasks and subtasks are contemplated in order to make a prediction of the work done and left to do and the approximate time each task will take, which will allow us to plan the project with an accurate use of time.
+To manage the project a Gantt diagram has been included done with excel. In this diagram several tasks and subtasks are contemplated in order to make a prediction of the work done and left to do and the approximate time each task will take, which will allow us to plan the project with an accurate use of time.
 
 \section{State of the art}
 \label{estatart}
@@ -272,7 +272,7 @@ Google Earth Engine is a project by Google, dedicated to offer the necessary too
 \end{itemize}
 
 \section{Structure of project}
-In order to determine the project structure, it's study the diverse alternatives viewed on section \ref{estatart}. The structure of AirSim and Carla will be analyzed with the objective of deciding the ownership structure and the external libraries to incorporate them into the project.
+In order to determine the project structure, it is study the diverse alternatives viewed in section \ref{estatart}. The structure of AirSim and Carla will be analyzed with the objective of deciding the ownership structure and the external libraries to incorporate them into the project.
 
 \subsection{AirSim} 
 AirSim is composed of multiple modules written in various languages, as can be seen below:
@@ -301,13 +301,13 @@ Carla SIMULATOR is composed of multiple modules as you can see in the figure \re
 \begin{itemize}
  \item \textbf{LibCarla (C++)}: The main library of Carla, is in charge of the logic of the simulation.
  \item \textbf{Unreal (C++)}: Graphic engine with the Carla plug-in, this includes all the functionalities added to Unreal.
- \item \textbf{PythonAPI (Python)}: The API allows sending orders to the Carla module that works like server, this API it's useful to make own scripts.
+ \item \textbf{PythonAPI (Python)}: The API allows sending orders to the Carla module that works like server, this API it is useful to make own scripts.
 \end{itemize}
 
 
 \subsection{The structure chosen}
 
-Analysing multiple projects with similar features, to decide for our own structure as we can see in the figure \ref{fig-dronsimulatormodules} being able to use something modules with other open-source projects. Its make this decision due to the fact that the other projects are based on the creation of terrain predefined on Unreal Editor, the opposite to the finality of this project in which its make terrain automatically provided by real data.
+In this section multiple projects with similar characteristics have been analyzed to decide the structure that can be seen in figure \ref{fig-dronsimulatormodules}, in which some modules from other open source projects will be used. Its make this decision due to the fact that the other projects are based on the creation of terrain predefined on Unreal Editor, the opposite to the finality of this project in which its make terrain automatically provided by real data.
 
 \begin{figure}[!h]
 \centering
@@ -316,7 +316,7 @@ Analysing multiple projects with similar features, to decide for our own structu
 	\label{fig-dronsimulatormodules}
 \end{figure}
 
-Our project will consist of these modules:
+The project is consisted of these modules:
 
 \begin{itemize}
   \item \textbf{GEOTool (Python)}: This module has the goal of providing the needed tools for obtaining and adapting the data from some standards for geographical data web-service with the objective of can import this data on any graphic motor, it can generate diverse layers of data for the downloaded terrains as textures (RGB, infrared, etc.), geojson, etc. 
@@ -328,12 +328,12 @@ Our project will consist of these modules:
 
 \section{Module GEOTool}
 
-In this section we can see how the GEOTool module works and what is the functionality implemented, more concretely can see the origin of data, the configuration file, how to prepare data for graphical engines like as Unreal, Unity, OpenGL, etc. Finally the performance of the generation from wavefront object files (.obj) will be analysed.
+In this section it can seen how the GEOTool module works and what is the functionality implemented, more concretely can see the origin of data, the configuration file, how to prepare data for graphical engines like as Unreal, Unity, OpenGL, etc. Finally the performance of the generation from wavefront object files (.obj) will be analysed.
 
 \subsection{Obtaining data}
 \label{getdata}
 
-With the objective of getting geoghrapical data it has been decided the communication with standards proposed by Open Geospatial Consortium\cite{ogc}: Web Map Service\cite{wms} in charge of make available image data how can it be orthophoto from a geographical region selected and Web Coverage Service\cite{wms} in charge of returns data concerning at the elevation of terrains in a concrete geographical region. In order to get it data they are made HTTP requests a the web services offered by multiple institutions that follows the standards called, in this case will be made tests with the Institut Cartogràfic I Geològic de Catalunya\cite{icgc}.
+With the goal of getting geoghrapical data it has been decided that the communication will use standards proposed by Open Geospatial Consortium\cite{ogc}: Web Map Service\cite{wms} in charge of making image data available we take an orthophoto from a geographical region selected and Web Coverage Service\cite{wms} and we get data concerning the elevation of terrains in a concrete geographical region. In order to get that data HTTP requests are made to the web services offered by multiple institutions that follows the standards chosen, and we'll make tests with the Institut Cartogràfic I Geològic de Catalunya\cite{icgc}.
 
 \subsubsection{Configuration file}
 
@@ -376,24 +376,25 @@ For determining which data will wish be obtained and where webservices the app a
 \end{itemize}
 
 \subsection{Generation of terrains from a elevations maps}
-In this section explain the multiple forms realized to generate terrains that can be interpreted with multiple graphic engines. More concretely can see the RAW format and Wavefront object (.obj).
+
+This section explains the different ways to generate terrain data that can be interpreted by multiple graphical engines. More specifically, this section shows the raw format and wavefront object.
 
 \subsubsection{Format RAW}
 
-The RAW format is a format plain based on values of 16 Bytes, where the value of sea is 128. All the heights are saved in binary format put in the file of form consecutive. This format is accepted by the Unreal and Unity land builder, but has dimension limitations; You must meet several specified conditions in the Unreal Editor, this causes you to lose control of the generated mesh, the texture coordinates do not match and the texture that is applied to the mesh will have to adapt. Motivation by which decide to add the generation of 3d objects in the standard format, generating own objects as you can see in section \ref{mesh3d}.
+The RAW format is a format based on values of 16 Bytes, where the value of sea level is 128. All the heights are saved in binary format and put in a file. This format is accepted by the Unreal and Unity land builder, but has dimension limitations; You must meet several specified conditions in the Unreal Editor, this causes you to lose control of the generated mesh, the texture coordinates do not match and the texture that is applied to the mesh will have to adapt. Motivation by which is decide to add the generation of 3d objects in the standard format, generating own objects as you can see in section \ref{mesh3d}.
 
 \subsubsection{Generation of mesh 3D}
 \label{mesh3d}
 To import land in the graphics engine, it decides to generate a 3D mesh in obj format compatible with any 3D editor, graphics engine, etc. This device gives the freedom to control the distance between the vertex, where the texture is applied and which is the normal vector of each vertex to correctly apply the algorithms of illumination.
 \\
 \\
-As the treatment with loops is slow, it's made all the operations with the library NumPy take advantage of efficiency incorporates this library with the calculus of matrices. The problem has been adapted to operations of type matricial, you can see the code available in the annex \ref{appendix:generateobj}.
+As the treatment with loops is slow, all the operations are made with the library NumPy take advantage of efficiency incorporates this library with the calculus of matrices. The problem has been adapted to operations of matricial type, you can see the code in the annex \ref{appendix:generateobj}.
 \\
 \\
-For the generation of objects must be defined four types of objects:
+For the generation of objects four types of objects must be defined:
 
 \begin{itemize}
-  \item \textbf{Vertex}: Are each point in the world. To say what vertex are referenced are defined for the index according to read the elevation grid (1, 2, 3,..., H*W). Each point is multiplied by a K (K represents the distance between two vertex according to the distance that indicate the elevation map obtained).
+  \item \textbf{Vertex}: Are each point in the world. Vertex are referenced in the index according to the elevation grid (1, 2, 3,..., H*W). Each point is multiplied by a K (K represents the distance between two vertex according to the distance that indicate the elevation map obtained).
 
   \item {
     \textbf{Vertex of texture}: Vertex with two components x and y compressed between 0 and 1 that indicates the correspondence between the points of the texture and location in the mesh. This property is calculated with the equations \ref{equation:u} and \ref{equation:v}.
@@ -407,15 +408,17 @@ For the generation of objects must be defined four types of objects:
     \end{equation}
   }
 
-  \item \textbf{Normal of vertex}: Are vectors indicates the direction in which reflects the light for each vertex of the object. In order to calculate these normals is necessary, calculate the normal for each face, these are not included in the final file because the engines generate it by default according to the order in which indicates the faces you can see later. 
+  \item \textbf{Normal of vertex}: Vectors indicate the direction in which the light is reflected for each vertex of the object. In order to calculate these normals is necessary, calculate the normal for each face, though these are not included in the final file because the engines generate it by default.
+
   \begin{itemize}
     \item {
-      Generation of normal faces: In order to generate the normals of a face once you know it the relation between the faces will be following the pattern you can see in the figure \ref{fig-normalcara} where will be follow the equation \ref{equation:u} for the calculation of the normal face. $\dot{\vec{A}}$, it makes cross product $\vec{C} = \vec{B}*\vec{A}$ and finally is normalize the vector $\vec{Normal} = \frac{\vec{C}}{\mid\vec{C}\mid}$.
+      Generation of normal faces: In order to generate the normals of a face once you know the relation between the faces, we follow the pattern you can see in the figure \ref{fig-normalcara} where we follow the equation \ref{equation:u} for the calculation of the normal face. $\dot{\vec{A}}$, it makes cross product $\vec{C} = \vec{B}*\vec{A}$ and finally is normalize the vector $\vec{Normal} = \frac{\vec{C}}{\mid\vec{C}\mid}$.
     }
+
     \item {
-		Generation of the normal for the vertex: In order to generate the vector normal for each vertex, it's using the structure that can see in figure \ref{fig-normalvertex} applying the next equation for each vertex where V correspond to the vertices and F correspond to the faces on the figure \ref{fig-normalvertex}:
+    Generation of the normal for the vertex: In order to generate the vector normal for each vertex, we use the structure that can see in figure \ref{fig-normalvertex} applying the next equation for each vertex where V correspond to the vertices and F corresponds to the faces on the figure \ref{fig-normalvertex}:
       \begin{equation}
-      \vec{NormalV} = \vec{F1} + \vec{F2} + \vec{F3} + \vec{F4} + \vec{F5} + \vec{F6}
+      \vec{NormalV} = \vec{F_1} + \vec{F_2} + \vec{F_3} + \vec{F_4} + \vec{F_5} + \vec{F_6}
       \end{equation}
       \begin{equation}
       \vec{NormalV} = \frac{\vec{NormalV}}{\mid\vec{NormalV}\mid}
@@ -423,7 +426,7 @@ For the generation of objects must be defined four types of objects:
     }
   \end{itemize}
 
-  \item \textbf{Faces}: In this step it's determined which is the union of vertices to generate the different faces of the mesh, in this implementation it's decided to make a triangulation, in other words, that is for each square of the own mesh will be generated two triangular faces. It's important generate the faces in correct order writing the vertices in opposite clockwise, in this way the graphic motors determine that the normal face will point up by displaying the 3D mesh correctly.
+  \item \textbf{Faces}: In this step it is determined which is the union of vertices that will be used to generate the different faces of the mesh, in this implementation it is decided to make a triangulation, in other words, that is for each square of the own mesh two triangular faces will be generated. It is important generate the faces in correct order, writing the vertices following an opposite clockwise order, in this way the graphic engine determines that the normal face will point up by displaying the 3D mesh correctly.
 \end{itemize}
 
 \begin{figure}[!h]
@@ -440,7 +443,7 @@ For the generation of objects must be defined four types of objects:
 	\label{fig-normalvertex}
 \end{figure}
 
-Once the generation process has been completed, the application will generate a mesh that can be opened in any editor. As it can see in the figure \ref{fig-meshlab} it's open in software MeshLab.
+Once the generation process has been completed, the application will generate a mesh that can be opened in any editor. As it can be seen in the figure \ref{fig-meshlab} where it is open using the MeshLabs software.
 
 \begin{figure}[!h]
 \centering
@@ -451,12 +454,12 @@ Once the generation process has been completed, the application will generate a 
 
 \subsubsection{GEOJson associated at the terrain}
 
-In order to can localize the terrain generated in other software that working with geospatial data or in the same simulator Unreal, it's decided to include in the generation a GEOJson that indicates the area which belongs the files generated. It's can see an example of this in the appendix \ref{appendix:geojson}.
+In order to localize the terrain generated in other software that's working with geospatial data or in within the Unreal simulator itself,a GEOJson file it is included. This file indicates which belongs to the files generated. An example of this can be seen in the appendix \ref{appendix:geojson}.
 
 \subsection{Time of generation}
-In this section it's analyse the two versions implemented and can see the difference in time of generation. This is an important point for future implementations in which will wish implement a viewer in real time that loading new data according to the user moves for the world.
+In this section the two versions implemented are analyzed to see the difference in generation time. This is an important point for future implementations in which the goal might be to implement a viewer in real time, where new data loads as the user moves on the world.
 \\
-On the figure \ref{fig-meshtime} can see the time spent from the version with loops for and the version implemented with NumPy, can see when realised the implementation using the library NumPy are reducing the time in 24x for a size of 500*500, this is due to the fact that NumPy is optimized for a parallelise the processing of data vectorial way.
+On the figure \ref{fig-meshtime} the differences in time between the version using for loops and the version using the NumPy library can be seen. The implementation using the library NumPy is 24 times faster for a size of 500*500, this is due to the fact that NumPy is optimized for parallel processing of vectorial data.
 
 \begin{figure}[!h]
 \centering
@@ -467,10 +470,10 @@ On the figure \ref{fig-meshtime} can see the time spent from the version with lo
 
 \subsection{Quality}
 \label{qualitat}
-In this section is looking the form in which reduce the quality of terrain and can see the results obtained both qualitatively (visual difference) as quantitatively (size in bytes). In order to make this reduction are made skips of size "meshStep" set in the JSON configuration. It's made tests with powers of 2 (2, 4, 8, 16,...) on the own matrix of points and using the terrain of size 300x300 pixels.
+This section shows the results of reducing the quality of the terrain, both qualitatively (visual difference) and quantitatively (size in bytes). In order to make this reduction skips of size "meshStep" are made, set in the JSON configuration file. Test with powers of 2 (2, 4, 8, 16,...) are made on the matrix of points itself, using the terrain of size 300x300 pixels.
 \\
 \\
-As we can see in the figure \ref{fig-qualitatmegas} when reducing the amount of points, we reduce the size of the disk by exponentially, making the file load faster on the Unreal environment. As it's can see in the figure \ref{fig-qualityvisual} is visible the loss of quality taking as a reference the mountain in the background on this see the loss of definition at the top of the mountain. It's can consider visually that when it is configured ''meshStep'' on 1 or 2 the loss qualitative, not are appreciable, from 4 are starting to appreciate slightly, finally on the levels 8 and 16 its can see the most loss, where the top of the mountain can see simplified the apposite that it can see with the ''meshStep'' configured to 1 where can see a mountain range with a good definition.
+As it can be seen in the figure \ref{fig-qualitatmegas} when reducing the amount of points, the size on the disk is exponentially reduced, making the file load faster on the Unreal environment. As it can be seen in the figure \ref{fig-qualityvisual}  the loss of quality is visible, taking as a reference the mountain in the background it can be seen the loss of definition at the top of the mountain. It can be considered that visually, when "meshStep" is configured as 1 or 2, the loss of quality is not noticeable. At 4, it can be noticed slightly, and finally at levels 8 and 16 a noticeable loss in quality is noticed. This can be seen in the peak of the mountain, which has been simplified, as opposed to when it is configured with a value of 1, where it shows the mountain with more definition.
 
 \begin{figure}[!h]
 \centering
@@ -489,11 +492,11 @@ As we can see in the figure \ref{fig-qualitatmegas} when reducing the amount of 
 \newpage
 \section{Module: Simulator}
 
-In this section its explain the multiple parts of which is composed the module of simulation. The objective of this module is to make available a tool that allows simulate a travel with a generic vehicle above a terrain getting images from multiple cameras configured on board of the vehicle. A way to make this is providing the interface for control the vehicle with an external script sending commands with the RPC Protocol, in this case, it's implemented the server as can see in section \ref{rpcserver} and control it with a client implemented in a module as can you see in the section \ref{modulescript}.
+In this section the multiple parts of which the module of simulation it is composed are explained. The objective of this module is to make an available a tool that allows to simulate a travel with a generic vehicle above a terrain, getting images from multiple cameras on board of the vehicle. A way to make this is providing the interface control of the vehicle with an external script sending commands with the RPC Protocol, in this case, it is implemented on the server as it can be seen in section \ref{rpcserver} and controllled with a client implemented in a module as it can be seen in the section \ref{modulescript}.
 
 \subsection{Visualization and control of the vehicle}
 
-This part is based on providing the interface for moving a generic vehicle to the simulated world, this vehicle is configured with several cameras that are displayed on the screen and that can generate images of each one of them, in this way the possibility is added to view the same area in multiple perspectives. As an example, you can see an zenith view in the figure \ref{fig-montserratir}.
+The goal of this part is to provide the interface for moving a generic vehicle in the simulated world, this vehicle is configured with several cameras that are displayed on the screen and that can generate images of what they see. Using this, the possibility of viewing the same area in multiple perspectives is added. As an example, you can see the zenith view in the figure \ref{fig-montserratir}.
 
 \begin{figure}[!h]
 \centering
@@ -505,16 +508,16 @@ This part is based on providing the interface for moving a generic vehicle to th
 \subsubsection{Remote control}
 \label{rpcserver}
 
-In the order to controller remotely the vehicle, it's implemented a communication using the RPC protocol (Remote Procedure Call) more concretely it's using the library Rpclib\cite{rpclib} for C++. This server is implemented in the Unreal module, the RPC server management is done through a class (AVehiclePawn) that can be inherited so that it offers basically the interface necessary to control a vehicle, specifically the following actions is implemented:
+In order to control the vehicle remotely, a communication using the RPC protocol (Remote Procedure Call) it is implemented, more specifically, it is using the Rpclib\cite{rpclib} library for C++. This server is implemented on the Unreal module, the RPC server management is done through a class (AVehiclePawn) that can be inherited so that it basically offers the interface necessary to control a vehicle. The following actions are implemented:
 
 \begin{itemize}
-\item Initialize/stop the RPC server: Initialize the server by pressing the Y cloth to the simulator of Unreal and stop it with the U key.
+\item Initialize/stop the RPC server: Initialize the server by pressing the Y key and stop it with the U key.
 \item Change the position of the vehicle.
 \item Change rotation of the vehicle or cameras (Implemented with LookAt).
 \item Ask for images from one of the cameras to be generated.
 \end{itemize}
 
-The assignment of the functionalities is done in the function ''void BindFunctions(rpc::server* server)'' which receives the instance of the server, this function can be overridden to later be added to legacy classes with more functionality as can be seen in the annex \ ref {appendix: extendrpc}. By default the AVehiclePawn class allows us to call the following RPC functions:
+The assignment of the functionalities is done in the function ''void BindFunctions(rpc::server* server)'' which receives the instance of the server, this function can be overridden to later be added to legacy classes with more functionality as it can be seen in the annex \ref{appendix: extendrpc}. By default the AVehiclePawn class allows us to call the following RPC functions:
 
 \begin{itemize}
 \item setLocation(double x, double y, double z): Send the location on which one place the vehicle.
@@ -529,9 +532,9 @@ The assignment of the functionalities is done in the function ''void BindFunctio
 \end{itemize}
 
 \subsubsection{Sky visualization}
-In order to implement a sky, it's used the native module of Unreal that's allowed to generate a sphere in which its render a sky. This sky has multiple parameters for configuring the sky allows a multiple situation, some of the things that can be done are: determine the sun position, the lighting of stars, the quantity of clouds, the velocity of clouds, etc.
+In order to implement the sky, the native module of Unreal is used, where a sphere is generated on which the sky is rendered. This sky has multiple parameters for configuring the sky in multiple ways, some of the things that can be done are: determining the sun position, the lighting of stars, the quantity of clouds, the velocity of the clouds, etc.
 \\\\
-This allows to generate synthetic images in different moments of the day with a different illuminations, allow to generate more complex datasets. On the other hand, this implies that it is applied without shadows because the shadows are generated by Unreal, if these shadows are generated by the 2 bands, they overlap generating an undesirable strange effect. Its can see an example of differents hours of the day in the figure \ref{fig-sky}.
+This allows to generate synthetic images in different moments of the day with a different lighting, to generate more complex datasets. On the other hand, it is applied without shadows because the shadows are generated by Unreal, if these shadows are generated by the 2 bands, they overlap generating an undesirable strange effect. An example of differents hours of the day can be seen in figure \ref{fig-sky}.
 
 \begin{figure}[!h]
 \centering
@@ -541,18 +544,18 @@ This allows to generate synthetic images in different moments of the day with a 
 \end{figure}
 
 \subsection{Terrain}
-The terrain is loaded through code executed at runtime obtaining the obj file and process this file to generate a UProceduralMesh\cite{uprocedural} that contains the mesh generated with the api of this class to generate meshes in runtime. To generate this mesh must be considered that Unreal works with a different system of coordinates, concretely is inverted respect to the UTM model on the y axis, in this way, it is necessary to make the necessary changes.
+The terrain is loaded through code executed at runtime obtaining the obj file and this file is processed to generate a UProceduralMesh\cite{uprocedural} that contains the mesh generated with the api of this class to generate meshes in runtime. To generate this mesh it must be considered that Unreal works with a different system of coordinates, it is inverted respective to the UTM model on the y axis. Due to this, it is necessary to make the necessary changes.
 \\
 \\
-This mesh is loaded on the world and its represented by the class ''MapChunk'' it which is assigned a dynamic material that contains the loaded textures for generate the different visualizations. The texture are can be any image prepared to use as a texture on Unreal, giving the possibility of seeing RGB, infrared, multispectral bands, indexes generated by the multispectral data, etc.
+This mesh is loaded on the world and it is represented by the class ''MapChunk'', to which a dynamic material that contains the loaded textures for generate the different visualizations is assigned. The texture can be any image prepared to use as a texture on Unreal, giving the possibility of seeing RGB, infrared, multispectral bands, indexes generated by the multispectral data, etc.
 
 \subsection{Results of visualization of terrains}
-In this section can see the results obtained from the 3D terrains generated by the module GEOTool and apply multiple visualizations from origins as textures or shaders obtained from different sources. In concretely the view RGB and infrared is from ''Institut Cartogràfic de Catalunya'', the multispectral data are obtained from the browser EO Browser\cite{eobrowser} and the depth data is generated applying a shader to the scene.
+In this section can see the results obtained from the 3D terrains generated by the module GEOTool and apply multiple visualizations from origins as textures or shaders obtained from different sources. More specifically, the RGB and infrared views are obtained from ''Institut Cartogràfic de Catalunya'', the multispectral data is obtained from the browser EO Browser\cite{eobrowser} and the depth data is generated applying a shader to the scene.
 \\
 \\
-You can see in Figure \ref{fig-bands} how it has been applied to a terrain that corresponds to "Sales de Pallars" different multispectral bands obtained from the satellite Sentinel 2\cite{sentinel2}. The first three bands B02, B03 and B04 correspond to the bands of colours, the band B05 corresponds to the fast change of the reluctance that produces in the vegetation in a range near of infrared, the band B08 obtain NIR\cite{nir} data and the B09 is able to detect water vapours.
+You can see in Figure \ref{fig-bands} how it has been applied to a terrain that corresponds to "Sales de Pallars", different multispectral bands obtained from the satellite Sentinel 2\cite{sentinel2}. The first three bands B02, B03 and B04 correspond to the bands of colours, the band B05 corresponds to the fast change of the reluctance that is produced in the vegetation in a range near of infrared, the band B08 obtains NIR\cite{nir} data and the B09 is able to detect water vapours.
 
-This way with these bands can obtain composed data from the multiple spectrum that can apply to multiple scopes. In the figure \ref{fig-spectralindexes} can see some examples, between them can see the indexes they are:
+With these bands composed data from multiple spectrums that can be applied to multiple scopes is obtained. In figure \ref{fig-spectralindexes} some examples can be seen, between them the indexes are:
 
 \begin{itemize}
 \item 
@@ -569,7 +572,7 @@ This way with these bands can obtain composed data from the multiple spectrum th
 }
 \end{itemize} 
 
-The last view of the figure \ref{fig-spectralindexes} can see the depth or proximity used by algorithms of 3D reconstruction with monocular stereo, prevention of collisions, algorithm of multiview stereo, etc.
+The last view of the figure \ref{fig-spectralindexes} the depth or proximity can be seen using  algorithms of 3D reconstruction with monocular stereo, prevention of collisions, algorithm of multiview stereo, etc.
 
 \begin{figure*}[!h]
 \centering
@@ -585,7 +588,7 @@ The last view of the figure \ref{fig-spectralindexes} can see the depth or proxi
 	\label{fig-spectralindexes}
 \end{figure*}
 
-\subsection{Interacció amb el simulador}
+\subsection{How to interact with the simulator}
 In order to interact with the simulator the following keys have been defined:
 
 \begin{itemize}
@@ -601,16 +604,16 @@ In order to interact with the simulator the following keys have been defined:
 \section{Scripting module}
 \label{modulescript}
 
-In this section it is explained and see the principal points of the scripting module in which can control the simulator in a way that can be reproduce travels, reading trajectories from files, generate images, generate noise to the trajectories, etc.
+This section contains the explanation of the main points of the scripting module with which the simulator is controlled, in a way that allos to reproduce travels, read trajectories from files, generate images, generate noise to the trajectories, etc.
 
-\subsection{Trajectories}
-The module of scripting allow to make travel, reading trajectories created in a real world (adapt this to the own format) or generated synthetic this way can recreate on the simulator a trajectory done previously were able reproduce so many times, this allows to do multiple tests with different visualizations of the terrain. For this finally its generate a file that explained in the section \ref{file-trajectories}.
+\subsection{Paths}
+The scripting module allows to make travels, read trajectories created in a real world (adapt this to the right format) or generate synthetic this way can recreate on the simulator a trajectory done previously were able reproduce so many times, this allows to do multiple tests with different visualizations of the terrain. For this finally its generate a file that explained in the section \ref{file-trajectories}.
 
-\subsubsection{Fitxer de trajectòries}
+\subsubsection{File of paths}
 \label{file-trajectories}
-This section explains how to form the path file and the file to place the cameras. The file is in CSV format and can be read from the GEOControl module to indicate to the simulator the positions of the vehicle and where it looks both the vehicle and the cameras in coordinates of the world.
+This section explains how to form the path file and the file to place the cameras. The file is in CSV format and can be read from the GEOControl module to tell the simulator the positions of the vehicle and where both the vehicle and the cameras should look, in coordinates of the world.
 
-The file controls the vehicle are composed by the next fields:
+The file controls the vehicle is composed by the next fields:
 
 \begin{itemize}
 \item Time: Time in milliseconds from start of the script.
@@ -633,16 +636,16 @@ The file controls the cameras are in another file composed of the fields:
 \item GetImage: Boolean (0 or 1) that indicates if you want to generate an image from this camera in this instant of time.
 \end{itemize}
 
-It can see an example from the CSV files in the appendix \ref{appendix:fitxerscsv} generates with Excel.
+An example from the CSV file generated with Excel can be seen in the appendix \ref{appendix:fitxerscsv}.
 
 \subsection{Noise simulation}
 
-As vehicles have unexpected movements due to the wind, the condition of the asphalt among others, is implementing a generator of noise applied to the trajectory you want to play, this way they are can generate images with noise and unexpected movements. This noise is implemented through a Gaussian noise in which the point at which you want to move is used as the center and the sigma is small (between 0 and 1) that generate a lightweight movement.
+As vehicles have unexpected movements due to the wind and the condition of the asphalt among others, a generator of noise is implemented and applied to the trajectory you want to follow, this way images with noise and unexpected movements are generated. This noise is implemented through a Gaussian noise in which the point at which you want to move is used as the center and the sigma is small (between 0 and 1), which generates a light movement.
 
 \subsection{Generation of Datasets}
-One of the objectives of this project is giving the possibility of generating datasets of synthetic images with data from satellite, in order to be able generate datasets use the field ''GetImage'' seen in the section \ref{file-trajectories} that generate an image every time he find this field.
+One of the objectives of this project is giving the possibility of generating datasets of synthetic images satellite data, in order to be able generate datasets the field ''GetImage'' is used, as seen in section \ref{file-trajectories}, which generates an image every time it finds this field.
 
-In the figure \ref{fig-dataset}  can see a little example with a few images of a tour in which its fixed the camera with a concrete point that it is left behind with the pass of time.
+In the figure \ref{fig-dataset} there is a little example with a few images of a tour on which the camera its fixed with a concrete point that it is left behind with the passage of time.
 
 \begin{figure}[!h]
 \centering
@@ -653,17 +656,17 @@ In the figure \ref{fig-dataset}  can see a little example with a few images of a
 
 \section{Conclusions}
 
-In this project its can see as it is can obtain textures and elevation maps of sources coming of satellites and manipulate this data for generating composed data, indexes, new data generated by neural networks, etc. Once data is treated are converted to 3D so that it is can add on a graphical engine as is Unreal Engine. It has been taken into account aspects as the velocity in generating a 3D model where can see the effect of the libraries as NumPy in the manipulation of matrices, accelerating the process thanks to the parallelism. It is seeing the effect quantitatively and qualitatively in the meshes when reduces the quantity of points with the which is generating the model 3D needed for render models of big dimensions.
+This project shows how to obtain textures and elevation maps originated from satelites. This information can be manipulated to generate indexes, new information generated through neural networks, etc. The treated data is transformed into 3D information that can be interpreted by graphical engines line Unreal Engine. Aspects like the time needed to generate the 3D model are used to see the effect of libraries like NumPy during the manipulation of matrixes, accelerating the process thanks to parallelism. The effect can be seen both in the faster times and in the quality of the meshes with the reduction of the number of points used to generate the 3D model used to render models of big sizes.
 
-The section of the simulator module its can see as can visualize the data in an environment 3D generated by Unreal Engine. In the simulator can add cameras a vehicle simulated and see in different perspectives the same data for this its created a module that sends commands to an RPC server that implemented in Unreal Engine in which can move, tell where to look the vehicle, where to look the cameras and get images of this camera.
-The tests has been with several satellite information from Sentinel 2, which has been seen in what is represented in the simulated world and what uses has this information and can see the possibilities offers the simulator.
+The section pertaining to the simulation module shows the information in a 3D enviroment generated with Unreal Engine. We can add cameras to a simulated vehicle and see different perspectives of the same information. To do this, another module has been created, which sends commands to a RPC server implemented in Unreal Engine, in which we can move, choose where the vehicle looks in the real world, where cameras point to and obtain the images captured by the cameras.
+The tests, which were performed with data from Satelites like the Sentinel 2, show how this information is represented in the simulated enviroment, which use has each type of data and what possibilities the simulator offers when seeing this information.
 
-In the part of the module of scripting its can see as can generate trajectories reproducible multiple times on the environment simulated in a way that can make multiple travels with different information or the same information viewed from another point of view and extract data in the form of datasets. These trajectories can control multiple parameters of the vehicle and the cameras that indicate in which points they want to obtain an image and which camera. In the real world the vehicles have a movement, unexpected (the wind, the asphalt and other factors) for this reason is added a little filter as the generation of noise provocated an unexpected movement of the vehicle and the camera on-board of this.
+The section pertainten to the scripting shows how to generate trajectories that can be reproduced multiple times in the simulated enviroment, which allows to make several journeys with different data, or the same journey observing this data from multiple perspectives, extracting this information in the form of datasets. These trajectories can control multiple parameters of the vehicle and in which point and from which cameras the images are obtained. In the real world, the vehicle experiences unexpected movements due to several factors, like wind and the conditon of the asphalt. To simulate this, a filter that generates noise has been added, to induce random movements to the vehicle and the camera.
 
 
 \section*{Acknowledgments}
 
-First of all I want to thanks to my tutor Felipe Lumbreras for the time spent in this project, the help to consult to experts and all the ideas generated on the reunions, in second thanks to Marc(CVC)... from guide me with the Unreal Engine and the best way to realize this project successful and for last thanks a my friend Javi Cantero for the help to check the English version of this document.
+First of all, I want to thank  my tutor Felip Lumbreras for the time he invested in this project, the help provided when consulting experts and all the ideas provided during meetings. Secondly, I would like to thank Marc Garcia for guiding me in the use of Unreal Engine and helping me complete this project successfully. And last, I would like to thank my friend Javier García Cantero, for helping me by revising the English version of this paper.
 
 \begin{thebibliography}{11}
 \bibitem{agile}

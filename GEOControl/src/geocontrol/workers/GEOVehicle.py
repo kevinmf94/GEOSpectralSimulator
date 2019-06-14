@@ -31,4 +31,4 @@ class GEOVehicle(GEOWorker):
 
     @staticmethod
     def generate_noise(x, y, z):
-        return np.random.normal(x, 0.1), np.random.normal(y, 0.1), np.random.normal(z, 0.08)
+        return np.random.normal(x, 0.01), np.random.normal(y, 0.01), np.random.normal(z, 0.01)

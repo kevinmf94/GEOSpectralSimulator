@@ -43,9 +43,9 @@ void UGEOCameraComponent::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 		{
 			FVector ActorLocation = GetOwner()->GetActorLocation();
             
-            //Parse ActorLocation to RealWorld
-            FVector playerWorld = worldManager->UnrealToWorld(ActorLocation);
-            FRotator rotation = UKismetMathLibrary::FindLookAtRotation(playerWorld, NewLookAt);
+            //Parse NewLookAt to Simulator coords
+            NewLookAt = worldManager->WorldToUnreal(NewLookAt);
+            FRotator rotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewLookAt);
 			
 			SetRelativeRotation(rotation);
             NewLookAt = FVector::ZeroVector;

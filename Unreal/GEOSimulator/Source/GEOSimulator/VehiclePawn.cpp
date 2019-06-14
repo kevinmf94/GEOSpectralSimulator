@@ -107,8 +107,6 @@ void AVehiclePawn::Tick(float DeltaTime)
             
             
             NewLookAt = worldManager->WorldToUnreal(NewLookAt);
-            UE_LOG(LogTemp, Warning, TEXT("playerWorld AVehiclePawn %f %f"), ActorLocation.X, ActorLocation.Y);
-            UE_LOG(LogTemp, Warning, TEXT("NewLookAt AVehiclePawn %f %f"), NewLookAt.X, NewLookAt.Y);
 			FRotator rotation = UKismetMathLibrary::FindLookAtRotation(ActorLocation, NewLookAt);
 			SetActorRotation(rotation);
             
