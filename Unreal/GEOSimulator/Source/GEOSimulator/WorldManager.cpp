@@ -33,7 +33,7 @@ void AWorldManager::BeginPlay()
     #if WITH_EDITOR
         LoadFile(FPaths::ProjectDir() + folderMap, map);
     #else
-        LoadFile(FPaths::LaunchDir() + folderMap, map);
+        LoadFile(folderMap, map);
     #endif
     
     //LoadFile(FPaths::ProjectDir() + folderMap, map);

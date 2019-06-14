@@ -10,7 +10,7 @@
 \usepackage{lettrine}
 \usepackage[top=2cm, bottom=1.5cm, left=2cm, right=2cm]{geometry}
 \usepackage[figurename=Fig.,tablename=TAULA]{caption}
-\usepackage{hyperref}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 \usepackage{listings}
 
 \lstset{
@@ -94,7 +94,15 @@
 \begin{center}
 \parbox{0.915\textwidth}
 {\sffamily\small
-\textbf{Abstract--} Resum
+\textbf{Resum--} En aquest projecte es pot veure com a partir de dades de satèl·lit és genera'n objectes 3D reproduïbles en motors gràfics, als quals se li associa informació geogràfica en fitxers JSON, aquests fitxers permeten a un simulador desenvolupat en Unreal Engine llegir-los, carregar les textures i situar-se en aquella posició del món físic utilitzant coordenades UTM, això permetrà generar trajectòries en les quals mitjançant les càmeres incorporades a un vehicle es podran generar datasets.
+
+In this project can see how from satellite data are generated 3d objects, It is possible to reproduce in a graphical engine.
+\\
+\\
+\textbf{Paraules clau-- }
+Simulador, Terreny, Satèl·lit, Multiespectre, Unreal Engine\\
+\\
+\textbf{Abstract--}  In this project can see how from satellite data 3d objects are generated, It is possible to reproduce in a graphical engine. The 3D objects has associate geographical data on JSON files, this files allow  to the simulator (developed in Unreal Engine) read the data, load the textures and set the location on the real world (in format UTM).  All this allow to generate trajectories that allow generate datasets from the cameras located on the vehicle.
 \\
 \\
 \textbf{Keywords-- }
@@ -127,73 +135,10 @@ The simulation of real worlds for the generation of synthetic images is a field 
 \\
 On this project the informations is acquired using elevation maps and aerial images of real terrains that it is used to create a simulated environment that generates its image datasets, which can be used in multiple areas of computer learning. Also, this project can simulate flying, see a geographical area or expand in other environments that use geographic information. That geographical information can be provided from multiple sources, which allows to work with a lot of external data.
 
-\section{Objectius}
+\section{Objectives}
 
-En aquest apartat determinarem els diferents objectius del projecte en format de jerarquia per tal de veure la dependència entre els diferents objectius:
-
-\begin{enumerate}
-  \item Analitzar
-  
-  \item Definir
-  \begin{enumerate}
-    \item Definir mòduls pel projecte
-    \item Definir l'estructura del software
-    
-    \item Definir plataformes utilitzades
-    \begin{enumerate}
-    	\item Definir els mòduls a desenvolupar
-	    \item Definir la comunicació entre els mòduls
-    	\item Definir estructura de les dades que rebrà Unreal Engine
-  	\end{enumerate}
-  \end{enumerate}
-  
-  \item Desenvolupar
-  \begin{enumerate}
-    \item Desenvolupar mòdul de transformació i obtenció de dades
-    \item Desenvolupar mòdul gràfic (Ureal Engine)
-    \begin{enumerate}
-    	\item Desenvolupar la interfície del menú
-	    \item Desenvolupar la lògica del vehicle
-    	\item Desenvolupar codi per la carrega de terreny y material
-    	\item Desenvolupar llibreria RPC per el control del entorn
-  	\end{enumerate}
-  	
-  	\item Desenvolupar mòdul de scripting
-  	\begin{enumerate}
-    	\item Desenvolupament client que controlarà el vehicle
-  	\end{enumerate}
-  	
-  	\item Integrar els mòduls d'AirSim en Unreal Engine
-  	\begin{enumerate}
-    	\item Integrar mòdul de Segmentació en el projecte
-  	\end{enumerate}
-  	
-  	\item Desenvolupar altres capes d'informació
-  \end{enumerate}
-  
-  \item Testejar
-  \begin{enumerate}
-    \item Fer provés del mòdul de transformació de dades
-    \item Fer provés del mòdul gràfic
-    \item Fer provés del mòdul de control per scripting
-    \begin{enumerate}
-    	\item Elaborar script d'exemple
-	    \item Provar script d'exemple
-  	\end{enumerate}
-  \end{enumerate}
-  
-  \item Documentar
-  \begin{enumerate}
-    \item Redactar informe inicial
-    \item Redactar informe de seguiment I
-    \item Redactar informe de seguiment II
-    \item Redactar l'informe final
-    \item Elaborar proposta de presentació
-    \item Elaborar pòster
-    \item Gestionar la documentació del dossier
-  \end{enumerate}
-  
-\end{enumerate}
+%TODO check this
+The goal of this project is give a tools that allows to download satellite data, transform satellite data to 3D data, generate data that is can be reproduced in a 3D engine, adapt multispectral data to 3D models (textures), navigate on the world trough on the simulator, control a vehicle from a external data and generate datasets can be used in other algorithms.
 
 \section{Methodology}
 In this project an Agile methodology is used,  this allows to identify more efficiently the little parts that compose the project, and to adapt to changes needed along the way. More specifically, a technique called Kanban\cite{kanban} is used, which consists in organizing the backlog (tasks of short duration) on cards that will be placed on a board according to the point of the life cycle where the tasks currently are. For this purpose Trello\cite{trello} is used, a software that allows to see the boards on a web browser, create cards and move them between different lists.
@@ -210,19 +155,7 @@ Currently, a diverse number of applications exist for the generation of images i
 In this scope one of the most important is AirSim\cite{airsim} developed by Microsoft and Carla SIMULATOR\cite{carla} developed by ''Centre de Visio per Computador (CVC)'', and others, like LESS\cite{less}, DIRSIG {dirsig} or Google Earth Engine\cite{googleearth} for more specific scopes.
 
 \subsection{AirSim}
-AirSim is a graphic simulator made with Unreal Engine, this simulator has the purpose of generating synthetic images on fake environments, it incorporates multiple modules that offer the following functionalities (You can see an example in the figure \ref{fig-airsim}):
-
-\begin{itemize}
-  \item Simulation of cars.
-  \item Simulation of drones.
-  \item Compatibility with real drone controllers.
-  \item Recording.
-  \item Depth view.
-  \item Segmentation view.
-  \item Rain effects.
-  \item Control of illumination according to the daily hours.
-  \item Control of vehicles through a python script.
-\end{itemize}
+AirSim is a graphic simulator made with Unreal Engine, this simulator has the purpose of generating synthetic images on fake environments, it incorporates multiple modules that offer the following functionalities (You can see an example in the figure \ref{fig-airsim}): simulation of cars, simulation of drones, compatibility with real drone controllers, recording, depth view, segmentation view, rain effects, control of illumination according to the daily hours, control of vehicles through a python script, etc.
 
 \begin{figure}[!h]
 \centering
@@ -232,15 +165,8 @@ AirSim is a graphic simulator made with Unreal Engine, this simulator has the pu
 \end{figure}
 
 \subsection{Carla SIMULATOR}
-The Carla is a graphical simulator made on the Unreal Engine, this simulator has the finality of generating images on a fake environment with maximum realism to generate images that they can use on neural networks to drive an autonomous car safely, taking into account the unlikely cases that are difficult to generate in the real world. Its environment has the next functionalities:
 
-\begin{itemize}
-  \item Simulation of cars.
-  \item Depth view.
-  \item Segmentation view.
-  \item Simulation of traffic, pedestrians, etc.
-  \item Control of the actors (traffic, pedestrian, cameras, etc) with a python script.
-\end{itemize}
+The Carla is a graphical simulator made on the Unreal Engine, this simulator has the finality of generating images on a fake environment with maximum realism to generate images that they can use on neural networks to drive an autonomous car safely, taking into account the unlikely cases that are difficult to generate in the real world. Its environment has the next functionalities: simulation of cars, depth view, segmentation view, simulation of traffic,  simulation of pedestrians, control of the actors (traffic, pedestrian, cameras, etc) with a python script, etc.
 
 \subsection{LESS}
 LESS is a model of the radiation (You can see an example, in the figure \ref{fig-lessradiacio}) generated on a three-dimensional object/terrain for different rays, generating from a technique of ray-tracing, which is able to simulate data and images over realistic three-dimensional scenes. This model implements a method of follow weighted photons for simulating the effect of multi-spectral bidirectional reflectance.
@@ -347,12 +273,13 @@ For determining which data will wish be obtained and where webservices the app a
   \item \textbf{Dimensions}: The dimension field can choose the dimensions that you want to request in pixels, it is composed by:
   
   \begin{itemize}
+  \vspace{-0.2cm}
     \item Bbox: Bbox is the dimensions in pixels of geographical area, this is used by all requests to identify the area in a unique way.
     \item Texture: Texture is a resolution in pixels request to the texture image.
   \end{itemize}
   
   \item \textbf{chunks}: The fragments that want to be downloaded, the application calculates the displacement and generates n pieces of width * height.
-  
+  \vspace{-0.2cm}
   \begin{itemize}
     \item width.
     \item height.
@@ -489,7 +416,10 @@ As it can be seen in the figure \ref{fig-qualitatmegas} when reducing the amount
 	\label{fig-qualityvisual}
 \end{figure}
 
-\newpage
+\subsection{Map file}
+
+It is generated a file for the after reading of the map on the simulator. The map file is associated to the chunks downloaded in request, contains the basic information from the GEOTool module: location on real world, size, pixels size, textures that will be load, etc. In the appendix  \ref{appendix:mapjson}  can be seen a example.
+
 \section{Module: Simulator}
 
 In this section the multiple parts of which the module of simulation it is composed are explained. The objective of this module is to make an available a tool that allows to simulate a travel with a generic vehicle above a terrain, getting images from multiple cameras on board of the vehicle. A way to make this is providing the interface control of the vehicle with an external script sending commands with the RPC Protocol, in this case, it is implemented on the server as it can be seen in section \ref{rpcserver} and controllled with a client implemented in a module as it can be seen in the section \ref{modulescript}.
@@ -500,7 +430,7 @@ The goal of this part is to provide the interface for moving a generic vehicle i
 
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.5\textwidth]{cenitalviewir}
+  	\includegraphics[width=0.48\textwidth]{cenitalviewir}
 	\caption{Infrared view of Montserrat in zenith position}
 	\label{fig-montserratir}
 \end{figure}
@@ -654,6 +584,11 @@ In the figure \ref{fig-dataset} there is a little example with a few images of a
 	\label{fig-dataset}
 \end{figure}
 
+\section{Full work flow}
+
+This section contains an example of full work flow it can be made with this modules. This allow know how to be used and can be seen new applications that use as base this project.
+%TODO complete and check 
+
 \section{Conclusions}
 
 This project shows how to obtain textures and elevation maps originated from satelites. This information can be manipulated to generate indexes, new information generated through neural networks, etc. The treated data is transformed into 3D information that can be interpreted by graphical engines line Unreal Engine. Aspects like the time needed to generate the 3D model are used to see the effect of libraries like NumPy during the manipulation of matrixes, accelerating the process thanks to parallelism. The effect can be seen both in the faster times and in the quality of the meshes with the reduction of the number of points used to generate the 3D model used to render models of big sizes.
@@ -740,24 +675,31 @@ Cálculo del índice NDWI - \url{http://www.gisandbeers.com/calculo-del-indice-n
 
 \end{thebibliography}
 
+\newpage
 \appendix
-\section*{Apèndix}
+\section*{Appendix}
 
 \setcounter{section}{1}
 
-\subsection{JSON d'exemple per la configuració de GEOTool}
+\subsection{JSON example for configure GEOTool}
 \label{appendix:geotoolconfig}
 \lstinputlisting{geotoolconfig.json}
 
-\subsection{Codi per la generació d'una malla 3D a partir d'un fitxer d'altures}
+\subsection{Code for generate a 3D mesh from a heights file}
 \label{appendix:generateobj}
 \lstinputlisting[language=Python]{generateobj.py}
 
-\subsection{GEOJson d'exemple}
+\subsection{GEOJson example}
 \label{appendix:geojson}
 \lstinputlisting{geojson.json}
 
-\subsection{Codi d'exemple per estendre la funcionalitat RPC}
+\subsection{Map file generated by GEOTool}
+\label{appendix:mapjson}
+
+Example of JSON with 2 chunks.
+\lstinputlisting{mapjson.json}
+
+\subsection{Example code for understand the RPC functionality}
 \label{appendix:extendrpc}
 
 \lstset{language=C} 
@@ -777,14 +719,14 @@ void MyClass::BindFunctions(rpc::server* server)
 
 \end{lstlisting}
 
-\subsection{Fitxers CSV d'exemple per controlar el vehicle i les càmeres}
+\subsection{Example of CSV file to control the vehicle and cameras}
 \label{appendix:fitxerscsv}
 
 \begin{figure}[!h]
 \centering
   	\includegraphics[width=0.45\textwidth]{fitxervehicle}
 	\captionsetup{labelformat=empty}
-	\caption{Fitxer CSV per controlar el vehicle}
+	\caption{CSV file to control a vehicle}
 	\label{fig-fitxervehicle}
 \end{figure}
 
@@ -793,7 +735,7 @@ void MyClass::BindFunctions(rpc::server* server)
 \centering
   	\includegraphics[width=0.45\textwidth]{fitxercameres}
   	\captionsetup{labelformat=empty}
-	\caption{Fitxer CSV per controlar les càmeres}
+	\caption{CSV file to control cameras}
 	\label{fig-fitxercameres}
 \end{figure}
 

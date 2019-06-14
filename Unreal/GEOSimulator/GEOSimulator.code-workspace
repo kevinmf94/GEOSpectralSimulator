@@ -4,17 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "F:\\Programas\\Unreal\\Unreal Engine\\UE_4.22"
+			"path": "/Users/Shared/Epic Games/UE_4.22"
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off",
-		"files.associations": {
-			"*.modules": "json",
-			"*.target": "json",
-			"*.uproject": "json",
-			"*.uplugin": "json",
-			"sstream": "cpp"
-		}
+		"typescript.tsc.autoDetect": "off"
 	}
 }

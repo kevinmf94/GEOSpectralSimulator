@@ -26,6 +26,7 @@
 
 //Async
 #include "Async.h"
+#include "Async/Future.h"
 
 //VectorLookAt
 #include "Kismet/KismetMathLibrary.h"
@@ -150,14 +151,22 @@ void AVehiclePawn::BindFunctions(rpc::server* server)
 	server->bind("getImage", [this](int cameraId, std::string text) {
 
 		FString* str = new FString(UTF8_TO_TCHAR(text.c_str()));
-
-		AsyncTask(ENamedThreads::GameThread, [this, cameraId, str]() {
-			UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"), **str);
+        TPromise<int> promise;
+        TFuture<int> future = promise.GetFuture();
+        
+        UE_LOG(LogTemp, Warning, TEXT("Start saving image"));
+		AsyncTask(ENamedThreads::GameThread, [this, cameraId, str, &promise]() {
+			UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"));
 			SaveImage(cameraId, **str);
 			delete str;
+            UE_LOG(LogTemp, Warning, TEXT("Saved Image"));
+            promise.SetValue(1);
 		});
 
-		return 1;
+        UE_LOG(LogTemp, Warning, TEXT("Obtaining saving promise"));
+        int i = future.Get();
+        UE_LOG(LogTemp, Warning, TEXT("Obtained promise"));
+        return i;
 	});
 
 }
