@@ -24,12 +24,14 @@ protected:
 
 	TArray<AMapChunk*> chunks;
 private:
-	TextureSelected textureSelected = TextureSelected::RGB;
+    FName textureSelected;
+    TArray<FName> textures;
 
-	static void NextTexture(TextureSelected& textureActual);
+    FName NextTexture();
 
 	void LoadExample9x9();
     void LoadFile(FString path, FString fileName);
+    bool IsValidTexture(FName textureName);
     
     FVector worldOrigin;
     

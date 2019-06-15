@@ -121,6 +121,7 @@ void AWorldManager::LoadFile(FString path, FString fileName)
                 FString txtFile = path+txtObj->GetStringField("file");
                 
                 chunk->AddTexture(FName(*txtName), txtFile);
+                textures.AddUnique(FName(*txtName));
             }
             
             //Finish spawn chunk
@@ -128,6 +129,21 @@ void AWorldManager::LoadFile(FString path, FString fileName)
             chunk->FinishSpawning(transform);
             chunks.Add(chunk);
         }
+        
+        //Check the valid textures
+        TArray<FName> invalids;
+        for(int i = 0; i < textures.Num(); i++)
+        {
+            if(!IsValidTexture(textures[i]))
+                invalids.AddUnique(textures[i]);
+        }
+        
+        for(int i = 0; i < invalids.Num(); i++)
+        {
+            textures.Remove(invalids[i]);
+        }
+        
+        textureSelected = textures[0];
     }
     else
     {
@@ -149,8 +165,8 @@ TArray<AMapChunk*> AWorldManager::GetChunks()
 
 void AWorldManager::ChangeTexture()
 {
-	NextTexture(textureSelected);
-	UE_LOG(LogTemp, Warning, TEXT("NewTexture %d"), textureSelected);
+    textureSelected = NextTexture();
+	UE_LOG(LogTemp, Warning, TEXT("NewTexture %s"), *textureSelected.ToString());
 
 	for (int i = 0; i < chunks.Num(); i++)
 	{
@@ -158,23 +174,30 @@ void AWorldManager::ChangeTexture()
 	}
 }
 
-void AWorldManager::NextTexture(TextureSelected& textureActual)
+FName AWorldManager::NextTexture()
 {
-	switch (textureActual)
-	{
-	case RGB:
-		textureActual = IR;
-		break;
-	case IR:
-		textureActual = B01;
-		break;
-	case B01:
-		textureActual = B02;
-		break;
-	case B02:
-		textureActual = RGB;
-		break;
-	}
+    int32 pos;
+    FName next;
+    
+    pos = textures.Find(textureSelected);
+    if(pos+1 >= textures.Num())
+        return textures[0];
+    
+    return textures[pos+1];
+}
+
+bool AWorldManager::IsValidTexture(FName textureName)
+{
+    bool valid = true;
+    int tmpIndex;
+    
+    for (int i = 0; i < chunks.Num(); i++)
+    {
+        TArray<FName> textures = chunks[i]->GetTexturesNames();
+        valid = textures.Find(textureName, tmpIndex);
+    }
+    
+    return valid;
 }
 
 FVector AWorldManager::GetWorldOrigin()

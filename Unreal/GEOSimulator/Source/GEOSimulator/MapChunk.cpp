@@ -60,7 +60,31 @@ void AMapChunk::PostActorCreated()
 	#endif
 }
 
-void AMapChunk::LoadTexture()
+// Called when the game starts or when spawned
+void AMapChunk::BeginPlay()
+{
+    Super::BeginPlay();
+    
+    LoadMeshFile();
+    
+    if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Error SetActorRotation in AMapChunk"));
+    }
+    
+    materialDynamic = UMaterialInstanceDynamic::Create(material, this);
+    LoadTextures();
+    mesh->SetMaterial(0, materialDynamic);
+}
+
+// Called every frame
+void AMapChunk::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+    
+}
+
+void AMapChunk::LoadTextures()
 {
 	for (auto& Elem : texturesFiles)
 	{
@@ -68,31 +92,33 @@ void AMapChunk::LoadTexture()
 		if (texture != nullptr)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("TextureLoaded"));
-			materialDynamic->SetTextureParameterValue(Elem.Key, texture);
+            textureMap.Add(Elem.Key, texture);
 		}
 	}
 	
+    TArray<FName> texturesKeys;
+    TArray<UTexture2D*> texturesValues;
+    textureMap.GenerateKeyArray(texturesKeys);
+    textureMap.GenerateValueArray(texturesValues);
+    
+    materialDynamic->SetTextureParameterValue("Texture", texturesValues[0]);
+    textureSelected = texturesKeys[0];
 }
 
-void AMapChunk::ChangeTexture(TextureSelected textureSelected)
+void AMapChunk::ChangeTexture(FName textureName)
 {
-	DisableAllTextures();
-	switch (textureSelected)
-	{
-		case B02:
-			materialDynamic->SetScalarParameterValue(FName("B02Selected"), 1.f);
-		case B01:
-			materialDynamic->SetScalarParameterValue(FName("B01Selected"), 1.f);
-		case IR:
-			materialDynamic->SetScalarParameterValue(FName("IRSelected"), 1.f);
-	}
-}
-
-void AMapChunk::DisableAllTextures()
-{
-	materialDynamic->SetScalarParameterValue(FName("IRSelected"), 0.f);
-	materialDynamic->SetScalarParameterValue(FName("B01Selected"), 0.f);
-	materialDynamic->SetScalarParameterValue(FName("B02Selected"), 0.f);
+    TArray<FName> texturesKeys;
+    TArray<UTexture2D*> texturesValues;
+    textureMap.GenerateKeyArray(texturesKeys);
+    textureMap.GenerateValueArray(texturesValues);
+    
+    for(int i = 0; i < texturesKeys.Num(); i++)
+    {
+        if(textureName == texturesKeys[i])
+        {
+            materialDynamic->SetTextureParameterValue("Texture", texturesValues[i]);
+        }
+    }
 }
 
 void AMapChunk::PostLoad()
@@ -186,14 +212,21 @@ void AMapChunk::LoadMeshFile()
 			TArray<FString> fLine;
 			TArray<FString> fItem;
 			fileItems[i].ParseIntoArray(fLine, TEXT(" "));
-			for (int j = 0; j < fLine.Num(); j++)
+            
+            #if PLATFORM_WINDOWS
+            int j = 0;
+            #elif PLATFORM_MAC
+            int j = 1;
+            #elif PLATFORM_LINUX
+            int j = 1;
+            #endif
+            
+			for (; j < fLine.Num(); j++)
 			{
 				fLine[j].ParseIntoArray(fItem, TEXT("/"));
 				int32 faceId = FCString::Atoi(*fItem[0]);
 				Triangles.Add(faceId - 1);
 			}
-			
-			
 		}
 	}
 
@@ -201,129 +234,6 @@ void AMapChunk::LoadMeshFile()
 
 	// Enable collision data
 	mesh->ContainsPhysicsTriMeshData(false);
-}
-
-void AMapChunk::LoadMeshFileMac()
-{
-    TArray<FVector> vertices;
-    TArray<int32> Triangles;
-    TArray<FVector> normals;
-    TArray<FVector2D> UV0;
-    TArray<FProcMeshTangent> tangents;
-    TArray<FLinearColor> vertexColors;
-    
-    TArray<FString> fileItems;
-    bool success = FFileHelper::LoadFileToStringArray(fileItems, *meshFile);
-    if (success)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("FirstLine %s"), *(fileItems[0]));
-        UE_LOG(LogTemp, Warning, TEXT("File Open NLines = %d"), fileItems.Num());
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Error load mesh"));
-    }
-    
-    UE_LOG(LogTemp, Warning, TEXT("Path %s"), *meshFile);
-    
-    for (int i = 0; i < fileItems.Num(); i++)
-    {
-        if (fileItems[i].Contains(TEXT("vn"), ESearchCase::CaseSensitive))
-        {
-            TArray<FString> vnLine;
-            fileItems[i].ParseIntoArray(vnLine, TEXT(" "));
-            if (vnLine.Num() == 4)
-            {
-                float x = FCString::Atof(*vnLine[1]);
-                float y = FCString::Atof(*vnLine[2]);
-                float z = FCString::Atof(*vnLine[3]);
-                normals.Add(FVector(x, y, z));
-            }
-            else
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vnLine.Num());
-                break;
-            }
-        }
-        else if (fileItems[i].Contains(TEXT("vt"), ESearchCase::CaseSensitive))
-        {
-            TArray<FString> vtLine;
-            fileItems[i].ParseIntoArray(vtLine, TEXT(" "));
-            if (vtLine.Num() == 3)
-            {
-                float x = FCString::Atof(*vtLine[1]);
-                float y = FCString::Atof(*vtLine[2]);
-                UV0.Add(FVector2D(x, y));
-            }
-            else
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vtLine.Num());
-                break;
-            }
-        }
-        else if ( fileItems[i].Contains(TEXT("v"), ESearchCase::CaseSensitive) )
-        {
-            TArray<FString> vLine;
-            int32 count = 0;
-            fileItems[i].ParseIntoArray(vLine, TEXT(" "));
-            if (vLine.Num() == 4)
-            {
-                float x = FCString::Atof(*vLine[1]);
-                float y = FCString::Atof(*vLine[2]);
-                float z = FCString::Atof(*vLine[3]);
-                vertices.Add(FVector(x, -y, z));
-            }
-            else
-            {
-                UE_LOG(LogTemp, Warning, TEXT("Error Line %d Str [%s] Num items %d"), i, *fileItems[i], vLine.Num());
-                break;
-            }
-        }
-        else if (fileItems[i].Contains(TEXT("f"), ESearchCase::CaseSensitive))
-        {
-            TArray<FString> fLine;
-            TArray<FString> fItem;
-            fileItems[i].ParseIntoArray(fLine, TEXT(" "));
-            for (int j = 1; j < fLine.Num(); j++)
-            {
-                fLine[j].ParseIntoArray(fItem, TEXT("/"));
-                int32 faceId = FCString::Atoi(*fItem[0]);
-                Triangles.Add(faceId - 1);
-            }
-            
-            
-        }
-    }
-    
-    mesh->CreateMeshSection_LinearColor(0, vertices, Triangles, normals, UV0, vertexColors, tangents, false);
-    
-    // Enable collision data
-    mesh->ContainsPhysicsTriMeshData(false);
-}
-
-// Called when the game starts or when spawned
-void AMapChunk::BeginPlay()
-{
-	Super::BeginPlay();
-
-	LoadMeshFileMac();
-	UE_LOG(LogTemp, Warning, TEXT("SetActorRotation"));
-	if (!SetActorRotation(FRotator(0.f, 90.f, 0.f)))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Error SetActorRotation"));
-	}
-
-	materialDynamic = UMaterialInstanceDynamic::Create(material, this);
-	DisableAllTextures();
-	LoadTexture();
-	mesh->SetMaterial(0, materialDynamic);
-}
-
-// Called every frame
-void AMapChunk::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
 }
 
 void AMapChunk::AddTexture(FName param, FString pathfile)
@@ -334,4 +244,11 @@ void AMapChunk::AddTexture(FName param, FString pathfile)
 void AMapChunk::SetMeshFile(FString pathfile)
 {
 	meshFile = pathfile;
+}
+
+TArray<FName> AMapChunk::GetTexturesNames()
+{
+    TArray<FName> keys;
+    textureMap.GenerateKeyArray(keys);
+    return keys;
 }
