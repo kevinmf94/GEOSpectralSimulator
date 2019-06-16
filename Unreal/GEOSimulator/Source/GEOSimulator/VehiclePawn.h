@@ -6,9 +6,22 @@
 #include "RPCPawnServer.h"
 #include "GEOCameraComponent.h"
 #include "WorldManager.h"
+#include <queue> 
 #include "VehiclePawn.generated.h"
 
 class UCameraComponent;
+
+struct ImageRequest
+{
+	TPromise<int>* promise;
+    FString path;
+    FName texture;
+    int cameraId;
+};
+/* TPromise<int>* promise;
+    FString path;
+    FName texture;
+    int cameraId;*/
 
 UCLASS(Abstract)
 class GEOSIMULATOR_API AVehiclePawn : public ARPCPawnServer
@@ -30,6 +43,12 @@ private:
 
 	FVector NewLocation;
 	FVector NewLookAt;
+    std::queue<ImageRequest> requests;
+
+	//Save image variables
+	UGameViewportClient* game_viewport_;
+	TPromise<int>* promise;
+	FDelegateHandle end_draw_handle_;
 public:	
 	// Override API UE4
 	virtual void Tick(float DeltaTime) override;

@@ -163,10 +163,23 @@ TArray<AMapChunk*> AWorldManager::GetChunks()
 	return chunks;
 }
 
+/* Change texture used by the event of player */
 void AWorldManager::ChangeTexture()
 {
     textureSelected = NextTexture();
 	UE_LOG(LogTemp, Warning, TEXT("NewTexture %s"), *textureSelected.ToString());
+
+	for (int i = 0; i < chunks.Num(); i++)
+	{
+		chunks[i]->ChangeTexture(textureSelected);
+	}
+}
+
+/* Used to set a specify texture saved in textureSelected variable */
+void AWorldManager::ChangeTexture(FName newTexture)
+{
+    textureSelected = newTexture;
+	UE_LOG(LogTemp, Warning, TEXT("ChangeTexture2 NewTexture %s"), *textureSelected.ToString());
 
 	for (int i = 0; i < chunks.Num(); i++)
 	{
@@ -198,6 +211,11 @@ bool AWorldManager::IsValidTexture(FName textureName)
     }
     
     return valid;
+}
+
+FName AWorldManager::GetTextureSelected()
+{
+    return textureSelected;
 }
 
 FVector AWorldManager::GetWorldOrigin()

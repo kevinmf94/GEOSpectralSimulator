@@ -17,16 +17,18 @@ public class GEOSimulator : ModuleRules
 
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
-
-        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/GEOControl.lib");
-        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Binaries/Win64/rpc.lib");
         
-        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/x64/Release/GEOControl.lib");
-        //PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/rpc.lib");
-        PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/lib/librpc.a");
+        if(Target.Platform == UnrealTargetPlatform.Mac)
+        {
+             PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Libs/rpc/lib/librpc.a");
+        }
+        else if(Target.Platform == UnrealTargetPlatform.Win64)
+        {
+            PublicAdditionalLibraries.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Libs/rpc/lib/rpc.lib");
+        }
 
-        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/GEOControl/");
-        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/RPCLib/include/");
+        //PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.Parent.FullName + "/PluginGEOControl/GEOControl/");
+        PublicIncludePaths.Add(Directory.GetParent(ModuleDirectory).Parent.FullName + "/Libs/rpc/include/");
 
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

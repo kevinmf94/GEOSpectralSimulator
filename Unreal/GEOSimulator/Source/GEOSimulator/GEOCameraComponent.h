@@ -32,7 +32,7 @@ private:
 
 	FVector NewLookAt;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	UGEOSceneCaptureComponent2D* sceneCapture;
     
     AWorldManager* worldManager;

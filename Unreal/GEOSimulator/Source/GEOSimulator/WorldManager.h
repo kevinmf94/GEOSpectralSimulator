@@ -31,7 +31,6 @@ private:
 
 	void LoadExample9x9();
     void LoadFile(FString path, FString fileName);
-    bool IsValidTexture(FName textureName);
     
     FVector worldOrigin;
     
@@ -44,8 +43,11 @@ public:
 
 	TArray<AMapChunk*> GetChunks();
 	void ChangeTexture();
+    void ChangeTexture(FName newTexture);
+    bool IsValidTexture(FName textureName);
     
     FVector GetWorldOrigin();
+    FName GetTextureSelected();
     
     FVector WorldToUnreal(FVector vector);
     FVector UnrealToWorld(FVector vector);

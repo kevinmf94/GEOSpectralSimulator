@@ -23,6 +23,8 @@
 #include "HAL/FileManagerGeneric.h"
 
 #include <string.h>
+#include <queue>
+#include "Engine/GameViewportClient.h"
 
 //Async
 #include "Async.h"
@@ -114,6 +116,20 @@ void AVehiclePawn::Tick(float DeltaTime)
 			NewLookAt = FVector::ZeroVector;
 		}
 	}
+    
+    //Handle images requests
+    {
+        /* while(requests.size() > 0)
+        {
+            ImageRequest element = requests.front();
+			worldManager->ChangeTexture(element.texture);
+
+			requests.pop();
+            SaveImage(element.cameraId, *(element.path));
+            element.promise->SetValue(1);
+
+		}*/
+    }
 }
 
 // Called to bind functionality to input
@@ -148,25 +164,47 @@ void AVehiclePawn::BindFunctions(rpc::server* server)
 		SetCameraLookAt(cameraId, x, y, z);
 	});
 
-	server->bind("getImage", [this](int cameraId, std::string text) {
+	server->bind("getImage", [this](int cameraId, std::string text, std::string textureName) {
 
-		FString* str = new FString(UTF8_TO_TCHAR(text.c_str()));
-        TPromise<int> promise;
-        TFuture<int> future = promise.GetFuture();
-        
-        UE_LOG(LogTemp, Warning, TEXT("Start saving image"));
-		AsyncTask(ENamedThreads::GameThread, [this, cameraId, str, &promise]() {
-			UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"));
-			SaveImage(cameraId, **str);
-			delete str;
-            UE_LOG(LogTemp, Warning, TEXT("Saved Image"));
-            promise.SetValue(1);
-		});
+		FString str(UTF8_TO_TCHAR(text.c_str()));
+		FName txtName(UTF8_TO_TCHAR(textureName.c_str()));
+        promise = new TPromise<int>();
+        TFuture<int> future = promise->GetFuture();
 
-        UE_LOG(LogTemp, Warning, TEXT("Obtaining saving promise"));
-        int i = future.Get();
-        UE_LOG(LogTemp, Warning, TEXT("Obtained promise"));
-        return i;
+		if(worldManager->IsValidTexture(txtName))
+		{
+			
+			AsyncTask(ENamedThreads::GameThread, [this, &str, txtName, cameraId]() {
+				check(IsInGameThread());
+
+				FName actualTexture = this->worldManager->GetTextureSelected();
+				this->worldManager->ChangeTexture(txtName);
+
+				game_viewport_ = GetWorld()->GetGameViewport();
+				bool saved_DisableWorldRendering_ = game_viewport_->bDisableWorldRendering;
+				game_viewport_->bDisableWorldRendering = 0;
+				
+				end_draw_handle_ = game_viewport_->OnEndDraw().AddLambda([this, &str, saved_DisableWorldRendering_, cameraId] {
+					check(IsInGameThread());
+
+					game_viewport_->OnEndDraw().Remove(end_draw_handle_);
+					
+					UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"));
+					SaveImage(cameraId, *str);
+					UE_LOG(LogTemp, Warning, TEXT("Saved Image"));
+					
+					game_viewport_->bDisableWorldRendering = saved_DisableWorldRendering_;
+					
+					this->promise->SetValue(1);
+				});
+				
+        	});
+
+			future.Get();
+			delete promise;
+		}
+		
+        return 1;
 	});
 
 }
@@ -245,12 +283,12 @@ void AVehiclePawn::SaveImage()
 void AVehiclePawn::SaveImage(int cameraId, const TCHAR* pathname)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Save image %s"), pathname);
+	UTextureRenderTarget2D* texture = cameras[cameraId]->GetTexture();
 
 	//Funciona pero guarda el png en negro funciona con PF_R8G8B8A8
 	IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
 	IFileHandle* fileHandle = PlatformFile.OpenWrite(pathname);
 	FArchiveFileWriterGeneric archive(fileHandle, pathname, 0);
-	UTextureRenderTarget2D* texture = cameras[cameraId]->GetTexture();
 	bool success = FImageUtils::ExportRenderTarget2DAsPNG(texture, archive);
 	UE_LOG(LogTemp, Warning, TEXT("Save success: %s"), success ? TEXT("Success") : TEXT("Error"));
 }
