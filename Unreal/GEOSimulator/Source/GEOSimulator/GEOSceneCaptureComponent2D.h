@@ -20,8 +20,11 @@ public:
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	void AddShader(UMaterial* shader, float weight);
+	void RemoveShader(UMaterial* shader);
+
 	UTextureRenderTarget2D* GetTexture();
 private:
-
+	bool isShaderEnable = false;
 	UTextureRenderTarget2D* texture;
 };

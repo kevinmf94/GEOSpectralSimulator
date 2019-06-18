@@ -33,7 +33,7 @@ void AWorldManager::BeginPlay()
     #if WITH_EDITOR
         LoadFile(FPaths::ProjectDir() + folderMap, map);
     #else
-        LoadFile(folderMap, map);
+        LoadFile(FPaths::LaunchDir() + folderMap, map);
     #endif
     
     //LoadFile(FPaths::ProjectDir() + folderMap, map);
@@ -52,8 +52,10 @@ void AWorldManager::LoadFile(FString path, FString fileName)
     FString JsonString; //Json converted to FString
     
     FFileHelper::LoadFileToString(JsonString,*JsonFilePath);
+
     
     UE_LOG(LogTemp, Warning, TEXT("Path [%s] fileName [%s] fullPath [%s]"), *path, *fileName, *JsonFilePath);
+    UE_LOG(LogTemp, Warning, TEXT("JsonString [%s]"), *JsonString);
     
     TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
     TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);

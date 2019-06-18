@@ -24,11 +24,14 @@ public:
     virtual void BeginPlay() override;
 
 	void SetNewRotation(FVector lookAt);
+	void ToggleDepth();
 
 	UGEOSceneCaptureComponent2D* GetSceneCapture();
 	UTextureRenderTarget2D* GetTexture();
 
 private:
+	UMaterial* depth;
+	bool isDepth = false;
 
 	FVector NewLookAt;
 

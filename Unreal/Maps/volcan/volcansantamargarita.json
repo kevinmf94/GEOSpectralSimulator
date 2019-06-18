@@ -1,0 +1,98 @@
+[
+    {
+        "file": "volcansantamargarita_0_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 0
+        },
+        "x": 460490.5026001931,
+        "y": 4664386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_0_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_0_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_0_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 1
+        },
+        "x": 460490.502600193,
+        "y": 4669386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_0_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_0_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_1_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 0
+        },
+        "x": 465490.502600193,
+        "y": 4664386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_1_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_1_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_1_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 1
+        },
+        "x": 465490.5026001931,
+        "y": 4669386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_1_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_1_1_ir.jpg"
+            }
+        ]
+    }
+]

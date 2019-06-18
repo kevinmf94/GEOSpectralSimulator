@@ -1,8 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "GEOCameraComponent.h"
 #include "GEOSceneCaptureComponent2D.h"
+
+//Load
+#include "UObject/ConstructorHelpers.h"
 
 //VectorLookAt
 #include "Kismet/KismetMathLibrary.h"
@@ -17,10 +19,13 @@ UGEOCameraComponent::UGEOCameraComponent()
 	FString name = this->GetName();
 	name = name.Append("SceneCapture");
 
-	sceneCapture = CreateDefaultSubobject<UGEOSceneCaptureComponent2D>(*name);
-	sceneCapture->ProjectionType = ECameraProjectionMode::Perspective;
-	sceneCapture->CaptureSource = ESceneCaptureSource::SCS_SceneColorSceneDepth;
+	ConstructorHelpers::FObjectFinder<UMaterial> depthObj(TEXT("/Game/PostProcess/DepthEffectMaterial.DepthEffectMaterial"));
+	if (depthObj.Succeeded())
+	{
+		depth = depthObj.Object;
+	}
 
+	sceneCapture = CreateDefaultSubobject<UGEOSceneCaptureComponent2D>(*name);
 	sceneCapture->SetupAttachment(this);
 }
 
@@ -51,6 +56,20 @@ void UGEOCameraComponent::TickComponent(float DeltaTime, enum ELevelTick TickTyp
             NewLookAt = FVector::ZeroVector;
 		}
 	}
+}
+
+void UGEOCameraComponent::ToggleDepth()
+{
+	if(!isDepth)
+	{
+		PostProcessSettings.AddBlendable(depth, 1.f);
+		sceneCapture->AddShader(depth, 1.f);
+	} else 
+	{
+		PostProcessSettings.AddBlendable(depth, 0.f);	
+		sceneCapture->RemoveShader(depth);
+	}
+	isDepth = !isDepth;
 }
 
 void UGEOCameraComponent::SetNewRotation(FVector LookAt)

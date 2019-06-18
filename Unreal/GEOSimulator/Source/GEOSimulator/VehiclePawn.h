@@ -61,6 +61,7 @@ public:
 	void ChangeCamera();
 	void ChangeTexture();
 	void HiddenVehicle();
+	void ToggleDepth();
 
 	//Save Images
 	void SaveImage();

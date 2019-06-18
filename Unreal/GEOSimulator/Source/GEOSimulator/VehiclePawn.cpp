@@ -141,6 +141,16 @@ void AVehiclePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 	PlayerInputComponent->BindKey(EKeys::T, IE_Pressed, this, &AVehiclePawn::ChangeTexture);
 	PlayerInputComponent->BindKey(EKeys::K, IE_Pressed, this, &AVehiclePawn::SaveImage);
 	PlayerInputComponent->BindKey(EKeys::H, IE_Pressed, this, &AVehiclePawn::HiddenVehicle);
+	PlayerInputComponent->BindKey(EKeys::B, IE_Pressed, this, &AVehiclePawn::ToggleDepth);
+}
+
+void AVehiclePawn::ToggleDepth()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Toogle Depth"));
+	for(int i = 0; i < cameras.Num(); i++)
+	{
+		cameras[i]->ToggleDepth();
+	}
 }
 
 void AVehiclePawn::BindFunctions(rpc::server* server)
