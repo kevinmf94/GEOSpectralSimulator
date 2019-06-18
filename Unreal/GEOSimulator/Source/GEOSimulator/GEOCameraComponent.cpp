@@ -60,16 +60,28 @@ void UGEOCameraComponent::TickComponent(float DeltaTime, enum ELevelTick TickTyp
 
 void UGEOCameraComponent::ToggleDepth()
 {
-	if(!isDepth)
-	{
+	if (!isDepth)
+		ActivateDepth();
+	else
+		DeactivateDepth();	
+}
+
+void UGEOCameraComponent::ActivateDepth()
+{
+	if(!isDepth) {
 		PostProcessSettings.AddBlendable(depth, 1.f);
 		sceneCapture->AddShader(depth, 1.f);
-	} else 
-	{
+		isDepth = true;
+	}
+}
+
+void UGEOCameraComponent::DeactivateDepth()
+{
+	if(isDepth) {
 		PostProcessSettings.AddBlendable(depth, 0.f);	
 		sceneCapture->RemoveShader(depth);
+		isDepth = false;
 	}
-	isDepth = !isDepth;
 }
 
 void UGEOCameraComponent::SetNewRotation(FVector LookAt)

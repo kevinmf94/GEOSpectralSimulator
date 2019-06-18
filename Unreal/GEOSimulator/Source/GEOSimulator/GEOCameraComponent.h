@@ -25,6 +25,8 @@ public:
 
 	void SetNewRotation(FVector lookAt);
 	void ToggleDepth();
+	void ActivateDepth();
+	void DeactivateDepth();
 
 	UGEOSceneCaptureComponent2D* GetSceneCapture();
 	UTextureRenderTarget2D* GetTexture();

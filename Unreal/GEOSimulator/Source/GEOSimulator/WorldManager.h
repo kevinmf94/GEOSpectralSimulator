@@ -45,6 +45,7 @@ public:
 	void ChangeTexture();
     void ChangeTexture(FName newTexture);
     bool IsValidTexture(FName textureName);
+    bool IsShader(FName textureName);
     
     FVector GetWorldOrigin();
     FName GetTextureSelected();

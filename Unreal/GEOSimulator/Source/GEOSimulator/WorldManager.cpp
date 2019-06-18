@@ -205,6 +205,10 @@ bool AWorldManager::IsValidTexture(FName textureName)
 {
     bool valid = true;
     int tmpIndex;
+
+    //Shaders
+    if(IsShader(textureName))
+        return true;
     
     for (int i = 0; i < chunks.Num(); i++)
     {
@@ -213,6 +217,15 @@ bool AWorldManager::IsValidTexture(FName textureName)
     }
     
     return valid;
+}
+
+bool AWorldManager::IsShader(FName textureName)
+{
+    //Shaders
+    if(FName("depth") == textureName)
+        return true;
+
+    return false;
 }
 
 FName AWorldManager::GetTextureSelected()

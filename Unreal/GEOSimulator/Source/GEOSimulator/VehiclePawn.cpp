@@ -146,11 +146,28 @@ void AVehiclePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInputC
 
 void AVehiclePawn::ToggleDepth()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Toogle Depth"));
+	if(!isDepth)
+		ActivateDepth();
+	else
+		DeactivateDepth();
+}
+
+void AVehiclePawn::ActivateDepth()
+{
 	for(int i = 0; i < cameras.Num(); i++)
 	{
-		cameras[i]->ToggleDepth();
+		cameras[i]->ActivateDepth();
 	}
+	isDepth = true;
+}
+
+void AVehiclePawn::DeactivateDepth()
+{
+	for(int i = 0; i < cameras.Num(); i++)
+	{
+		cameras[i]->DeactivateDepth();
+	}
+	isDepth = false;
 }
 
 void AVehiclePawn::BindFunctions(rpc::server* server)
@@ -188,24 +205,38 @@ void AVehiclePawn::BindFunctions(rpc::server* server)
 				check(IsInGameThread());
 
 				FName actualTexture = this->worldManager->GetTextureSelected();
-				this->worldManager->ChangeTexture(txtName);
+				if(txtName == FName(TEXT("depth")))
+				{
+					this->ActivateDepth();
+				} else 
+				{
+					this->worldManager->ChangeTexture(txtName);
+				}
 
 				game_viewport_ = GetWorld()->GetGameViewport();
 				bool saved_DisableWorldRendering_ = game_viewport_->bDisableWorldRendering;
 				game_viewport_->bDisableWorldRendering = 0;
 				
-				end_draw_handle_ = game_viewport_->OnEndDraw().AddLambda([this, &str, saved_DisableWorldRendering_, cameraId] {
+				end_draw_handle_ = game_viewport_->OnEndDraw().AddLambda([this, &str, saved_DisableWorldRendering_, cameraId, txtName, actualTexture] {
 					check(IsInGameThread());
 
 					game_viewport_->OnEndDraw().Remove(end_draw_handle_);
-					
+				
 					UE_LOG(LogTemp, Warning, TEXT("Save Image Path [%s]"));
 					SaveImage(cameraId, *str);
 					UE_LOG(LogTemp, Warning, TEXT("Saved Image"));
 					
 					game_viewport_->bDisableWorldRendering = saved_DisableWorldRendering_;
-					
-					this->promise->SetValue(1);
+
+					if(txtName == FName(TEXT("depth")))
+						this->DeactivateDepth();
+					else
+						this->worldManager->ChangeTexture(actualTexture);
+
+					end_draw_handle2_ = game_viewport_->OnEndDraw().AddLambda([this] {
+						game_viewport_->OnEndDraw().Remove(end_draw_handle2_);
+						this->promise->SetValue(1);
+					});
 				});
 				
         	});

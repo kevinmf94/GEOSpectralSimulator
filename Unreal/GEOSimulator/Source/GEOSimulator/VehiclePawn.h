@@ -11,18 +11,6 @@
 
 class UCameraComponent;
 
-struct ImageRequest
-{
-	TPromise<int>* promise;
-    FString path;
-    FName texture;
-    int cameraId;
-};
-/* TPromise<int>* promise;
-    FString path;
-    FName texture;
-    int cameraId;*/
-
 UCLASS(Abstract)
 class GEOSIMULATOR_API AVehiclePawn : public ARPCPawnServer
 {
@@ -40,15 +28,16 @@ protected:
 
 private:
 	int indexCamera = 1;
+	bool isDepth = false;
 
 	FVector NewLocation;
 	FVector NewLookAt;
-    std::queue<ImageRequest> requests;
 
 	//Save image variables
 	UGameViewportClient* game_viewport_;
 	TPromise<int>* promise;
 	FDelegateHandle end_draw_handle_;
+	FDelegateHandle end_draw_handle2_;
 public:	
 	// Override API UE4
 	virtual void Tick(float DeltaTime) override;
@@ -62,6 +51,10 @@ public:
 	void ChangeTexture();
 	void HiddenVehicle();
 	void ToggleDepth();
+
+	//Depth
+	void ActivateDepth();
+	void DeactivateDepth();
 
 	//Save Images
 	void SaveImage();
