@@ -1,11 +1,18 @@
 import sys
 import json
+import os
 from geotool import *
 
 if __name__ == '__main__':
 	config = GEOConfig(sys.argv[1])
 
 	mapData = []
+
+	# Try to create a folder to save data generated if not exists
+	try:
+		os.mkdir(config.folderWcs)
+	except FileExistsError:
+		pass
 
 	for h in range(config.chunks[0]):
 		for w in range(config.chunks[1]):

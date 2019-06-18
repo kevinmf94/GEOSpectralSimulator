@@ -1,8 +1,8 @@
 {
-  "type": "xy",
+  "type": "latlong",
   "coordinates" : {
-  	"x": 326737.23,
-	"y": 4676971.49,
+  	"lat": 42.130596,
+	"long":  2.521956,
 	"zone": "31T"
   },
   "dimensions": {
@@ -19,11 +19,11 @@
     "height": 2,
     "width": 2
   },
-  "cellsize": 15,
+  "cellsize": 5,
   "meshStep": 4,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "folderWcs": "example9x9big",
-  "outputWcs": "pallars15",
+  "folderWcs": "volcan",
+  "outputWcs": "volcansantamargarita",
   "formatWcs": "obj",
   "wmsRequests": [
 	{
