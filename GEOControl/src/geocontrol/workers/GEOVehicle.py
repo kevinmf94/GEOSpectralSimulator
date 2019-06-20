@@ -20,7 +20,7 @@ class GEOVehicle(GEOWorker):
             if self.noise:
                 self.item[1], self.item[2], self.item[3] = self.generate_noise(self.item[1], self.item[2], self.item[3])
 
-                # Call client
+            # Call client
             self.client.set_location_and_lookat(self.item[1], self.item[2], self.item[3], self.item[4],
                                                 self.item[5], self.item[6])
 

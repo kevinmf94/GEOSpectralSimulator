@@ -25,8 +25,8 @@ class GEORPCClient:
 		if self.client is not None:
 			self.client.close()
 
-	def get_image(self, camera_id, path):
-		self.client.call("getImage", camera_id, path)
+	def get_image(self, camera_id, path, channel='rgb'):
+		self.client.call("getImage", camera_id, path, channel)
 
 	def set_location(self, x, y, z):
 		self.client.call('setLocation', x, y, z)

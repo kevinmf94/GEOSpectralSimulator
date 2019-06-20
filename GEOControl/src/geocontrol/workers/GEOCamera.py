@@ -27,8 +27,11 @@ class GEOCamera(GEOWorker):
                 except FileExistsError:
                     pass
 
-                file_path = os.path.abspath(self.path + self.filename + str(self.index) + ".png")
-                self.client.get_image(int(self.item[1]), file_path)
+                channels = self.item[6].split("|")
+
+                for channel in channels:
+                    file_path = os.path.abspath(self.path + self.filename + str(self.index) + channel + ".png")
+                    self.client.get_image(int(self.item[1]), file_path, channel)
 
             self.index = self.index + 1
 

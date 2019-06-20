@@ -1,4 +1,5 @@
 import sys
+import os
 from geocontrol import GEOClock
 from geocontrol import GEOVehicle
 from geocontrol import GEORPCClient
@@ -16,8 +17,14 @@ if __name__ == '__main__':
 	if client.connect():
 
 		clock = GEOClock()
-		vehicle = GEOVehicle(client, sys.argv[1])
-		camera = GEOCamera(client, sys.argv[2])
-		clock.register(vehicle)
-		clock.register(camera)
+		
+		if os.path.isfile(sys.argv[1]):
+			vehicle = GEOVehicle(client, sys.argv[1])
+			clock.register(vehicle)
+
+		if len(sys.argv) > 2:
+			if os.path.isfile(sys.argv[2]):
+				camera = GEOCamera(client, sys.argv[2])
+				clock.register(camera)
+	
 		clock.start()

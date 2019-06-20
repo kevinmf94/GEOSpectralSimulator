@@ -10,8 +10,8 @@ class MockGEORPCClient(GEORPCClient):
 		print("Mock connect to "+self.ip+" port: "+str(self.port))
 		return True
 
-	def get_image(self, camera_id, path):
-		print("Call to getImage "+str(camera_id)+" "+path)
+	def get_image(self, camera_id, path, channel):
+		print("Call to getImage "+str(camera_id)+" "+path+" "+channel)
 
 	def set_location(self, x, y, z):
 		print("setLocation " + str(x) + " " + str(y) + " " + str(z))
