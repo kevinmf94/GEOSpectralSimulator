@@ -44,6 +44,10 @@ void ACameraHUD::DrawHUD()
         FVector posInWorld = worldManager->UnrealToWorld(playerPosition);
         FString txt = FString::Printf(TEXT("X: %f Y: %f Z: %f"), posInWorld.X, posInWorld.Y, posInWorld.Z);
         DrawText(txt, FColor::White, 20.f, 20.f, NULL, 1.4f);
+        
+        FName textureSelected = worldManager->GetTextureSelected();
+        FString txt2 = FString::Printf(TEXT("Texture Selected: %s"), *(textureSelected.ToString()));
+        DrawText(txt2, FColor::White, 20.f, 60.f, NULL, 1.4f);
     }
     
     FString serverState = FString::Printf(TEXT("Server state: %s"), isRunningServer ? TEXT("Running") : TEXT("Off"));

@@ -116,7 +116,9 @@ void AMapChunk::ChangeTexture(FName textureName)
     {
         if(textureName == texturesKeys[i])
         {
-            materialDynamic->SetTextureParameterValue("Texture", texturesValues[i]);
+            UTexture2D* value = texturesValues[i];
+            if(value != nullptr)
+                materialDynamic->SetTextureParameterValue("Texture", value);
         }
     }
 }
