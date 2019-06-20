@@ -17,6 +17,8 @@ if __name__ == '__main__':
 	for h in range(config.chunks[0]):
 		for w in range(config.chunks[1]):
 			name = config.outputWcs+"_"+str(h)+"_"+str(w)
+			print("Generating file: "+name)
+
 			filename = config.folderWcs+"/"+name
 			# Calculate offset for the chunk size
 			offset = h * config.bboxSize[0], w * config.bboxSize[1]

@@ -16,8 +16,8 @@
     }
   },
   "chunks": {
-    "height": 2,
-    "width": 2
+    "height": 4,
+    "width": 3
   },
   "cellsize": 5,
   "meshStep": 4,
