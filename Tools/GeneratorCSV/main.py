@@ -28,6 +28,6 @@ getImage = np.linspace(0, steps, steps, dtype=np.int32)
 getImage = np.array((getImage % 100 == 0), dtype=np.int32) #Cada 100 steps
 channel = ['rgb|ir']*steps;
 
-data = np.column_stack((time, x, y, z, getImage, channel))
+data = np.column_stack((time, camera, x, y, z, getImage, channel))
 
 np.savetxt("testcamera.csv", data, delimiter=";", header=header, fmt="%s")

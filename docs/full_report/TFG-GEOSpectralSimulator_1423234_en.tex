@@ -100,8 +100,7 @@
 \textbf{Paraules clau-- }
 Simulador, Terreny, Satèl·lit, Multispectral, Unreal Engine\\
 \\
-%TODO Cambiar ingles
-\textbf{Abstract--}  In this project it can be seen how 3d objects are generated from satelite data, and how those objects are reproduced in a graphical engine. The 3d objects have graphical data associated on JSON files, and these files allow the simulator (developed in unreal engine) to read the data, load the textures and set the location on the real world (in format UTM). All this allows to generate datasets from cameras located on the vehicle.
+\textbf{Abstract--}  This project shows how 3D objects can be generated from satellite data. These objects can be interpreted by a graphical engine, and geographical information contained within JSON files is associated to them. A simulator developed in Unreal Engine reads this files, loads the textures and moves to that location of the physical world using UTM coordinates. This allows to generate trajectories on which data will be collected with simulated cameras. The data can come from different sources, but those of multi spectral type are highlighted in this project. These image sequences can be used to generate datasets used to train deep learning algorithms.
 \\
 \\
 \textbf{Keywords-- }
@@ -129,16 +128,14 @@ Simulator, Terrain, Satellite, Multispectral, Unreal Engine\\
 
 \vspace{-1cm}
 \section{Introduction}
-The simulation of real worlds for the generation of synthetic images is a field of high impact with the new revival of deep learning as a possible source of data. We want to represent the real world as accurately as possible, to generate synthetic information that represents real environments that can present a danger (for the natural environment, people, etc) or a high economic cost.
+The simulation of real worlds for the generation of synthetic images is a field of high impact with the new revival of deep learning as a possible source of data. We want to represent the real world as accurately as possible, to generate synthetic information that represents real environments that can present a danger for example risk situations (earthquakes, floods, fire, etc), economic impact (agriculture, resources, infrastructures, etc) or others (natural environment, people, etc).
 \\
 \\
 On this project the informations is acquired using elevation maps and aerial images of real terrains that it is used to create a simulated environment that generates new datasets, which can be used in multiple areas of computer learning. Also, this project can simulate flights, see a geographical area or expand in other environments that use geographic information. That geographical information can be provided from multiple sources (satellite data, aerial images, drone captures, virtual generated data, etc), which allows to work with a lot of external data.
 
 \section{Objectives}
 
-The goal of this project is to create a tool that allows to download geoghrapical data or transform this data to 3D data, generate data that can be reproduced in a 3D engine, adapt multispectral data to 3D models (textures), navigate the world with a simulator, control a virtual vehicle through an external script or keyboard and generate datasets that can be used in other algorithms.
-
-%TODO Añadir lista de objetivos en un apendice
+The goal of this project is to create a tool that allows to download geoghrapical data or transform this data to 3D data, generate data that can be reproduced in a 3D engine, adapt multispectral data to 3D models (textures), navigate the world with a simulator, control a virtual vehicle through an external script or keyboard and generate datasets that can be used in other algorithms. You can see the full list in appendix \ref{appendix:objectives}.
 
 \section{Methodology}
 In this project an Agile methodology is used,  this allows us to identify more efficiently the little parts that compose the project, and to adapt them to changes needed. More specifically, a technique called Kanban \cite{kanban} is used, which consists in organizing the backlog (list of tasks of short duration) on cards that will be placed on a board according to the point of the life cycle where the tasks currently are. For this purpose Trello \cite{trello} is used, a software that allows to see the boards on a web browser, create cards and move them between different lists.
@@ -328,7 +325,7 @@ The RAW format is a format based on values of 16 bits, where the value of sea le
 To import land in the graphics engine, it decides to generate a 3D mesh in {\tt obj} format compatible with any 3D editor, graphics engine, etc. This device gives the freedom to control the distance between the vertex, where the texture is applied and which is the normal vector of each vertex to correctly apply the algorithms of illumination.
 \\
 \\
-As the treatment with loops is slow, all the operations are made with the library NumPy take advantage of efficiency incorporates this library with the calculus of matrices. The problem has been adapted to operations of matricial type, you can see the code in the annex \ref{appendix:generateobj}.
+As the treatment with loops is slow, all the operations are made with the library NumPy take advantage of efficiency incorporates this library with the calculus of matrices. The problem has been adapted to operations of matricial type, you can see the code in the appendix \ref{appendix:generateobj}.
 \\
 \\
 For the generation of objects four types of objects must be defined:
@@ -355,11 +352,11 @@ For the generation of objects four types of objects must be defined:
   \begin{itemize}
   \setlength\itemsep{0em}
     \item {
-      Generation of normal faces: In order to generate the normals of a face once you know the relation between the faces, we follow the pattern you can see in the figure \ref{fig-normalcara} where we follow the equation \ref{equation:u} for the calculation of the normal face $\vec{A}$, it makes cross product $\vec{C} = \vec{B}\times\vec{A}$ and finally is normalize the vector $\vec{Normal} = \frac{\vec{C}}{\mid\vec{C}\mid}$.
+      Generation of normal faces: In order to generate the normals of a face once you know the relation between the faces, we follow the pattern you can see in the figure \ref{fig-normalpattern} where we follow the equation \ref{equation:u} for the calculation of the normal face $\vec{A}$, it makes cross product $\vec{C} = \vec{B}\times\vec{A}$ and finally is normalize the vector $\vec{Normal} = \frac{\vec{C}}{\mid\vec{C}\mid}$.
     }
 
     \item {
-    Generation of the normal for the vertex: In order to generate the vector normal for each vertex, we use the structure that can see in figure \ref{fig-normalvertex} applying the next equation for each vertex where V correspond to the vertices and F corresponds to the faces on the figure \ref{fig-normalvertex}:
+    Generation of the normal for the vertex: In order to generate the vector normal for each vertex, we use the structure that can see in figure \ref{fig-normalpattern} applying the next equation for each vertex where V correspond to the vertices and F corresponds to the faces on the figure \ref{fig-normalpattern}:
       \begin{equation}
       \vec{NormalV} = \vec{F_1} + \vec{F_2} + \vec{F_3} + \vec{F_4} + \vec{F_5} + \vec{F_6}
       \end{equation}
@@ -372,19 +369,11 @@ For the generation of objects four types of objects must be defined:
   \item \textbf{Faces}: In this step it is determined which is the union of vertices that will be used to generate the different faces of the mesh, in this implementation it is decided to make a triangulation, in other words, that is for each square of the own mesh two triangular faces will be generated. It is important generate the faces in correct order, writing the vertices following an opposite clockwise order, in this way the graphic engine determines that the normal face will point up by displaying the 3D mesh correctly.
 \end{itemize}
 
-%TODO unir figuras
 \begin{figure}[!h]
 \centering
-  	\includegraphics[width=0.49\textwidth]{caranormal}
-	\caption{Pattern for the calculation of normal on the faces.}
-	\label{fig-normalcara}
-\end{figure}
-
-\begin{figure}[!h]
-\centering
-  	\includegraphics[width=0.2\textwidth]{vertexnormal}
-	\caption{Pattern for calculation of normal at a vertex.}
-	\label{fig-normalvertex}
+  	\includegraphics[width=0.49\textwidth]{patternmeshgeneration}
+	\caption{Pattern for the calculation of normal on the faces (Left) and vertex (Right).}
+	\label{fig-normalpattern}
 \end{figure}
 
 Once the generation process has been completed, the application will generate a mesh that can be opened in any editor. As it can be seen in the figure \ref{fig-meshlab} where it is open using the MeshLabs software.
@@ -458,7 +447,7 @@ The goal of this part is to provide the interface for moving a generic vehicle i
 
 In order to control the vehicle remotely, a communication using the RPC protocol (Remote Procedure Call) it is implemented, more specifically, it is using the Rpclib \cite{rpclib} library for C++. This server is implemented on the Unreal module, the RPC server management is done through a class (AVehiclePawn) that can be inherited so that it basically offers the interface necessary to control a vehicle. The following actions are implemented: initialize/stop the RPC server, change the position of the vehicle, change rotation of the vehicle or cameras (Implemented with LookAt), ask for images from one of the cameras to be generated, etc.
 \\
-The assignment of the functionalities is done in the function {\tt void BindFunctions(rpc::server* server)} which receives the instance of the server, this function can be overridden to later be added to legacy classes with more functionality as it can be seen in the annex \ref{appendix:extendrpc}. By default the AVehiclePawn class allows us to call the following RPC functions:
+The assignment of the functionalities is done in the function {\tt void BindFunctions(rpc::server* server)} which receives the instance of the server, this function can be overridden to later be added to legacy classes with more functionality as it can be seen in the appendix \ref{appendix:extendrpc}. By default the AVehiclePawn class allows us to call the following RPC functions:
 
 \begin{itemize}
 \setlength\itemsep{0em}
@@ -601,7 +590,7 @@ In the figure \ref{fig-dataset} there is a little example with a few images of a
 This sections shows an example of the workflow that can be achieved with the modules generated on this project. This will show how to use them and some examples of new applications that can be developed using this project as a base.
 \\
 \\
-First, the GeoTool module is used to obtain data, with the goal of obtaining the coordinates of the area which we want to obtain. For this, we can use apps like Google Maps, which is used in this case to download the zone of ``Volcan de Santa Margarita''. Approximate coordinates are chosen (lat 42.130596, long 2.521956) to obtain the sorrounding area. Once chosen, the JSON that can be seen in section \ref{section:configfilegeotool} is configured. Once the process is completed, the module is called with the following command : {\tt ./GEOTool.sh config.json} (The requirements to run this application can be seen in the annex \ref{appendix:requirementsgeotool}). Once the process is over, it generates a series of files, as it can be seen in figure \ref{fig-filesgeotool}.
+First, the GeoTool module is used to obtain data, with the goal of obtaining the coordinates of the area which we want to obtain. For this, we can use apps like Google Maps, which is used in this case to download the zone of ``Volcan de Santa Margarita''. Approximate coordinates are chosen (lat 42.130596, long 2.521956) to obtain the sorrounding area. Once chosen, the JSON that can be seen in section \ref{section:configfilegeotool} is configured. Once the process is completed, the module is called with the following command : {\tt ./GEOTool.sh config.json} (The requirements to run this application can be seen in the appendix \ref{appendix:requirementsgeotool}). Once the process is over, it generates a series of files, as it can be seen in figure \ref{fig-filesgeotool}.
 
 \begin{figure}[!h]
 \centering
@@ -610,7 +599,7 @@ First, the GeoTool module is used to obtain data, with the goal of obtaining the
 	\label{fig-filesgeotool}
 \end{figure}
 
-Once the map is generated, the files will be added to the ``Maps" folder that's next to the executable generated by Unreal, and the simulator will be run with the following command {\tt ./GEOSimulator.sh -folderMap="Maps/volcan/" -map="volcan.json"}. Once the simulator has initialized, the interface can be seen in the upper left corner, which shows the position in the world where the vehicle is located and the state of the RCP server. An example can be seen in figure \ref{fig-workflowsimulator}.
+Once the map is generated, the files will be added to the ``Maps" folder that's next to the executable generated by Unreal, and the simulator will be run with the following command {\tt ./GEOSimulator.sh -folderMap="Maps/volcan/" -map="volcan.json"} (The requirements to run this application can be seen in the appendix \ref{appendix:requirementsgeocontrol}). Once the simulator has initialized, the interface can be seen in the upper left corner, which shows the position in the world where the vehicle is located and the state of the RCP server. An example can be seen in figure \ref{fig-workflowsimulator}.
 
 The RPC server can be initialized with the Y key, and once this is done, the module that controls the vehicle and requests the generation of images will be invoked.
 
@@ -714,6 +703,41 @@ Cálculo del índice NDWI - \url{http://www.gisandbeers.com/calculo-del-indice-n
 
 \setcounter{section}{1}
 
+\subsection{List of objectives}
+\label{appendix:objectives}
+\begin{enumerate}
+  \item Analyze.
+  \item Define a structure.
+  \item Developing.
+  \begin{enumerate}
+    \item Develop module GEOTool.
+    \begin{enumerate}
+		\item Develop configuration file.
+		\item Develop the transformation to RAW and OBJ.
+		\item Develop reduction of quality.
+		\item Develop map file.
+  	\end{enumerate}
+  	
+    \item Develop module GEOSimulator
+    \begin{enumerate}
+	  	\item Develop vehicle logic
+	  	\item Develop RPC Server
+	  	\item Develop the image acquisition
+	  	\item Develop movement of cameras
+  	\end{enumerate}
+  	
+  	\item Develop module GEOControl
+	 \begin{enumerate}
+	  	\item Develop clock for all scripts
+	  	\item Develop csv files.
+  	\end{enumerate}  	
+  	
+  \end{enumerate}
+  
+  \item Test
+  \item Keep record
+\end{enumerate}
+
 \subsection{JSON example for configure GEOTool}
 \label{appendix:geotoolconfig}
 \lstinputlisting{geotoolconfig.json}
@@ -782,6 +806,7 @@ In order to use this application correctly we will have to have installed the An
 \label{appendix:requirementsgeocontrol}
 
 In order to use this application correctly we will have to have installed the Anaconda package (Tested with version 4.6.11 and Python 3.7.3) to which the ''mprpc'' library will be installed with the command ''pip install mprpc''.
+
 
 \end{document}
 
