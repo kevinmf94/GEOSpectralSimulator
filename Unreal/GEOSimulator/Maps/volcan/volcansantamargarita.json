@@ -1,0 +1,434 @@
+[
+    {
+        "file": "volcansantamargarita_0_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 0
+        },
+        "x": 460490.5026001931,
+        "y": 4664386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_0_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_0_0_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan00/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan00/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan00/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_0_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 1
+        },
+        "x": 460490.502600193,
+        "y": 4669386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_0_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_0_1_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan01/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan01/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan01/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_0_2.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 2
+        },
+        "x": 460490.5026001931,
+        "y": 4674386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_0_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_0_2_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan02/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan02/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan02/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_1_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 0
+        },
+        "x": 465490.502600193,
+        "y": 4664386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_1_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_1_0_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan10/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan10/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan10/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_1_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 1
+        },
+        "x": 465490.5026001931,
+        "y": 4669386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_1_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_1_1_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan11/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan11/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan11/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_1_2.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 2
+        },
+        "x": 465490.502600193,
+        "y": 4674386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_1_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_1_2_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan12/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan12/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan12/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_2_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 0
+        },
+        "x": 470490.50260019297,
+        "y": 4664386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_2_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_2_0_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan20/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan20/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan20/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_2_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 1
+        },
+        "x": 470490.502600193,
+        "y": 4669386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_2_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_2_1_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan21/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan21/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan21/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_2_2.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 2
+        },
+        "x": 470490.502600193,
+        "y": 4674386.844831146,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_2_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_2_2_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan22/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan22/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan22/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_3_0.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 0
+        },
+        "x": 475490.5026001931,
+        "y": 4664386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_3_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_3_0_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan30/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan30/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan30/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_3_1.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 1
+        },
+        "x": 475490.502600193,
+        "y": 4669386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_3_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_3_1_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan31/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan31/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan31/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    },
+    {
+        "file": "volcansantamargarita_3_2.obj",
+        "size": {
+            "x": 1000,
+            "y": 1000
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 2
+        },
+        "x": 475490.5026001931,
+        "y": 4674386.844831145,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "volcansantamargarita_3_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "volcansantamargarita_3_2_ir.jpg"
+            },
+            {
+                "name": "falsecolor",
+                "file": "volcan32/2019-06-17, Sentinel-2B L1C, False color (urban).jpg"
+            },
+            {
+                "name": "moisture",
+                "file": "volcan32/2019-06-17, Sentinel-2B L1C, Moisture index.jpg"
+            },
+            {
+                "name": "ndvi",
+                "file": "volcan32/2019-06-17, Sentinel-2B L1C, NDVI.jpg"
+            }
+        ]
+    }
+]

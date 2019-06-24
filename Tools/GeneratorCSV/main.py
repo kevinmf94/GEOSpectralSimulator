@@ -8,14 +8,14 @@ steps = 1000
 time = np.linspace(0, 16000, steps, dtype=np.int32)
 x = np.linspace(461183, 468828, steps)
 y = np.linspace(4660069, 4666119, steps)
-z = np.array([1100]*steps)
+z = np.linspace(1100, 3000, steps)
 xLook = x+10
 yLook = y+10
 zLook = z
 
 data = np.column_stack((time, x, y, z, xLook, yLook, zLook))
 
-np.savetxt("test.csv", data, delimiter=";", header=header, fmt="%s")
+np.savetxt("test2.csv", data, delimiter=";", header=header, fmt="%s")
 
 
 header = "Time;cameraId;LookX;LookY;LookZ;GetImage;Channel"

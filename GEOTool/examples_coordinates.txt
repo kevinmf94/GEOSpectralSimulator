@@ -1,0 +1,74 @@
+Montgat (con playa):
+"lat": 41.4677021,
+"long": 2.2859777
+
+"x": 440375.95,
+"y": 4590924.56,
+"zone": "31T"
+
+Tiana:
+"lat": 41.481266,
+"long": 2.2510016,
+
+"x": 437468.32,
+"y": 4592455.13,
+"zone": "31T"
+
+Montserrat-Collbato (Montaña):
+"lat": 41.576294,
+"long": 1.850188
+
+"x": 404145.44,
+"y": 4603372.69,
+"zone": "31T"
+
+Barceloneta:
+"lat": 41.376791, 
+"long": 2.190764
+
+Parc natural de sant llorenç del munt i l'Obac
+"x": 413894.13
+"y": 4610649.22
+"zone": "31T"
+
+Masella:
+"x": 408255.30,
+"y": 4689016.00,
+"zone": "31T"
+
+Masella Pico:
+"x": 409430.18,
+"y": 4687452.59,
+"zone": "31T"
+
+Barcelona:
+"x": 430178.94,
+"y": 4583352.09,
+"zone": "31T"
+
+Cadaques:
+"x": 522730.95,
+"y": 4681418.84,
+"zone": "31T"
+
+Camps de conrreu aprop de Terrassa:
+"x": 417486.21,
+"y": 4604207.48,
+"zone": "31T"
+
+Conrreu+Montseny:
+"x": 448420.22,
+"y": 4623821.06,
+"zone": "31T"
+
+Salas de pallars:
+"x": 326737.23,
+"y": 4676971.49,
+"zone": "31T"
+
+Volcan de Santa Maria
+"lat": 42.130596,
+"long":  2.521956,
+
+Montserrat para coger extension grande
+41.562528, 1.772264
