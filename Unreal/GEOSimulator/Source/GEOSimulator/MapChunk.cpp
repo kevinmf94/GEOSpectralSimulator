@@ -93,6 +93,9 @@ void AMapChunk::LoadTextures()
 		{
 			UE_LOG(LogTemp, Warning, TEXT("TextureLoaded"));
             textureMap.Add(Elem.Key, texture);
+		} else 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("TextureProblem %s"), *(Elem.Key.ToString()));
 		}
 	}
 	
@@ -107,20 +110,18 @@ void AMapChunk::LoadTextures()
 
 void AMapChunk::ChangeTexture(FName textureName)
 {
-    TArray<FName> texturesKeys;
-    TArray<UTexture2D*> texturesValues;
-    textureMap.GenerateKeyArray(texturesKeys);
-    textureMap.GenerateValueArray(texturesValues);
-    
-    for(int i = 0; i < texturesKeys.Num(); i++)
-    {
-        if(textureName == texturesKeys[i])
-        {
-            UTexture2D* value = texturesValues[i];
-            if(value != nullptr)
-                materialDynamic->SetTextureParameterValue("Texture", value);
-        }
-    }
+	UTexture2D** value = textureMap.Find(textureName);
+	if(value != nullptr)
+	{
+		if(*value != nullptr)
+			materialDynamic->SetTextureParameterValue("Texture", *value);
+		else
+			UE_LOG(LogTemp, Warning, TEXT("TextureProblem change %s"), *(textureName.ToString()));
+	} 
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TextureProblem change2 %s"), *(textureName.ToString()));
+	}
 }
 
 void AMapChunk::PostLoad()
