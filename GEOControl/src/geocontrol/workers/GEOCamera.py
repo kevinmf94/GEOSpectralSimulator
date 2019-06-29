@@ -7,16 +7,16 @@ class GEOCamera(GEOWorker):
     def __init__(self, client, csv_file, generate_images=False, filename="Output", path="outputs/"):
         GEOWorker.__init__(self, client, csv_file)
         self.index = 0
-        self.item = self.data[self.index]
+        self.item = self.data.loc[self.index]
         self.generate_images = generate_images
         self.filename = filename
         self.path = path
 
     def notify(self, time):
 
-        if not self.is_finish() and int(self.data[self.index][0]) == time:
+        if not self.is_finish() and int(self.data.loc[self.index][0]) == time:
 
-            self.item = self.data[self.index]
+            self.item = self.data.loc[self.index]
 
             # Call client
             self.client.set_camera_lookat(int(self.item[1]), self.item[2], self.item[3], self.item[4])
