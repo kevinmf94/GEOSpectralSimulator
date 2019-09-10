@@ -1,14 +1,15 @@
 {
   "type": "latlong",
   "coordinates" : {
-  	"lat": 42.130596,
-	"long":  2.521956,
-	"zone": "31T"
+  	"lat": 41.492383,
+	"long":  2.093739,
+	"zone": "31T",
+    "info": "uab"
   },
   "dimensions": {
     "bbox":{
-      "height": 1000,
-      "width": 1000
+      "height": 500,
+      "width": 500
     },
     "texture":{
       "height": 1500,
@@ -22,8 +23,8 @@
   "cellsize": 5,
   "meshStep": 4,
   "wcsUrl": "http://geoserveis.icc.cat/icc_mdt/wcs/service",
-  "folderWcs": "volcan",
-  "outputWcs": "volcansantamargarita",
+  "folderWcs": "uab",
+  "outputWcs": "uab",
   "formatWcs": "obj",
   "wmsRequests": [
 	{

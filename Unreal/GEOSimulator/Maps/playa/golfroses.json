@@ -1,0 +1,290 @@
+[
+    {
+        "file": "golfroses_0_0.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 0
+        },
+        "x": 514029.50578985526,
+        "y": 4674655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_0_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_0_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_0_1.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 1
+        },
+        "x": 514029.50578985526,
+        "y": 4677155.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_0_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_0_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_0_2.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 0,
+            "y": 2
+        },
+        "x": 514029.50578985526,
+        "y": 4679655.2588394545,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_0_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_0_2_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_1_0.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 0
+        },
+        "x": 516529.5057898553,
+        "y": 4674655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_1_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_1_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_1_1.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 1
+        },
+        "x": 516529.50578985526,
+        "y": 4677155.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_1_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_1_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_1_2.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 1,
+            "y": 2
+        },
+        "x": 516529.50578985526,
+        "y": 4679655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_1_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_1_2_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_2_0.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 0
+        },
+        "x": 519029.50578985526,
+        "y": 4674655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_2_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_2_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_2_1.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 1
+        },
+        "x": 519029.5057898553,
+        "y": 4677155.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_2_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_2_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_2_2.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 2,
+            "y": 2
+        },
+        "x": 519029.5057898553,
+        "y": 4679655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_2_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_2_2_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_3_0.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 0
+        },
+        "x": 521529.50578985526,
+        "y": 4674655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_3_0_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_3_0_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_3_1.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 1
+        },
+        "x": 521529.50578985526,
+        "y": 4677155.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_3_1_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_3_1_ir.jpg"
+            }
+        ]
+    },
+    {
+        "file": "golfroses_3_2.obj",
+        "size": {
+            "x": 500,
+            "y": 500
+        },
+        "cellsize": 5,
+        "chunkpos": {
+            "x": 3,
+            "y": 2
+        },
+        "x": 521529.5057898553,
+        "y": 4679655.258839455,
+        "textures": [
+            {
+                "name": "rgb",
+                "file": "golfroses_3_2_rgb.jpg"
+            },
+            {
+                "name": "ir",
+                "file": "golfroses_3_2_ir.jpg"
+            }
+        ]
+    }
+]

@@ -37,5 +37,5 @@ class GEORPCClient:
 	def set_location_and_lookat(self, x, y, z, lx, ly, lz):
 		self.client.call('setLocationAndLookAt', x, y, z, lx, ly, lz)
 
-	def set_camera_lookat(self, camera_id, x, y, z):
+	def set_camera_lookat(self, camera_id, x, y, z): 
 		self.client.call('setCameraLookAt', camera_id, x, y, z)

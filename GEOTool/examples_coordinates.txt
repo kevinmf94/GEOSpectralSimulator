@@ -72,3 +72,8 @@ Volcan de Santa Maria
 
 Montserrat para coger extension grande
 41.562528, 1.772264
+
+Playa cala aiguablava
+41.932549, 3.214958
+
+UAB
