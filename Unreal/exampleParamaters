@@ -1,0 +1,5 @@
+-folderMap="Maps/volcan/" -map="volcansantamargarita.json" 
+
+-folderMap="Maps/example9x9big/" -map="pallars15.json" 
+
+-folderMap="Maps/playa/" -map="golfroses.json" 
