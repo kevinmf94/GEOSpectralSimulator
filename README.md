@@ -10,3 +10,6 @@ GEOSpectralSimulator is a project developed for the 'Universidad Autonoma de Bar
 - [GEOTool](./GEOTool) - Software in python to download and transform in 3D data.
 - [GEOSimulator](./Unreal/GEOSimulator/) - Implementation of a navigator in Unreal Engine.
 - [GEOControl](./GEOControl) - Script in python to control a vehicle into Unreal Engine. This also requests images to generate a dataset.
+
+## Paper
+> https://ddd.uab.cat/pub/tfg/2019/tfg_182257/TFG-GEOSpectralSimulator_1423234_en.pdf
